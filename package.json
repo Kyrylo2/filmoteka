@@ -18,7 +18,14 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "modern-normalize": "^1.1.0"
+    "axios": "^1.2.2",
+    "firebase": "^9.15.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.isobject": "^3.0.2",
+    "lodash.throttle": "^4.1.1",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
