@@ -69,3 +69,25 @@
   border-radius: 10px;
   background-color:  #0288d1;;
 }
+
+@media screen and (max-width: 610px) {
+  header {
+    height: 113px;
+    padding-bottom: 80px !important;
+  }
+
+  #user-container {
+    top: 72px;
+    background-color: rgb(3, 155, 229);
+    height: 38px;
+    padding-top: 3px;
+    padding-right: 2px;
+  }
+
+  #user-container #user-pic {
+    top: 2px;
+    width: 33px;
+    height: 33px;
+    background-size: 33px;
+  }
+}
