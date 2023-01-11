@@ -56,15 +56,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 54px;
-
-  @include tablet {
-    margin-bottom: 41px;
-  }
-
-  @include desktop {
-    margin-bottom: 41px;
-  }
+  margin-bottom: 17px;
 }
 
 .site-nav {
@@ -237,4 +229,44 @@
   @include tablet {
     margin-right: 10px;
   }
+}
+
+.signInButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: auto;
+  margin-bottom: 17px;
+  width: 142px;
+  height: 30px;
+
+  border: 1px solid $white;
+  border-radius: 5px;
+  color: $white;
+  background-color: transparent;
+
+  gap: 10px;
+
+  transition-property: all;
+  transition-duration: $time-cubic;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+
+  &:hover,
+  &:focus {
+    color: orange;
+    border-color: #ff6b08;
+  }
+
+  @include tablet {
+    margin-bottom: 4px;
+  }
+
+  @include desktop {
+    margin-bottom: 4px;
+  }
+}
+
+.signInButton_icon {
+  fill: currentColor;
 }
