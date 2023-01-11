@@ -19,11 +19,24 @@ footer {
     flex-direction: row;
   }
 }
-.footer__item {
+.footer__item,
+.footer__button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  color: #545454;
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 1.19;
+  }
 }
-// .footer__list {
-// }
-// .footer__list-svg {
-// }
-// .footer__button {
-// }
+.footer__list {
+  display: flex;
+  margin-top: 10px;
+  @media screen and (min-width: 768px) {
+    margin-top: 0;
+  }
+}
+.footer-item:not(:last-child) {
+  margin-right: 5px;
+}
