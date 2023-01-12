@@ -8,6 +8,10 @@
 
 .films__info {
   margin-top: 8px;
+
+  & p:first-child {
+    color: $black;
+  }
 }
 
 .rating-on-library-card {
