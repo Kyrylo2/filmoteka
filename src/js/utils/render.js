@@ -48,5 +48,5 @@ function showGenres(genres) {
 function isPoster(poster) {
   return poster
     ? `src="https://image.tmdb.org/t/p/original${poster}"`
-    : "src='./images/noimage.png'";
+    : "src='./images/no-picture.png'";
 }
