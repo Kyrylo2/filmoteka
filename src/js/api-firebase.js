@@ -45,8 +45,8 @@ export default class APIFirebase {
 
   async signInFacebook() {
     // Sign in Firebase using popup auth and Google as the identity provider.
-    const provider = new GoogleAuthProvider();
-    // const provider = new FacebookAuthProvider();
+    // const provider = new GoogleAuthProvider();
+    const provider = new FacebookAuthProvider();
     await signInWithPopup(getAuth(), provider);
   }
 
