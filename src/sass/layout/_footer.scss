@@ -14,9 +14,11 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 
   @include tablet {
     flex-direction: row;
+    margin-top: 0;
   }
 }
 .footer__item,
@@ -30,13 +32,15 @@ footer {
     line-height: 1.19;
   }
 }
-.footer__list {
-  display: flex;
-  margin-top: 10px;
-  @include tablet {
-    margin-top: 0;
-  }
-}
+
+// .footer__list {
+//   display: flex;
+//   margin-top: 10px;
+//   @include tablet {
+//     margin-top: 0;
+//   }
+// }
+
 .footer-item:not(:last-child) {
   margin-right: 5px;
 }
@@ -45,4 +49,19 @@ footer {
   background-color: transparent;
   text-decoration: underline 2px $grey;
   transition: $transition;
+}
+
+.footer__button:hover {
+  font-weight: 600;
+  color: $grey;
+  text-decoration: underline 2px $grey;
+}
+.footer__button:hover .footer__list-icon {
+  width: 200px;
+  height: 200px;
+}
+
+.footer__icon {
+  margin-right: 5px;
+  margin-top: 3px;
 }
