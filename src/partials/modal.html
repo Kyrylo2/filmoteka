@@ -1,15 +1,50 @@
 
 <article class="modal">
-    <img src="/src/images/test-img-to-modal.jpg" alt="film's poster">
-    <h1>A FISTFUL OF LEAD</h1>
-    <p>Vote / Votes<span class="description-font">7.3</span>/<span class="description-font">1260</span></p>
-    <p>Popularity<span class="description-font">100.2</span></p>
-    <p>Original Title<span class="description-font">A FISTFUL OF LEAD</span></p>
-    <p>Genre<span class="description-font">Western</span></p>
-    <h5>About</h5>
-    <p class="description-font">Four of the West’s most infamous outlaws assemble to steal a huge stash of gold from the most corrupt settlement of the gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold hide out in the abandoned gold mine where they happen across another gang of three – who themselves were planning to hit the very same bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with lead... they’ve been double crossed – but by who and how?</p>
-    <button>add to Watched</button>
-    <button>add to queue</button>
-    
+    <div class="modal-window visually-hidden">
+        <div class="modal-img-flex">
+            <img src="/src/images/test-img-to-modal.jpg" class="modal-img" alt="film's poster">
+        </div>
+        <div class="modal-flex">
+            <h1 class="modal-h1">A FISTFUL OF LEAD</h1>
+            <ul class="lists-flex">
+                <li>
+                    <ul>
+                    <li class="description-flex">
+                        <p class="title-tags description-font">Vote / Votes</p>
+                        </li>
+                    <li class="description-flex">  <p class="title-tags description-font">Popularity</p>
+                        </li>
+                    <li class="description-flex"> <p class="title-tags description-font">Original Title</p>
+                        </li>
+                    <li class="description-flex"><p class="title-tags description-font">Genre</p>
+                       </li>
+                </ul>
+            </li>
+                <li>   
+                    <ul>
+                    <li class="description-flex" style=" display: flex;"><p class="description-font modal-votes orng-back" style="padding:1px 10px 1px 10px;">7.3</p> <p>/</p> <p style="padding-top:1px ;" class="description-font modal-votes">1260</p></li>
+                    <li class="description-flex"><p class="description-font">100.2</p></li>
+                    <li class="description-flex"><p class="description-font">A FISTFUL OF LEAD</p></li>
+                    <li class="description-flex"> <p class="description-font">Western</p></li>
+                </ul>
+            </li>
+            </ul>
+            
+         
+            
+          
+           
+            
+            <h5 class="description-font">ABOUT</h5>
+            <p class="about-font">Four of the West’s most infamous outlaws assemble to steal a huge stash of gold from the most corrupt settlement of the gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold hide out in the abandoned gold mine where they happen across another gang of three – who themselves were planning to hit the very same bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with lead... they’ve been double crossed – but by who and how?</p>
+            <div class="buttons-flex">
+                 <button class="orng-back button-modal margin-buttons">ADD TO WATCHED</button>
+                <button class="button-modal" style="border-radius: 5px; border:1px solid black;">ADD TO QUEUE</button></div>
+                   
+        </div>
+        <svg class="modal-cross" width="12" height="12">
+            <use href="./images/symbol-defs_minNN.svg#icon-close"></use>
+          </svg>
+    </div>
         
     </article>
