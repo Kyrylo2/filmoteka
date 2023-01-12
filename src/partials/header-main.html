@@ -1,0 +1,47 @@
+<header class="header">
+  <div class="container header__container">
+    <nav class="nav header__nav">
+      <a class="logo__link" href="">
+        <svg class="logo__icon" width="24" height="24">
+          <use href="./images/symbol-defs_minNN.svg#icon-logo"></use>
+        </svg>
+        <span class="logo-text">Filmoteka </span>
+      </a>
+      <ul class="site-nav list">
+        <li class="site-nav__item">
+          <a
+            class="site-nav__link site-nav__link--current link"
+            href="./index.html"
+            >Home</a
+          >
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link site-nav__link--no-current link" href="#"
+            >my library</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <button class="signInButton" type="button" id="signInButton">
+      Sign in with
+      <svg class="signInButton_icon" width="15" height="15"">
+        <use href="./images/symbol-defs_minNN.svg#icon-google-icon_min"></use>
+      </svg>
+      <!-- Sign out
+       <svg class="signInButton_icon" width="15" height="15"">
+        <use href="./images/symbol-defs_minNN.svg#icon-log_out"></use>
+      </svg> -->
+    </button>
+    <form action="" class="form header__form" id="searchForm">
+      <input class="header__input" type="text" placeholder="Movie search" />
+      <button class="submit-button button" type="submit" id="submitButton">
+        <svg class="submit__icon" width="12" height="12">
+          <use href="./images/symbol-defs_minNN.svg#icon-search"></use>
+        </svg>
+      </button>
+    </form>
+    <p class="header__error-message" id="errorMessage">
+      Search result not successful. Enter the correct movie name and try again.
+    </p>
+  </div>
+</header>

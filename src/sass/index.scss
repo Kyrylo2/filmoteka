@@ -1,4 +1,8 @@
 @import './utilities/vars';
+@import './utilities/mixins';
 @import './base/common';
 @import './base/resetStyles';
-@import './components/tmpFromFirebase';
+@import './layout/header-main';
+@import './layout/footer';
+
+@import './layout/tmpFromFirebase';
