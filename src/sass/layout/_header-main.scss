@@ -5,6 +5,8 @@
   height: 230px;
   margin: 0 auto;
 
+  background-color: rgba(0, 0, 0, 0.56);
+
   background-image: url('../images/MobileNN/Header_main_bcg_mobile@1x-min.jpg');
   background-size: cover;
 
@@ -269,4 +271,19 @@
 
 .signInButton_icon {
   fill: currentColor;
+}
+
+.logo__icon,
+.footer__icon {
+  animation: rotateY-anim 5s linear infinite;
+}
+
+@keyframes rotateY-anim {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
 }
