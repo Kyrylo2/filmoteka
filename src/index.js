@@ -1,6 +1,7 @@
 import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer } from './js/utils/refs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 search.addEventListener('submit', onFormSubmit);
 
@@ -12,13 +13,14 @@ async function onFormSubmit(e) {
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
     createMarkup(renderMovies(arrOfMovies));
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    Notify.failure('Oups! Something went wrong');
   }
 }
 
+// Через функції не працює
 function createMarkup(movies) {
-  filmsMainContainer.insertAdjacentHTML('beforeend', movies);
+  filmsMainContainer.innerHTML = movies;
 }
 
 function clearMarkup() {

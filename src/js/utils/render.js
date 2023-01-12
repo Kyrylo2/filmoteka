@@ -23,7 +23,7 @@ function renderMovies(movies) {
       <p class="films__description">${showGenres(movie.genre_ids)}</p>
     </div>
   </a>
-</li>;`;
+</li>`;
     })
     .join('');
 }
