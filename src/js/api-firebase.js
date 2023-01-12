@@ -28,11 +28,8 @@ export default class APIFirebase {
   NAME_KEY_STORAGE_WATCHED = 'Filmoteka_List_Watched';
   NAME_KEY_STORAGE_QUEUE = 'Filmoteka_List_Queue';
 
-  constructor(refs) {
-    this.userPicElement = refs.userPicElement;
-    this.userNameElement = refs.userNameElement;
-    this.signInButtonElement = refs.signInButtonElement;
-    this.signOutButtonElement = refs.signOutButtonElement;
+  constructor(authStateObserver) {
+    this.authStateObserver = authStateObserver;
 
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
@@ -40,13 +37,17 @@ export default class APIFirebase {
   }
 
   // Signs-in Friendly Chat.
-  async signIn() {
+  async signInGoogle() {
     // Sign in Firebase using popup auth and Google as the identity provider.
-    // const provider = new GoogleAuthProvider();
-    const provider = new FacebookAuthProvider();
-    //const provider = new EmailAuthProvider();
+    const provider = new GoogleAuthProvider();
     await signInWithPopup(getAuth(), provider);
-    // await signInWithEmailAndPassword(getAuth(), email, password);
+  }
+
+  async signInFacebook() {
+    // Sign in Firebase using popup auth and Google as the identity provider.
+    const provider = new GoogleAuthProvider();
+    // const provider = new FacebookAuthProvider();
+    await signInWithPopup(getAuth(), provider);
   }
 
   // Signs-out of Friendly Chat.
@@ -85,42 +86,6 @@ export default class APIFirebase {
       return url + '?sz=150';
     }
     return url;
-  }
-
-  authStateObserver(user) {
-    if (user) {
-      // User is signed in!
-      // Get the signed-in user's profile pic and name.
-      const profilePicUrl = this.getProfilePicUrl();
-      const userName = this.getUserName();
-
-      // Set the user's profile pic and name.
-      this.userPicElement.style.backgroundImage =
-        'url(' + this.addSizeToGoogleProfilePic(profilePicUrl) + ')';
-      this.userNameElement.textContent = userName;
-
-      // Show user's profile and sign-out button.
-      this.userNameElement.removeAttribute('hidden');
-      this.userPicElement.removeAttribute('hidden');
-      this.signOutButtonElement.removeAttribute('hidden');
-
-      // Hide sign-in button.
-      this.signInButtonElement.setAttribute('hidden', 'true');
-
-      // We save the Firebase Messaging Device token and enable notifications.
-      // ! --------------------------------------------
-      //TODO
-      // saveMessagingDeviceToken();
-    } else {
-      // User is signed out!
-      // Hide user's profile and sign-out button.
-      this.userNameElement.setAttribute('hidden', 'true');
-      this.userPicElement.setAttribute('hidden', 'true');
-      this.signOutButtonElement.setAttribute('hidden', 'true');
-
-      // Show sign-in button.
-      this.signInButtonElement.removeAttribute('hidden');
-    }
   }
 
   // * Work from File Store
