@@ -10,6 +10,7 @@ footer {
 
   width: 100%;
 }
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -23,6 +24,7 @@ footer {
 .footer__div {
   display: flex;
   margin-top: 10px;
+
   @include tablet {
     margin-top: 0;
   }
@@ -34,6 +36,7 @@ footer {
   font-size: 14px;
   line-height: 1.14;
   color: $grey;
+
   @include tablet {
     font-size: 16px;
     line-height: 1.19;
@@ -49,6 +52,7 @@ footer {
   height: 13px;
   margin-right: 10px;
   margin-left: 10px;
+
   @include tablet {
     margin-top: 3px;
   }
