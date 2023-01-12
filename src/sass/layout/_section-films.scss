@@ -14,7 +14,7 @@
 
   &__list {
     @include tablet {
-      margin: -15px;
+      // margin: -15px;
 
       display: flex;
       flex-wrap: wrap;
@@ -35,7 +35,7 @@
       flex-basis: calc(100% / 2 - 30px);
     }
     @include desktop {
-      flex-basis: calc(100% / 4 - 30px);
+      flex-basis: calc(100% / 3 - 30px);
     }
   }
 
