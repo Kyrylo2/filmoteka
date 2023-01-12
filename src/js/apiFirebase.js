@@ -6,6 +6,9 @@ import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
+  FacebookAuthProvider,
+  EmailAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
@@ -39,8 +42,11 @@ export default class APIFirebase {
   // Signs-in Friendly Chat.
   async signIn() {
     // Sign in Firebase using popup auth and Google as the identity provider.
-    const provider = new GoogleAuthProvider();
+    // const provider = new GoogleAuthProvider();
+    const provider = new FacebookAuthProvider();
+    //const provider = new EmailAuthProvider();
     await signInWithPopup(getAuth(), provider);
+    // await signInWithEmailAndPassword(getAuth(), email, password);
   }
 
   // Signs-out of Friendly Chat.
@@ -163,4 +169,17 @@ export default class APIFirebase {
       });
     });
   }
+}
+
+function getLocalStorageText() {
+  let saveObject;
+
+  try {
+    saveObject = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  } catch {
+    saveObject = localData;
+  }
+
+  inputEmail.value = saveObject.email;
+  textarea.value = saveObject.message;
 }
