@@ -59,56 +59,54 @@ function renderFullInfo(movie) {
   }" />
     </div>
     <div class="modal-flex">
-      <h1 class="modal-h1">${movie.title}</h1>
+      <h2 class="modal-h2">${movie.title}</h2>
       <ul class="lists-flex">
-        <li>
-          <ul>
-            <li class="description-flex">
-              <p class="title-tags description-font">Vote / Votes</p>
+        
+            <li class="parametr-flex">
+              <p>Vote / Votes</p>
             </li>
-            <li class="description-flex">
-              <p class="title-tags description-font">Popularity</p>
-            </li>
-            <li class="description-flex">
-              <p class="title-tags description-font">Original Title</p>
-            </li>
-            <li class="description-flex">
-              <p class="title-tags description-font">Genre</p>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li class="description-flex" style="display: flex">
-              <p class="description-font modal-votes orng-back" style="padding: 1px 10px 1px 10px">
+            <li class="description-flex vote-style">
+              <p class="description-font modal-votes orng-back">
                 ${movie.vote_average}
               </p>
               <p>/</p>
-              <p style="padding-top: 1px" class="description-font modal-votes">
+              <p>
                 ${movie.vote_count}
               </p>
+            </li>
+            <li class="parametr-flex">
+              <p>Popularity</p>
             </li>
             <li class="description-flex">
               <p class="description-font">${movie.popularity}</p>
             </li>
+            <li class="parametr-flex">
+              <p>Original Title</p>
+            </li>
             <li class="description-flex">
               <p class="description-font">${movie.original_title}</p>
+            </li>
+            <li class="parametr-flex">
+              <p>Genre</p>
             </li>
             <li class="description-flex">
               <p class="description-font">${getGenresFullInfo(movie.genres)}</p>
             </li>
-          </ul>
-        </li>
       </ul>
 
       <h5 class="description-font">ABOUT</h5>
-      <p class="about-font">
-        ${movie.overview}
-      </p>
+      <div class="overview-container">
+        <p class="about-font">
+          ${movie.overview}
+        </p>
+      </div>
       <div class="buttons-flex">
-        <button class="orng-back button-modal margin-buttons">ADD TO WATCHED</button>
-        <button class="button-modal" style="border-radius: 5px; border: 1px solid black">
+        <button class="button-modal">ADD TO WATCHED</button>
+        <button class="button-modal">
           ADD TO QUEUE
+        </button>
+        <button class="button-modal">
+          TRAILER
         </button>
       </div>
     </div> 
