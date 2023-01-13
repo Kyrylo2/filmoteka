@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { createMarkup } from '../../index';
+// import { createMarkup } from '../../index';
 import { renderMovies } from './render';
+import { renderFullInfo } from './render';
 import { filmsMainContainer } from '../utils/refs';
+import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -74,6 +76,19 @@ class MoviesApiServise {
     } finally {
       Loading.remove();
     }
+  }
+  async getFullInfo(id) {
+    const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}`,
+      {
+        params: {
+          api_key: API_KEY,
+        },
+      }
+    );
+    console.log(response.data);
+    modal.innerHTML = renderFullInfo(response.data);
   }
 
   get query() {
