@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { filmsMainContainer } from '../utils/refs';
 
+const refs = {
+  watchedButton: document.getElementById('watchedButton'),
+  queueButton: document.getElementById('queueButton'),
+  movieContainer: document.querySelector('.films__container'),
+};
+
+refs.watchedButton.addEventListener('click', onWatchedButtonClick);
+refs.queueButton.addEventListener('click', onQueueButton);
+
 const API_KEY = '6251e629c61bceaf56a3d45f05637256';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -14,19 +23,110 @@ const config = {
   },
 };
 
-const refs = {
-  watchedButton: document.getElementById(''),
-  queueButton: document.getElementById(''),
+const myLibrary = {
+  page: 1,
+  totalPages: null,
+  numberResultsPerPage: 20,
+  movieArray: [],
+  pagesData: {},
+
+  getWatchedMovies() {
+    // запит idшніков з Firebase
+    this.movieArray = [
+      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    ];
+  },
+  getQueueMovies() {
+    // запит idшніков з Firebase
+    this.movieArray = [
+      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    ];
+  },
+
+  reverseArray() {
+    this.movieArray.reverse();
+  },
+
+  calcTotalPages() {
+    this.totalPages = Math.ceil(
+      this.movieArray.length / this.numberResultsPerPage
+    );
+    console.log(this.totalPages);
+  },
+
+  calcPagesData() {
+    const subarray = [];
+    for (
+      let i = 0;
+      i < Math.ceil(this.movieArray.length / this.numberResultsPerPage);
+      i += 1
+    ) {
+      subarray[i] = this.movieArray.slice(
+        i * this.numberResultsPerPage,
+        i * this.numberResultsPerPage + this.numberResultsPerPage
+      );
+    }
+    console.log(subarray);
+    this.pagesData = subarray.reduce((acc, el, index) => {
+      const key = `page${index + 1}`;
+      acc[key] = el;
+      return acc;
+    }, {});
+  },
+
+  renderWatchedMovies() {
+    const page = `page${this.page}`;
+    console.log(page);
+    console.log(this.pagesData[page]);
+
+    getMyMovies(this.pagesData[page]);
+  },
+
+  renderQueueMovies() {},
 };
 
-onWatchedButtonClick();
+preload();
+
+function preload() {
+  myLibrary.getWatchedMovies();
+  myLibrary.reverseArray();
+  myLibrary.calcTotalPages();
+  myLibrary.getWatchedMovies(this.movieArray);
+  myLibrary.calcPagesData();
+  myLibrary.renderWatchedMovies();
+  console.log(myLibrary);
+}
+
+myLibrary.getWatchedMovies();
 
 function onWatchedButtonClick() {
   // запит з бази фільмів,які продивився в ідеалі отримувати просто id
-  const emptyArray = [];
-  const movieArray = [76600, 315162, 593643, 661374, 436270, 536554, 19995];
-
-  getMyMovies(movieArray);
+  myLibrary.getWatchedMovies();
+  myLibrary.reverseArray();
+  myLibrary.calcTotalPages();
+  myLibrary.getWatchedMovies(this.movieArray);
+  myLibrary.calcPagesData();
+  console.log(myLibrary);
 }
 
 function onQueueButton() {
