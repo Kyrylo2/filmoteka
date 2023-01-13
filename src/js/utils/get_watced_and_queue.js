@@ -9,7 +9,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
 
 const apiInstanceMovie = axios.create({
-  baseUrl: `${BASE_URL}`,
+  baseUrl: 'https://api.themoviedb.org/3',
 });
 
 const config = {
@@ -27,12 +27,14 @@ refs.watchedButton.addEventListener('click', onWatchedButtonClick);
 
 refs.queueButton.addEventListener('click', onQueueButton);
 
+onWatchedButtonClick();
+
 function onWatchedButtonClick() {
   // запит з бази фільмів,які продивився в ідеалі отримувати просто id
   const emptyArray = [];
-    const movieArray = [76600, 315162, 593643, 661374, 436270, 536554, 19995];
+  const movieArray = [76600, 315162, 593643, 661374, 436270, 536554, 19995];
 
-    function getMyMovies(movieArray);
+  getMyMovies(movieArray);
 }
 
 function onQueueButton() {
@@ -40,27 +42,17 @@ function onQueueButton() {
 }
 
 async function getMyMovies(array) {
-    const arrayOfPromises = array.map(async (el) => { try {
-        const res = await apiInstanceMovie.get(`/movie/${el}`, config)
-        console.log(res);
-        return res
+  const arrayOfPromises = array.map(async el => {
+    try {
+      const res = await apiInstanceMovie.get(`/movie/${el}`, config);
+      return res.data;
     } catch (error) {
-        console.log(error);
+      console.log(error);
+    }
+  });
 
-        }
-    })
+  console.log(arrayOfPromises);
 
-    console.log(arrayOfPromises);
-
+  const movies = await Promise.all(arrayOfPromises);
+  console.log(movies);
 }
-
-  // 1. Створюємо масив промісів
-//   const arrayOfPromises = userIds.map(async userId => {
-//     const response = await fetch(`${baseUrl}/users/${userId}`);
-//     return response.json();
-//   });
-
-//   // 2. Запускаємо усі проміси паралельно і чекаємо на їх завершення
-//   const users = await Promise.all(arrayOfPromises);
-//   console.log(users);
-// };
