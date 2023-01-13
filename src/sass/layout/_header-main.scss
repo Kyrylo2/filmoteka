@@ -256,8 +256,8 @@
 
   &:hover,
   &:focus {
-    color: orange;
-    border-color: #ff6b08;
+    color: $orange;
+    border-color: $orange;
   }
 
   @include tablet {
