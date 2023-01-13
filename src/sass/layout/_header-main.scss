@@ -287,3 +287,82 @@
     transform: rotateY(360deg);
   }
 }
+
+//
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: transparent;
+  width: 50px;
+  height: 26px;
+  border: 1px solid $orange;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-moon {
+  color: #f1c40f;
+}
+
+.fa-sun {
+  color: #f39c12;
+  position: relative;
+}
+
+.fa-sun:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/Day-Dark_mode/sun_icon.svg');
+  background-size: cover;
+
+  position: absolute;
+  right: 0px;
+  bottom: 50%;
+  transform: translateY(10px);
+}
+
+.fa-moon:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/Day-Dark_mode/moon_icon.svg');
+  background-size: cover;
+
+  position: absolute;
+  left: 5px;
+  bottom: 50%;
+  transform: translateY(10px);
+}
+
+.checkbox-label .ball {
+  background-color: $orange;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+.changeMode {
+  position: absolute;
+
+  @include tablet {
+    top: 40px;
+  }
+}
