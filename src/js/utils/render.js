@@ -111,10 +111,13 @@ function renderFullInfo(movie) {
           ADD TO QUEUE
         </button>
       </div>
-    </div>
-    <svg class="modal-cross" width="12" height="12">
-      <use href="./images/symbol-defs_minNN.svg#icon-close"></use>
+    </div> 
+    <button class="modal-cross"> 
+    <svg  width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 8L22 22" stroke="black" stroke-width="2"/>
+      <path d="M8 22L22 8" stroke="black" stroke-width="2"/>
     </svg>
+    </button>   
   </div>`;
 }
 
