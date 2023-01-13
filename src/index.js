@@ -1,9 +1,11 @@
 import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
-import { search, filmsMainContainer, modal } from './js/utils/refs';
+import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import './js/utils/get_watced_and_queue';
+
 search.addEventListener('submit', onFormSubmit);
+
 filmsMainContainer.addEventListener('click', onContainerClick);
 
 function onContainerClick(e) {
@@ -11,6 +13,7 @@ function onContainerClick(e) {
   const movieId = e.target.closest('li').getAttribute('data-id');
   moviesApiService.getFullInfo(movieId);
   modal.classList.remove('visually-hidden');
+  backdrop.classList.toggle('modal-open');
 }
 
 async function onFormSubmit(e) {

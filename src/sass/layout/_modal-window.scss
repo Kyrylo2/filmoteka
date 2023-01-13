@@ -1,115 +1,139 @@
-li{
-list-style-type: none;
+li {
+  list-style-type: none;
 }
-body{
-    margin: 0;
-    padding: 0;
+body {
+  margin: 0;
+  padding: 0;
 }
-.modal-window{
-    left: 50%;
-    top: 50%;
+.modal-window {
+  left: 50%;
+  top: 50%;
+  justify-content: center;
+  background-color: white;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  z-index: 1;
+  @include tablet {
+    width: 704px;
+    display: flex;
     justify-content: center;
-    background-color: white;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 280px;
-    @include tablet{
-        width: 704px;
-        display:flex;
-        justify-content: center;
-    }
-    @include desktop{
-        width: 806px;
-        display:flex;
-        justify-content: center;
-    }
+  }
+  @include desktop {
+    width: 806px;
+    display: flex;
+    justify-content: center;
+  }
 }
-.modal-img-flex{
-
-    padding: 48px 20px 20px 20px;
-    @include tablet{  padding: 40px 68px 140px 36px;}
-    @include desktop{  padding: 40px 12px 40px 12px;}
-    
-  
+.modal-img-flex {
+  padding: 48px 20px 20px 20px;
+  @include tablet {
+    padding: 40px 68px 140px 36px;
+  }
+  @include desktop {
+    padding: 40px 12px 40px 12px;
+  }
 }
-.modal-flex{
-    padding: 48px 20px 20px 16px;
-    @include tablet{  padding: 40px 72px 40px 0px;}
-    @include desktop{  padding: 40px 12px 40px 12px;}
+.modal-flex {
+  padding: 48px 20px 20px 16px;
+  @include tablet {
+    padding: 40px 72px 40px 0px;
+  }
+  @include desktop {
+    padding: 40px 12px 40px 12px;
+  }
 }
-.modal-h1{
+.modal-h1 {
+  font-size: 20px;
+  @include tablet {
     font-size: 20px;
-    @include tablet{font-size: 20px;}
-    @include desktop{font-size: 30px;}
-    font-weight: 500;
+  }
+  @include desktop {
+    font-size: 30px;
+  }
+  font-weight: 500;
 }
-.modal-img{
-    max-width: none;
-    width: 240px;
-    @include tablet{width: 264px;}
-    @include desktop{width: 375px;}
+.modal-img {
+  max-width: none;
+  width: 240px;
+  @include tablet {
+    width: 264px;
+  }
+  @include desktop {
+    width: 375px;
+  }
 }
 
-.description-font{
-    line-height: 16px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #000;
+.description-font {
+  line-height: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
 }
-.lists-flex{
-    display: flex;
-    padding-top: 20px;
+.lists-flex {
+  display: flex;
+  padding-top: 20px;
 }
-.orng-back{
-background-color: #FF6B01;
-border-radius: 5px;
-color: #fff;
+.orng-back {
+  background-color: #ff6b01;
+  border-radius: 5px;
+  color: #fff;
 }
-.title-tags{ 
-color: #8C8C8C;
+.title-tags {
+  color: #8c8c8c;
 }
-.button-modal{
-    font-size: 12px;
-    height: 44px;
-    width: 110px;
-    @include tablet{width: 125px;}
-    @include desktop{width: 136px;}
-    
-   
-}   
-.description-flex{
-    display: flex;
-    padding-bottom: 8px;
-   
-    width: 110px;
-    @include tablet{width: 125px;}
-    @include desktop{width: 136px;}
+.button-modal {
+  font-size: 12px;
+  height: 44px;
+  width: 110px;
+  @include tablet {
+    width: 125px;
+  }
+  @include desktop {
+    width: 136px;
+  }
 }
-.description-flex:last-child{
-    padding-bottom: 20px;
+.description-flex {
+  display: flex;
+  padding-bottom: 8px;
+
+  width: 110px;
+  @include tablet {
+    width: 125px;
+  }
+  @include desktop {
+    width: 136px;
+  }
 }
-.modal-votes{
-    width: 36px;
-    height: 16px;
+.description-flex:last-child {
+  padding-bottom: 20px;
 }
-.about-font{
-    padding-top: 8px;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #000;
-    padding-bottom: 20px;
+.modal-votes {
+  width: 36px;
+  height: 16px;
 }
-.margin-buttons{
-    margin-right: 20px;
-    @include tablet{ margin-right: 15px;}
-    @include desktop{ margin-right: 15px;}
+.about-font {
+  padding-top: 8px;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  padding-bottom: 20px;
 }
-.buttons-flex{
-    display: flex;
+.margin-buttons {
+  margin-right: 20px;
+  @include tablet {
+    margin-right: 15px;
+  }
+  @include desktop {
+    margin-right: 15px;
+  }
 }
-.modal-cross{
-    position: absolute;
-    right: 0%;
-    top: 0%;
+.buttons-flex {
+  display: flex;
+}
+.modal-cross {
+  position: absolute;
+  right: 0%;
+  top: 0%;
 }
