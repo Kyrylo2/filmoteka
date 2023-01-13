@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./sass/index.scss" />
+  </head>
+  <body>
+    <header class="header-library">
+  <div class="container header__container">
+    <nav class="nav header__nav">
+      <a class="logo__link" href="">
+        <svg class="logo__icon" width="24" height="24">
+          <use href="./images/symbol-defs_minNN.svg#icon-logo"></use>
+        </svg>
+        <span class="logo-text">Filmoteka </span>
+      </a>
+      <ul class="site-nav list">
+        <li class="site-nav__item">
+          <a
+            class="site-nav__link site-nav__link--no-current link"
+            href="./index.html"
+            >Home</a
+          >
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link site-nav__link--current link" href="./my_library.html"
+            >my library</a
+          >
+        </li>
+      </ul>
+    </nav>
+      <div class="btn-library__container">
+      <button type="button" class="btn-library">WATCHED</button>
+      <button type="button" class="btn-library">QUEUE</button>
+    </div>
+</header>
+    <!-- Максим Довхуша -->
+    <include src="./partials/footer.html"></include>
+  </body>
+</html>

@@ -4,8 +4,8 @@
   "description": "",
   "homepage": "https://Kyrylo2.github.io/filmoteka",
   "scripts": {
-    "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /filmoteka/"
+    "start": "parcel src/*.html --no-cache",
+    "build": "parcel build src/*.html --public-url /filmoteka/ --no-cache"
   },
   "repository": {
     "type": "git",
