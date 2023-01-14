@@ -323,7 +323,7 @@
 }
 
 .checkbox-label {
-  background-color: transparent;
+  background-color: #161616;
   width: 50px;
   height: 26px;
   border: 1px solid $orange;
@@ -336,20 +336,20 @@
   align-items: center;
 }
 
-.fa-moon {
+.fa-sun {
   color: #f1c40f;
 }
 
-.fa-sun {
+.fa-moon {
   color: #f39c12;
   position: relative;
 }
 
-.fa-sun:before {
+.fa-moon:before {
   content: '';
   width: 20px;
   height: 20px;
-  background-image: url('../images/Day-Dark_mode/sun_icon.svg');
+  background-image: url('../images/Day-Dark_mode/moon_icon.svg');
   background-size: cover;
 
   position: absolute;
@@ -358,11 +358,11 @@
   transform: translateY(10px);
 }
 
-.fa-moon:before {
+.fa-sun:before {
   content: '';
   width: 20px;
   height: 20px;
-  background-image: url('../images/Day-Dark_mode/moon_icon.svg');
+  background-image: url('../images/Day-Dark_mode/sun_icon.svg');
   background-size: cover;
 
   position: absolute;
