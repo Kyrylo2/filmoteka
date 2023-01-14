@@ -7,6 +7,16 @@ search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
 
+backdrop.addEventListener('click', e => {
+  if (
+    e.target.classList.contains('modal') ||
+    e.target.classList.contains('backdrop')
+  ) {
+    modal.classList.add('visually-hidden');
+    backdrop.classList.toggle('modal-open');
+  }
+});
+
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
