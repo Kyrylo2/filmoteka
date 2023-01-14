@@ -2,10 +2,11 @@ import axios from 'axios';
 // import { createMarkup } from '../../index';
 import { renderMovies } from './render';
 import { renderFullInfo } from './render';
-import { filmsMainContainer } from '../utils/refs';
+import { filmsMainContainer, backdrop } from '../utils/refs';
 import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { closeModal } from '../..';
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -135,6 +136,9 @@ class MoviesApiServise {
     );
     console.log(response.data);
     modal.innerHTML = renderFullInfo(response.data);
+    document
+      .querySelector('.modal-cross')
+      .addEventListener('click', closeModal);
   }
 
   get query() {
