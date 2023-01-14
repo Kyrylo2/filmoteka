@@ -6,6 +6,7 @@ import { filmsMainContainer, backdrop } from '../utils/refs';
 import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { closeModal } from '../..';
 
 class MoviesApiServise {
   constructor() {
@@ -89,10 +90,9 @@ class MoviesApiServise {
     );
     console.log(response.data);
     modal.innerHTML = renderFullInfo(response.data);
-    document.querySelector('.modal-cross').addEventListener('click', () => {
-      modal.classList.add('visually-hidden');
-      backdrop.classList.toggle('modal-open');
-    });
+    document
+      .querySelector('.modal-cross')
+      .addEventListener('click', closeModal);
   }
 
   get query() {
