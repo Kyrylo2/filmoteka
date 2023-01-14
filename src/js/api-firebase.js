@@ -7,8 +7,6 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  EmailAuthProvider,
-  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';

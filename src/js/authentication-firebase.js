@@ -5,10 +5,17 @@ const NAME_CLASS_VISUALLY_HIDDEN = 'visually-hidden';
 
 let apiFirebase;
 let refs;
+let functionSignIn;
+let functionSignOut;
 
-initializeAuth();
+function initializeFirebase(data = {}) {
+  const { funcSignIn, funcSignOut } = {
+    ...{ funcSignIn: null, funcSignOut: null },
+    ...data,
+  };
+  functionSignIn = funcSignIn;
+  functionSignOut = funcSignOut;
 
-function initializeAuth() {
   apiFirebase = new APIFirebase(visualisationSignElement);
 
   refs = findRefs();
@@ -103,16 +110,21 @@ function visualisationSignElement(user) {
     // Hide sign-in button.
     refs.signInButtonElement.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
 
-    // We save the Firebase Messaging Device token and enable notifications.
-    // ! --------------------------------------------
-    // saveMessagingDeviceToken();
+    runFunction(functionSignIn, user);
   } else {
     // Hide  sign-out button.
     refs.signOutButtonElement.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
 
     // Show sign-in button.
     refs.signInButtonElement.classList.remove(NAME_CLASS_VISUALLY_HIDDEN);
+
+    runFunction(functionSignOut, user);
   }
 }
 
-export { initializeAuth };
+function runFunction(callBackFunction, user) {
+  if (typeof callBackFunction !== 'function') return;
+  callBackFunction.call(user);
+}
+
+export { initializeFirebase };
