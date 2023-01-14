@@ -1,16 +1,19 @@
-// import { initializeAuth } from 'firebase/auth';
 import APIFirebase from './api-firebase';
-
-let refs;
 
 const NAME_CLASS_NO_SCROOL_BODY = 'no-scroll-body';
 const NAME_CLASS_VISUALLY_HIDDEN = 'visually-hidden';
 
-const apiFirebase = new APIFirebase(visualisationSignElement);
+let apiFirebase;
+let refs;
+
+initializeAuth();
 
 function initializeAuth() {
+  apiFirebase = new APIFirebase(visualisationSignElement);
+
   refs = findRefs();
   addEvents();
+  return apiFirebase;
 }
 
 function findRefs() {

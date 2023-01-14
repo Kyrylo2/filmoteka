@@ -2,8 +2,12 @@ import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { initializeAuth } from './js/authentication-firebase';
+// import { initializeAuth } from './js/authentication-firebase';
 // import './js/utils/get_watced_and_queue';
+
+// const apiFirebase = initializeAuth();
+// console.log(apiFirebase.signOutUser());
+
 search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
@@ -38,7 +42,7 @@ function clearMarkup() {
   filmsMainContainer.innerHTML = '';
 }
 
-initializeAuth();
-
 moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
+
+// console.log('signOutUser', signOutUser());
