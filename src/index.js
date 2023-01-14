@@ -37,10 +37,6 @@ search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
 
-backdrop.addEventListener('click', onBackdropClose);
-
-document.body.addEventListener('keyup', onEcsClose);
-
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
@@ -92,11 +88,19 @@ function closeModal() {
   backdrop.classList.toggle('modal-open');
 }
 
-export { closeModal };
+function onBtnClose() {
+  closeModal();
+  document
+    .querySelector('.modal-cross')
+    .removeEventListener('click', onBtnClose);
+}
+
+export { onBtnClose, onEcsClose, onBackdropClose };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
     closeModal();
+    document.body.removeEventListener('keyup', onEcsClose);
   }
 }
 
@@ -106,6 +110,7 @@ function onBackdropClose(e) {
     e.target.classList.contains('backdrop')
   ) {
     closeModal();
+    backdrop.removeEventListener('click', onBackdropClose);
   }
 }
 
