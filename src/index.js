@@ -37,10 +37,6 @@ search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
 
-backdrop.addEventListener('click', onBackdropClose);
-
-document.body.addEventListener('keyup', onEcsClose);
-
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
@@ -99,7 +95,7 @@ function onBtnClose() {
     .removeEventListener('click', onBtnClose);
 }
 
-export { onBtnClose };
+export { onBtnClose, onEcsClose, onBackdropClose };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
