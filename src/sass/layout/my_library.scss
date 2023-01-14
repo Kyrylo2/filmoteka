@@ -3,7 +3,7 @@
   padding-bottom: 44px;
   max-width: 100%;
   height: 230px;
-  margin: 0 auto;
+  // margin: 0 auto;
 
   background-image: url('../images/imagesYM/mobile.jpg');
   background-size: cover;
@@ -164,4 +164,14 @@
     background-color: #ff6b01;
     border: #ff6b01;
   }
+}
+.content-my_library {
+  flex-grow: 1;
+}
+.body-library {
+  margin: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
