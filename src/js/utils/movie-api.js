@@ -65,6 +65,8 @@ class MoviesApiServise {
 
       this.totalItems = response.data.total_results;
 
+      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
+
       let movies = response.data.results;
 
       // this.incrementPage();
@@ -140,7 +142,6 @@ class MoviesApiServise {
       .querySelector('.modal-cross')
       .addEventListener('click', onBtnClose);
     backdrop.addEventListener('click', onBackdropClose);
-
     document.body.addEventListener('keyup', onEcsClose);
   }
 
