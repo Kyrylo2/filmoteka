@@ -135,7 +135,7 @@ class MoviesApiServise {
       }
     );
     console.log(response.data);
-    modal.innerHTML = renderFullInfo(response.data);
+    modal.innerHTML = renderFullInfo(response.data, id);
     document
       .querySelector('.modal-cross')
       .addEventListener('click', onBtnClose);

@@ -3,7 +3,7 @@ import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
-import { options } from './js/pagination';
+import { ModalTeamInit } from './js/students';
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -16,6 +16,8 @@ const apiFirebase = initializeFirebase({
   funcSignIn: onSignIn,
   funcSignOut: onSignOut,
 });
+
+ModalTeamInit();
 
 function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
