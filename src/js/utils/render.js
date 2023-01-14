@@ -51,8 +51,8 @@ function isPoster(poster) {
     : "src='./images/no-picture.png'";
 }
 
-function renderFullInfo(movie) {
-  return `<div class="modal-window">
+function renderFullInfo(movie, id) {
+  return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
       <img ${isPoster(movie.poster_path)} class="modal-img" alt="${
     movie.title
