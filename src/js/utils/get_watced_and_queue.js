@@ -1,5 +1,16 @@
 import axios from 'axios';
+import throttle from 'lodash.throttle';
 import { filmsMainContainer } from '../utils/refs';
+
+const refs = {
+  watchedButton: document.getElementById('watchedButton'),
+  queueButton: document.getElementById('queueButton'),
+};
+
+refs.watchedButton.addEventListener('click', onWatchedButtonClick);
+refs.queueButton.addEventListener('click', onQueueButton);
+console.log(refs.watchedButton);
+console.log(refs.queueButton);
 
 const API_KEY = '6251e629c61bceaf56a3d45f05637256';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -14,23 +25,121 @@ const config = {
   },
 };
 
-const refs = {
-  watchedButton: document.getElementById(''),
-  queueButton: document.getElementById(''),
+const myLibrary = {
+  page: 1,
+  totalPages: null,
+  numberResultsPerPage: 20,
+  movieArray: [],
+  pagesData: {},
+  everythingIsLoaded: false,
+
+  getWatchedMovies() {
+    // запит idшніков з Firebase
+    this.movieArray = [
+      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    ];
+  },
+  getQueueMovies() {
+    // запит idшніков з Firebase
+    this.movieArray = [
+      668482, 555604, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643,
+    ];
+  },
+
+  reverseArray() {
+    this.movieArray.reverse();
+  },
+
+  calcTotalPages() {
+    this.totalPages = Math.ceil(
+      this.movieArray.length / this.numberResultsPerPage
+    );
+  },
+
+  calcPagesData() {
+    const subarray = [];
+    for (
+      let i = 0;
+      i < Math.ceil(this.movieArray.length / this.numberResultsPerPage);
+      i += 1
+    ) {
+      subarray[i] = this.movieArray.slice(
+        i * this.numberResultsPerPage,
+        i * this.numberResultsPerPage + this.numberResultsPerPage
+      );
+    }
+    this.pagesData = subarray.reduce((acc, el, index) => {
+      const key = `page${index + 1}`;
+      acc[key] = el;
+      return acc;
+    }, {});
+  },
+
+  renderMovies() {
+    const page = `page${this.page}`;
+    getMyMovies(this.pagesData[page]);
+  },
+
+  resetAll() {
+    this.page = 1;
+    this.totalPages = null;
+    this.movieArray = [];
+    this.pagesData = {};
+    this.everythingIsLoaded = false;
+  },
 };
 
-onWatchedButtonClick();
+myLibrary.resetAll();
+preload();
+
+function preload() {
+  myLibrary.getQueueMovies();
+  console.log(myLibrary.movieArray.length);
+  if (myLibrary.movieArray.length === 0) {
+    myLibrary.getWatchedMovies();
+  }
+  myLibrary.reverseArray();
+  myLibrary.calcTotalPages();
+  myLibrary.calcPagesData();
+  myLibrary.renderMovies();
+}
+
+// myLibrary.getWatchedMovies();
 
 function onWatchedButtonClick() {
   // запит з бази фільмів,які продивився в ідеалі отримувати просто id
-  const emptyArray = [];
-  const movieArray = [76600, 315162, 593643, 661374, 436270, 536554, 19995];
-
-  getMyMovies(movieArray);
+  myLibrary.resetAll();
+  myLibrary.getWatchedMovies();
+  myLibrary.reverseArray();
+  myLibrary.calcTotalPages();
+  myLibrary.calcPagesData();
+  filmsMainContainer.innerHTML = '';
+  myLibrary.renderMovies();
 }
 
 function onQueueButton() {
   // запит з бази фільмів, які в черзі в ідеалі отримувати просто id
+  myLibrary.getQueueMovies();
+  myLibrary.reverseArray();
+  myLibrary.calcTotalPages();
+  myLibrary.calcPagesData();
+  filmsMainContainer.innerHTML = '';
+  myLibrary.renderMovies();
 }
 
 async function getMyMovies(array) {
@@ -44,11 +153,10 @@ async function getMyMovies(array) {
   });
 
   const movies = await Promise.all(arrayOfPromises);
-  console.log(movies);
 
   const template = renderMovies(movies);
-  console.log(filmsMainContainer);
-  filmsMainContainer.innerHTML = template;
+
+  filmsMainContainer.insertAdjacentHTML('beforeend', template);
 }
 
 // Рендеремо фільми
@@ -98,3 +206,32 @@ function isPoster(poster) {
     ? `src="https://image.tmdb.org/t/p/original${poster}"`
     : "src='./images/no-picture.png'";
 }
+
+// Infinite scroll
+
+window.addEventListener(
+  'scroll',
+  throttle(() => {
+    if (myLibrary.everythingIsLoaded) return;
+    // console.log('scrollY:', window.scrollY); //scrolled from top
+    // console.log('innerHeight:', window.innerHeight); //visible part of screen
+    // console.log('scrollHeigth:', document.documentElement.scrollHeight);
+    // console.log(
+    //   document.documentElement.scrollHeight -
+    //     (window.scrollY + window.innerHeight)
+    // );
+
+    if (
+      document.documentElement.scrollHeight -
+        (window.scrollY + window.innerHeight) <=
+      400
+      // window.scrollY + window.innerHeight >=
+      // document.documentElement.scrollHeight
+    ) {
+      myLibrary.page += 1;
+      myLibrary.everythingIsLoaded = myLibrary.page >= myLibrary.totalPages;
+      myLibrary.renderMovies();
+      console.log(myLibrary);
+    }
+  }, 400)
+);
