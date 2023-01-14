@@ -32,15 +32,9 @@ search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
 
-backdrop.addEventListener('click', e => {
-  if (
-    e.target.classList.contains('modal') ||
-    e.target.classList.contains('backdrop')
-  ) {
-    modal.classList.add('visually-hidden');
-    backdrop.classList.toggle('modal-open');
-  }
-});
+backdrop.addEventListener('click', onBackdropClose);
+
+document.body.addEventListener('keyup', onEcsClose);
 
 function onContainerClick(e) {
   e.preventDefault();
@@ -70,6 +64,28 @@ function createMarkup(movies) {
 
 function clearMarkup() {
   filmsMainContainer.innerHTML = '';
+}
+
+function closeModal() {
+  modal.classList.add('visually-hidden');
+  backdrop.classList.toggle('modal-open');
+}
+
+export { closeModal };
+
+function onEcsClose(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+}
+
+function onBackdropClose(e) {
+  if (
+    e.target.classList.contains('modal') ||
+    e.target.classList.contains('backdrop')
+  ) {
+    closeModal();
+  }
 }
 
 moviesApiService.getGenres();
