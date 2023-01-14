@@ -50,7 +50,7 @@ function onContainerClick(e) {
   backdrop.classList.toggle('modal-open');
 }
 
-async function onFormSubmit(e) {
+async function onFormSubmit__(e) {
   e.preventDefault();
   moviesApiService.query = e.currentTarget.elements.searchQuery.value;
   clearMarkup();
@@ -76,3 +76,8 @@ moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
 
 // console.log('signOutUser', signOutUser());
+
+async function onFormSubmit(e) {
+  e.preventDefault();
+  apiFirebase.addToWatched(10);
+}
