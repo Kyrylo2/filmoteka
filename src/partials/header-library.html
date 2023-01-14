@@ -1,0 +1,60 @@
+<header class="header_library">
+  <div class="header__container">
+    <nav class="nav header__nav">
+      <a class="logo__link" href="./index.html">
+        <svg class="logo__icon" width="24" height="24">
+          <use href="./images/symbol-defs_minNN.svg#icon-logo"></use>
+        </svg>
+        <span class="logo-text">Filmoteka</span>
+      </a>
+      <ul class="navigation list">
+        <li class="navigation-item">
+          <a
+            class="navigation-link home site-nav__link--no-current link"
+            href="./index.html"
+            >Home</a
+          >
+        </li>
+        <li class="navigation-item">
+          <a class="navigation-link navigation-link-current link" href="#"
+            >my library</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sign-in">
+      <div class="changeMode">
+        <input type="checkbox" class="checkbox" id="checkbox" />
+        <label for="checkbox" class="checkbox-label">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <span class="ball"></span>
+        </label>
+      </div>
+
+      <!-- <button class="signInButton" type="button" id="signInButton">
+        Sign in with -->
+      <!-- <svg class="signInButton_icon" width="15" height="15"">
+        <use href="./images/symbol-defs_minNN.svg#icon-google-icon_min"></use>
+      </svg> -->
+      <!-- </button> -->
+
+      <button class="signInButton" type="button" id="signOutButton">
+        Sign out
+        <svg class="signInButton_icon" width="15" height="15">
+          <use href="./images/symbol-defs_minNN.svg#icon-log_out"></use>
+        </svg>
+      </button>
+      <!-- Костюченко Сергій -->
+      <include src="./partials/menu-signin-out.html"></include>
+    </div>
+
+    <div class="container-buttons">
+      <button class="watchedButton" type="button" id="watchedButton">
+        Watched
+      </button>
+      <button class="queueButton" type="button" id="queueButton">Queue</button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,10 @@
+.body-library {
+  margin: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main-library {
+  flex-grow: 1;
+}

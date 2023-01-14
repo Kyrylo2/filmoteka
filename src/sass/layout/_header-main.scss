@@ -5,6 +5,8 @@
   height: 230px;
   margin: 0 auto;
 
+  background-color: rgba(0, 0, 0, 0.56);
+
   background-image: url('../images/MobileNN/Header_main_bcg_mobile@1x-min.jpg');
   background-size: cover;
 
@@ -39,7 +41,7 @@
   }
 }
 
-.header__container {
+.header-container {
   padding-left: 20px;
   padding-right: 20px;
   max-width: 1280px;
@@ -122,6 +124,33 @@
 
 .site-nav__link--no-current:hover.site-nav__link--no-current:hover::after,
 .site-nav__link--no-current:focus.site-nav__link--no-current:hover::after {
+  transform: scaleX(1);
+}
+
+.site-nav__link--no-current:hover,
+.site-nav__link--no-current:focus {
+  color: $orange;
+}
+
+.home::after {
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+
+  content: '';
+  width: 35px;
+  height: 3px;
+  background-color: $orange;
+
+  transition-property: all;
+  transition-duration: $time-cubic;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+
+  transform: scaleX(0);
+}
+
+.home:hover.site-nav__link--no-current:hover::after,
+.home:focus.site-nav__link--no-current:hover::after {
   transform: scaleX(1);
 }
 
@@ -254,8 +283,13 @@
 
   &:hover,
   &:focus {
-    color: orange;
-    border-color: #ff6b08;
+    color: $orange;
+    border-color: $orange;
+    background-color: #161616;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
+    box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
   }
 
   @include tablet {
@@ -269,4 +303,98 @@
 
 .signInButton_icon {
   fill: currentColor;
+}
+
+.logo__icon,
+.footer__icon {
+  animation: rotateY-anim 5s linear infinite;
+}
+
+@keyframes rotateY-anim {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+//
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: #161616;
+  width: 50px;
+  height: 26px;
+  border: 1px solid $orange;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-sun {
+  color: #f1c40f;
+}
+
+.fa-moon {
+  color: #f39c12;
+  position: relative;
+}
+
+.fa-moon:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/Day-Dark_mode/moon_icon.svg');
+  background-size: cover;
+
+  position: absolute;
+  right: 0px;
+  bottom: 50%;
+  transform: translateY(10px);
+}
+
+.fa-sun:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/Day-Dark_mode/sun_icon.svg');
+  background-size: cover;
+
+  position: absolute;
+  left: 5px;
+  bottom: 50%;
+  transform: translateY(10px);
+}
+
+.checkbox-label .ball {
+  background-color: $orange;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+.changeMode {
+  position: absolute;
+
+  @include tablet {
+    top: 40px;
+  }
 }
