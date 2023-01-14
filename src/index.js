@@ -2,8 +2,32 @@ import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { initializeAuth } from './js/authentication-firebase';
+import { initializeFirebase } from './js/authentication-firebase';
 // import './js/utils/get_watced_and_queue';
+
+//* Authentication
+// initializeFirebase - можна викликати без параметрів
+const apiFirebase = initializeFirebase({
+  funcSignIn: onSignIn,
+  funcSignOut: onSignOut,
+});
+
+function onSignIn(user) {
+  //Оце викличеться, коли користувач авторизується,
+  //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
+  // console.log(apiFirebase.isUserSignedIn());
+}
+
+function onSignOut(user) {
+  // Оце викличеться коли користувач вийде з аккаунту
+  // console.log('onSignOut');
+}
+
+//Перевірити чи авториований
+//майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
+//Це буде одразу після завантаження сторінки
+//apiFirebase.isUserSignedIn()
+
 search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
@@ -48,7 +72,7 @@ function clearMarkup() {
   filmsMainContainer.innerHTML = '';
 }
 
-initializeAuth();
-
 moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
+
+// console.log('signOutUser', signOutUser());
