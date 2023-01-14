@@ -80,17 +80,3 @@
   // transition: opacity 500ms cubic-bezier(0.19, 1, 0.22, 1)
   //   visibility 500ms cubic-bezier(0.19, 1, 0.22, 1);
 }
-
-.visually-hidden {
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
-  border: 0;
-  padding: 0;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  margin: -1px;
-}
