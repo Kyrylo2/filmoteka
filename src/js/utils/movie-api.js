@@ -7,15 +7,51 @@ import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+
+const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
+
 class MoviesApiServise {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.totalItems;
   }
+
+  get PaginationOptions() {
+    return {
+      // below default value of options
+      totalItems: this.totalItems,
+      itemsPerPage: 20,
+      visiblePages: 5,
+      page: this.page,
+      centerAlign: true,
+      firstItemClassName: 'tui-first-child',
+      lastItemClassName: 'tui-last-child',
+      template: {
+        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        currentPage:
+          '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+        moveButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</a>',
+        disabledMoveButton:
+          '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+          '</span>',
+        moreButton:
+          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+          '</a>',
+      },
+    };
+  }
+
   async fetchMovies() {
     Loading.circle({ svgColor: 'red' });
     try {
-      const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
       const BASE_URL = 'https://api.themoviedb.org/3/search/movie?';
       const response = await axios.get(BASE_URL, {
         params: {
@@ -26,11 +62,12 @@ class MoviesApiServise {
         },
       });
 
-      let movies = response.data;
-      console.log(movies.results);
+      this.totalItems = response.data.total_results;
 
-      this.incrementPage();
-      return movies.results;
+      let movies = response.data.results;
+
+      // this.incrementPage();
+      return movies;
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
     } finally {
@@ -40,7 +77,6 @@ class MoviesApiServise {
 
   async getGenres() {
     try {
-      const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
       const response = await axios.get(
         'https://api.themoviedb.org/3/genre/movie/list',
         {
@@ -59,18 +95,29 @@ class MoviesApiServise {
   async getTrendMovies() {
     Loading.circle({ svgColor: 'red' });
     try {
-      const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
       const response = await axios.get(
         'https://api.themoviedb.org/3/trending/movie/day',
         {
           params: {
             api_key: API_KEY,
+            page: this.page,
           },
         }
       );
-      console.log(response.data.results);
+      console.log(response);
+      this.totalItems = response.data.total_results;
       // createMarkup(renderMovies(response.data.results));
       filmsMainContainer.innerHTML = renderMovies(response.data.results);
+
+      const pagination = new Pagination(
+        'tui-pagination-container',
+        this.PaginationOptions
+      );
+
+      pagination.on('beforeMove', e => {
+        this.page = e.page;
+        this.getTrendMovies();
+      });
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
     } finally {
@@ -78,7 +125,6 @@ class MoviesApiServise {
     }
   }
   async getFullInfo(id) {
-    const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}`,
       {
@@ -99,12 +145,29 @@ class MoviesApiServise {
     this.searchQuery = newQuery;
   }
 
+  get currentPage() {
+    console.log(this.page);
+    return this.page;
+  }
+
+  set currentPage(newPage) {
+    this.page = newPage;
+  }
+
   incrementPage() {
     this.page += 1;
   }
 
   resetPage() {
     this.page = 1;
+  }
+
+  /**
+   * @param {number} NewTotalItems
+   */
+  set setTotalItems(NewTotalItems) {
+    this.totalItems = NewTotalItems;
+    console.log(this.totalItems);
   }
 }
 const moviesApiService = new MoviesApiServise();
