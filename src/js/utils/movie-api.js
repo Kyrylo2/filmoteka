@@ -2,7 +2,7 @@ import axios from 'axios';
 // import { createMarkup } from '../../index';
 import { renderMovies } from './render';
 import { renderFullInfo } from './render';
-import { filmsMainContainer } from '../utils/refs';
+import { filmsMainContainer, backdrop } from '../utils/refs';
 import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -89,6 +89,10 @@ class MoviesApiServise {
     );
     console.log(response.data);
     modal.innerHTML = renderFullInfo(response.data);
+    document.querySelector('.modal-cross').addEventListener('click', () => {
+      modal.classList.add('visually-hidden');
+      backdrop.classList.toggle('modal-open');
+    });
   }
 
   get query() {
