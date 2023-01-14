@@ -3,6 +3,11 @@ import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
+import { options } from './js/pagination';
+
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+
 // import './js/utils/get_watced_and_queue';
 
 //* Authentication
@@ -52,6 +57,22 @@ async function onFormSubmit(e) {
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
     createMarkup(renderMovies(arrOfMovies));
+    console.log(arrOfMovies);
+
+    const pagination = new Pagination(
+      'tui-pagination-container',
+      moviesApiService.PaginationOptions
+    );
+
+    pagination.on('beforeMove', async e => {
+      try {
+        moviesApiService.page = e.page;
+        const arrOfMovies = await moviesApiService.fetchMovies();
+        createMarkup(renderMovies(arrOfMovies));
+      } catch (e) {
+        console.log(e);
+      }
+    });
   } catch (e) {
     Notify.failure('Oups! Something went wrong');
   }
@@ -92,3 +113,5 @@ moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
 
 // console.log('signOutUser', signOutUser());
+
+// const pagination = new Pagination('tui-pagination-container', options);
