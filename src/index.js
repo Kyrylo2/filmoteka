@@ -42,6 +42,13 @@ backdrop.addEventListener('click', e => {
   }
 });
 
+document.body.addEventListener('keyup', e => {
+  if (e.key === 'Escape') {
+    modal.classList.add('visually-hidden');
+    backdrop.classList.toggle('modal-open');
+  }
+});
+
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
