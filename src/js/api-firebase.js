@@ -26,6 +26,25 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+// ! додають filmId у відповідне сховище, якщо операція не вдалася то повертає false
+// async addToWatched(filmId)
+// async addToQueue(filmId)
+//
+// ! ВИдаляють filmId з відповідного сховища, якщо операція не вдалася то повертає false
+// async deleteFromWatched(filmId)
+// async deleteFromQueue(filmId)
+//
+// ! Повертають масив ВСІХ філмів з відповідного сховища, якщо якась помилка,
+//то оповерне пустий масив(наприклад користувач не авторизований)
+// readWatched()
+// readQueue()
+//
+// ! Перевіряє чи є filmId у відповідному сховищі, true - false
+// isSavedFromWatched(filmId)
+// isSavedFromQueue(filmId)
+//
+// ! Перевіряє чи авторизовані ви
+// isUserSignedIn()
 export default class APIFirebase {
   NAME_KEY_STORAGE_WATCHED = 'Filmoteka_Watched_';
   NAME_KEY_STORAGE_QUEUE = 'Filmoteka_Queue';
@@ -91,27 +110,78 @@ export default class APIFirebase {
     return url;
   }
 
-  // ! Cloud Firestore
+  // * Work from  Cloud Firestore
 
   // * Work from File Store
   async addToWatched(filmId) {
-    let arrFilm = await this.readData(this.NAME_KEY_STORAGE_WATCHED);
+    return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
+  }
 
-    if (!arrFilm) arrFilm = [];
+  async addToQueue(filmId) {
+    return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
+  }
 
-    arrFilm.push(filmId);
+  async deleteFromWatched(filmId) {
+    return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
+  }
 
-    await this.saveObjectSet(arrFilm, this.NAME_KEY_STORAGE_WATCHED);
+  async deleteFromQueue(filmId) {
+    return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
   readWatched() {
-    this.readData(this.NAME_KEY_STORAGE_WATCHED);
+    return this.readStorage(this.NAME_KEY_STORAGE_WATCHED);
   }
 
-  isSavedFilmFromWatched() {
+  readQueue() {
+    return this.readStorage(this.NAME_KEY_STORAGE_QUEUE);
+  }
+
+  isSavedFromWatched(filmId) {
+    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_WATCHED);
+  }
+
+  isSavedFromQueue(filmId) {
+    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_QUEUE);
+  }
+
+  // !Storfge
+  async addToStorage(filmId, typeStorage) {
+    return true;
+
+    // let arrFilm = await this.readData(typeStorage);
+    // if (!arrFilm) arrFilm = [];
+    // arrFilm.push(filmId);
+    // await this.saveObjectSet(arrFilm, typeStorage);
+  }
+
+  async deleteFromStorage(filmId, typeStorage) {
+    return true;
+  }
+
+  readStorage(typeStorage) {
+    return [
+      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    ];
+
+    // this.readData(this.NAME_KEY_STORAGE_WATCHED);
+  }
+
+  isSavedFromStarage(typeStorage) {
     return false;
   }
 
+  // * -----------------------------------------------------------------------
   async saveObjectSet(obj, typeInfo) {
     if (!this.isUserSignedIn()) return;
 
