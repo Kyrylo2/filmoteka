@@ -6,7 +6,7 @@ import { filmsMainContainer, backdrop } from '../utils/refs';
 import { modal } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { closeModal } from '../..';
+import { onBtnClose } from '../..';
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -138,7 +138,7 @@ class MoviesApiServise {
     modal.innerHTML = renderFullInfo(response.data);
     document
       .querySelector('.modal-cross')
-      .addEventListener('click', closeModal);
+      .addEventListener('click', onBtnClose);
   }
 
   get query() {

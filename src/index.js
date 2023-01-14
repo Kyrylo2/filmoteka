@@ -92,11 +92,19 @@ function closeModal() {
   backdrop.classList.toggle('modal-open');
 }
 
-export { closeModal };
+function onBtnClose() {
+  closeModal();
+  document
+    .querySelector('.modal-cross')
+    .removeEventListener('click', onBtnClose);
+}
+
+export { onBtnClose };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
     closeModal();
+    document.body.removeEventListener('keyup', onEcsClose);
   }
 }
 
@@ -106,6 +114,7 @@ function onBackdropClose(e) {
     e.target.classList.contains('backdrop')
   ) {
     closeModal();
+    backdrop.removeEventListener('click', onBackdropClose);
   }
 }
 
