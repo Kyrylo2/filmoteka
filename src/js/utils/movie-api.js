@@ -105,7 +105,7 @@ class MoviesApiServise {
           },
         }
       );
-      console.log(response);
+
       this.totalItems = response.data.total_results;
       // createMarkup(renderMovies(response.data.results));
       filmsMainContainer.innerHTML = renderMovies(response.data.results);
@@ -134,7 +134,7 @@ class MoviesApiServise {
         },
       }
     );
-    console.log(response.data);
+
     modal.innerHTML = renderFullInfo(response.data, id);
     document
       .querySelector('.modal-cross')

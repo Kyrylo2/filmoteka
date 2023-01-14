@@ -9,19 +9,20 @@ export function ModalTeamInit() {
   openModalBtn.addEventListener('click', onOpenModal);
   closeModalBtn.addEventListener('click', onCloseModal);
   backdrop.addEventListener('click', onBackdropClick);
-  console.log('Modal init');
-  console.log(openModalBtn);
 }
 
 function onOpenModal() {
-  console.log('click - onOpenModal');
-  window.addEventListener('keydown', onEscKeydown);
+  backdrop.classList.add('modal-open');
   modalStudents.classList.remove('visually-hidden');
+
+  window.addEventListener('keydown', onEscKeydown);
 }
 
 function onCloseModal() {
-  window.removeEventListener('keydown', onEscKeydown);
+  backdrop.classList.toggle('modal-open');
   modalStudents.classList.add('visually-hidden');
+
+  window.removeEventListener('keydown', onEscKeydown);
 }
 
 function onBackdropClick(e) {
