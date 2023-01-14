@@ -2,6 +2,7 @@ import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { initializeAuth } from './js/authentication-firebase';
 // import './js/utils/get_watced_and_queue';
 search.addEventListener('submit', onFormSubmit);
 
@@ -36,6 +37,8 @@ function createMarkup(movies) {
 function clearMarkup() {
   filmsMainContainer.innerHTML = '';
 }
+
+initializeAuth();
 
 moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
