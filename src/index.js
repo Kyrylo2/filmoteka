@@ -4,6 +4,7 @@ import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
+import validator from 'validator';
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -49,7 +50,13 @@ function onContainerClick(e) {
 
 async function onFormSubmit(e) {
   e.preventDefault();
-  moviesApiService.query = e.currentTarget.elements.searchQuery.value;
+  const inputValue = e.currentTarget.elements.searchQuery.value.trim();
+  if (!validator.isAlphanumeric(inputValue)) {
+    return Notify.failure(
+      'Search result not successful. Enter the correct movie name and try again.'
+    );
+  }
+  moviesApiService.query = inputValue;
   clearMarkup();
   moviesApiService.resetPage();
   try {
@@ -92,9 +99,7 @@ function closeModal() {
 
 function onBtnClose() {
   closeModal();
-  document
-    .querySelector('.modal-cross')
-    .removeEventListener('click', onBtnClose);
+  removeAllListeners();
 }
 
 export { onBtnClose, onEcsClose, onBackdropClose };
@@ -102,7 +107,7 @@ export { onBtnClose, onEcsClose, onBackdropClose };
 function onEcsClose(e) {
   if (e.key === 'Escape') {
     closeModal();
-    document.body.removeEventListener('keyup', onEcsClose);
+    removeAllListeners();
   }
 }
 
@@ -112,8 +117,16 @@ function onBackdropClose(e) {
     e.target.classList.contains('backdrop')
   ) {
     closeModal();
-    backdrop.removeEventListener('click', onBackdropClose);
+    removeAllListeners();
   }
+}
+
+function removeAllListeners() {
+  backdrop.removeEventListener('click', onBackdropClose);
+  document.body.removeEventListener('keyup', onEcsClose);
+  document
+    .querySelector('.modal-cross')
+    .removeEventListener('click', onBtnClose);
 }
 
 moviesApiService.getGenres();
