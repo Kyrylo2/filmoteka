@@ -64,7 +64,12 @@ class MoviesApiServise {
       });
 
       this.totalItems = response.data.total_results;
+      console.log(this.totalItems);
 
+      if (this.totalItems === 0) {
+        return;
+        // Notify.failure("Sorry, we haven't found any movie.");
+      }
       Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data.results;

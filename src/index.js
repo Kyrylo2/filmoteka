@@ -61,6 +61,9 @@ async function onFormSubmit(e) {
   moviesApiService.resetPage();
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
+    // if (arrOfMovies.length === 0) {
+    //   Notify.failure("Sorry, we haven't found any movie.");
+    // }
     createMarkup(renderMovies(arrOfMovies));
     console.log(arrOfMovies);
 
