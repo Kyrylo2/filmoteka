@@ -12,22 +12,8 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  startAt,
-  serverTimestamp,
-} from 'firebase/firestore';
 
 export default class APIFirebase {
-  NAME_KEY_STORAGE_WATCHED = 'Filmoteka_List_Watched';
-  NAME_KEY_STORAGE_QUEUE = 'Filmoteka_List_Queue';
-
   constructor(authStateObserver) {
     this.authStateObserver = authStateObserver;
 
@@ -87,64 +73,4 @@ export default class APIFirebase {
     }
     return url;
   }
-
-  // * Work from File Store
-
-  saveToWatch(curentFilm) {
-    this.saveObject(curentFilm, this.NAME_KEY_STORAGE_WATCHED);
-  }
-
-  saveToQueue(curentFilm) {
-    this.saveObject(curentFilm, this.NAME_KEY_STORAGE_QUEUE);
-  }
-
-  async saveObject(obj, typeInfo) {
-    console.log('🚀 ~ saveMessage');
-    const messageText = JSON.stringify(obj);
-
-    // Add a new message entry to the Firebase database.
-    try {
-      await addDoc(collection(getFirestore(), typeInfo), {
-        name: this.getUserName(),
-        text: messageText,
-        profilePicUrl: this.getProfilePicUrl(),
-        timestamp: serverTimestamp(),
-      });
-    } catch (error) {
-      console.error('Error writing new message to Firebase Database', error);
-    }
-  }
-
-  loadMessages() {
-    // Create the query to load the last 12 messages and listen for new ones.
-
-    const recentMessagesQuery = query(
-      collection(getFirestore(), this.NAME_KEY_STORAGE_WATCHED),
-      orderBy('timestamp', 'desc'),
-      // startAt(1),
-      limit(12)
-    );
-
-    onSnapshot(recentMessagesQuery, function (snapshot) {
-      snapshot.docChanges().forEach(function (change) {
-        if (change.type !== 'removed') {
-          const message = change.doc.data();
-          console.log('message', JSON.parse(message.text));
-        }
-      });
-    });
-  }
-}
-
-function getLocalStorageText() {
-  let saveObject;
-
-  try {
-    saveObject = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  } catch {
-    saveObject = localData;
-  }
-
-  inputEmail.value = saveObject.email;
-  textarea.value = saveObject.message;
 }
