@@ -1,0 +1,155 @@
+
+
+
+
+body.show-modal .backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+}
+
+body.show-modal .modal {
+    transition: 300ms ease;
+}
+
+.backdrop {
+display: flex;
+justify-content: center;
+align-items: center;
+position: fixed;
+top: 0;
+left: 0;    
+width: 100vw;
+height: 100vw;
+background-color: $grey-background;
+z-index: 999;
+
+pointer-events: none;
+opacity: 0;
+visibility: hidden;
+    
+transition: opacity $transition, visibility $transition;
+}
+
+.modal {
+padding: 20px;
+position: relative;
+border: $border;
+border-radius: $border-radius;
+
+width: 90%;
+background-color: $white;
+}
+
+.close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    border: $border;
+    border-radius: $border-radius;
+    background-color: transparent;
+
+
+    transition: fill $transition;
+
+    &:hover,
+    &:focus {
+        fill: $white;
+        background-color: $orange-button;
+    }
+}
+
+.modal-title {
+font-weight: 700;
+font-size: 20px;
+line-height: 1.5;
+letter-spacing: 0.03em;
+text-align: center;
+margin-bottom: 12px;        
+color: $orange;
+}
+
+.students-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+        
+    background-color: inherit;
+}
+
+.students-member {
+    display: flex;           
+    justify-content: space-between;
+    align-items: center;
+    background-color: $grey-background;
+}
+
+.students-describtion {
+    display: block;
+    text-align: center;
+    padding: 15px;
+}
+
+.students-name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: .03em;
+    text-align: center;
+    color: $black;
+    margin-bottom: 10px;
+}
+
+.students-text {   
+    letter-spacing: .03em;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+    color: $black;
+    margin-bottom: 16px;
+    margin-left: 10px;
+}
+
+.students-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;    
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.contacts-link {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color:transparent;    
+    color: $black;
+    transition: color $transition background-color $transition;
+
+    &:focus,
+    &:hover {
+    color: $white;
+    background-color: $orange;
+    }
+}
+
+.contacts-icon {
+    fill: currentColor;
+    transition: color $transition;
+}
