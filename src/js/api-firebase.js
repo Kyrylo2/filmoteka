@@ -145,9 +145,17 @@ export default class APIFirebase {
     return this.isSavedFromStarage(this.NAME_KEY_STORAGE_QUEUE);
   }
 
-  // !Storfge
+  // !Storage
   async addToStorage(filmId, typeStorage) {
-    return true;
+    const arrFilm = await this.readData(typeStorage);
+    console.log(arrFilm);
+    if (await arrFilm.includes(filmId)) {
+      return;
+    } else {
+      arrFilm.push(filmId);
+      console.log(arrFilm);
+      await this.saveObjectSet(arrFilm, typeStorage);
+    }
 
     // let arrFilm = await this.readData(typeStorage);
     // if (!arrFilm) arrFilm = [];
@@ -156,29 +164,34 @@ export default class APIFirebase {
   }
 
   async deleteFromStorage(filmId, typeStorage) {
-    return true;
+    const arrFilm = await this.readData(typeStorage);
+    console.log(arrFilm);
+    const index = arrFilm.indexOf(filmId);
+    if ((await index) === -1) {
+      return;
+    } else {
+      arrFilm.splice(index, 1);
+      console.log(arrFilm);
+      await this.saveObjectSet(arrFilm, typeStorage);
+    }
   }
 
   readStorage(typeStorage) {
-    return [
-      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
-      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
-      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
-      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
-      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
-      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
-    ];
-
-    // this.readData(this.NAME_KEY_STORAGE_WATCHED);
+    const arr = [];
+    if (!isUserSignedIn()) {
+      console.log(arr);
+      return arr;
+    } else {
+      const allListStorage = this.readData(typeStorage);
+      console.log(allListStorage);
+      return allListStorage;
+    }
   }
 
-  isSavedFromStarage(typeStorage) {
-    return false;
+  isSavedFromStarage(filmId, typeStorage) {
+    const arr = this.readData(typeStorage);
+    console.log(arr);
+    return arr.includes(filmId);
   }
 
   // * -----------------------------------------------------------------------
