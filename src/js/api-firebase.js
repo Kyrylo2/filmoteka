@@ -138,7 +138,7 @@ export default class APIFirebase {
     return this.isSavedFromStarage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
-  // !Storage
+  // !Storage..
   async addToStorage(filmId, typeStorage) {
     const arrFilm = await this.readData(typeStorage);
 
