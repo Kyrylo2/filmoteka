@@ -9,7 +9,7 @@ import themeswitcher from './js/utils/themeswitcher';
 
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-
+import btn_up from './js/btn_up';
 // import './js/utils/get_watced_and_queue';
 
 //* Authentication
