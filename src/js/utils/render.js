@@ -9,6 +9,7 @@ function renderMovies(movies) {
         ${isPoster(movie.poster_path)}
         alt="${movie.title}"
         loading="lazy"
+        width='395' height='574'
       />
     </div>
 

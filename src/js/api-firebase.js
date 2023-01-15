@@ -74,7 +74,17 @@ export default class APIFirebase {
   // Initialize firebase auth
   initFirebaseAuth() {
     // Listen to auth state changes.
+    if (!this.authStateObserver) {
+      this.authStateObserver = this.authStateObserver_;
+    }
+
+    // console.log('authStateObserver', authStateObserver);
+
     onAuthStateChanged(getAuth(), this.authStateObserver.bind(this));
+  }
+
+  authStateObserver_() {
+    //
   }
 
   // Returns the signed-in user's profile Pic URL.
