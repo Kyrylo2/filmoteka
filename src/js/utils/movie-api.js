@@ -148,7 +148,26 @@ class MoviesApiServise {
       .addEventListener('click', onBtnClose);
     backdrop.addEventListener('click', onBackdropClose);
     document.body.addEventListener('keyup', onEcsClose);
+
+    //ks
+    // document
+    //   .querySelector('.button-modal-watch')
+    //   .addEventListener('click', this.addToWatch.bind(this));
+
+    // document
+    //   .querySelector('.button-modal-queue')
+    //   .addEventListener('click', this.addToQueue.bind(this));
   }
+  //ks
+  // async addToWatch(e) {
+  //   const result = await this.apiFirebase.addToWatched(123);
+  //   console.log(result);
+  // }
+
+  // async addToQueue(e) {
+  //   const result = await this.apiFirebase.addToQueue(456);
+  //   console.log(result);
+  // }
 
   get query() {
     return this.searchQuery;

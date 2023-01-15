@@ -101,8 +101,8 @@ function renderFullInfo(movie, id) {
         </p>
       </div>
       <div class="buttons-flex">
-        <button class="button-modal">ADD TO WATCHED</button>
-        <button class="button-modal">
+        <button class="button-modal button-modal-watch">ADD TO WATCHED</button>
+        <button class="button-modal button-modal-queue">
           ADD TO QUEUE
         </button>
         <button class="button-modal">
