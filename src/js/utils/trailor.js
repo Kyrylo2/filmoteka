@@ -44,7 +44,6 @@ function appendMarkupTrailer(key) {
 }
 
 function closeModal() {
-  // trailerBtn.removeEventListener("click", onClickTrailer);
   const modal = document.querySelector('.basicLightbox');
   modal.classList.remove('visually-hidden');
   trailerBackdrop.classList.add('visually-hidden');
