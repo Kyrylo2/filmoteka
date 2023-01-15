@@ -4,11 +4,11 @@ const MoviesApiService = new moviesApiService();
 
 const trailerWindow = document.querySelector('.trailer__window');
 const trailerBackdrop = document.querySelector('.trailer__backdrop');
-const trailerBtn = document.querySelector(`.open-trailer`);
+const openTrailerBtn = document.querySelector(`.open-trailer`);
 
 export function addListener(id) {
-  if (trailerBtn) {
-    trailerBtn.addEventListener('click', onClickTrailer, { once: true });
+  if (openTrailerBtn) {
+    openTrailerBtn.addEventListener('click', onClickTrailer, { once: true });
   }
 }
 
