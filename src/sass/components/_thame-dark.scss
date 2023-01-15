@@ -1,0 +1,43 @@
+.films {
+  background: $black;
+}
+
+.films__info p:first-child {
+  color: white;
+}
+.films__item {
+  border: 1mm solid rgba(255, 255, 255, 0.284);
+  border-radius: 5px;
+}
+
+.films__item:hover {
+  border: none;
+}
+
+footer {
+  background: rgb(39, 46, 52);
+}
+
+.modal-window {
+  background: $black;
+  border: 1mm solid rgba(255, 255, 255, 0.284);
+}
+.modal-h2 {
+  color: $white;
+}
+
+.description-font {
+  color: $white;
+}
+
+.button-modal {
+  background: $white;
+}
+
+.overview-container {
+  background: $white;
+}
+
+.parametr-flex p {
+  color: $grey-card-color;
+}
