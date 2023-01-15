@@ -9,7 +9,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { closeModal } from '../..';
 
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+// import 'tui-pagination/dist/tui-pagination.css';
 
 const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
 
@@ -31,7 +31,7 @@ class MoviesApiServise {
       firstItemClassName: 'tui-first-child',
       lastItemClassName: 'tui-last-child',
       template: {
-        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        page: '<a href="#" class="pagination-page">{{page}}</a>',
         currentPage:
           '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
         moveButton:
