@@ -19,6 +19,7 @@ function initializeFirebase(data = {}) {
   apiFirebase = new APIFirebase(visualisationSignElement);
 
   refs = findRefs();
+
   addEvents();
   return apiFirebase;
 }
