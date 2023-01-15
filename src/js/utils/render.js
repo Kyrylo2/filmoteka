@@ -1,3 +1,4 @@
+
 function renderMovies(movies) {
   return movies
     .map(movie => {
@@ -105,7 +106,7 @@ function renderFullInfo(movie) {
         <button class="button-modal">
           ADD TO QUEUE
         </button>
-        <button class="button-modal">
+        <button class="button-modal open-trailer">
           TRAILER
         </button>
       </div>
@@ -122,3 +123,5 @@ function renderFullInfo(movie) {
 function getGenresFullInfo(genres) {
   return genres.map(genre => genre.name).join(', ');
 }
+
+//
