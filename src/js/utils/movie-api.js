@@ -11,6 +11,10 @@ import { onBtnClose, onBackdropClose, onEcsClose } from '../..';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
+import { openMenuSignIn } from '..//authentication-firebase';
+import { doc } from 'firebase/firestore';
+import { async } from '@firebase/util';
+
 const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
 
 class MoviesApiServise {
@@ -18,6 +22,7 @@ class MoviesApiServise {
     this.searchQuery = '';
     this.page = 1;
     this.totalItems;
+    this.apiFirebase;
   }
 
   get PaginationOptions() {
@@ -141,26 +146,118 @@ class MoviesApiServise {
         },
       }
     );
+    const isSignIn = await this.apiFirebase.isUserSignedIn();
+    console.log('isSignIn', isSignIn);
 
-    modal.innerHTML = renderFullInfo(response.data, id);
+    const isWatched = await this.apiFirebase.isSavedFromWatched(id); // Якщо False - фільм НЕ додан в список Watched
+
+    console.log('isWatched', isWatched);
+
+    const isQueue = await this.apiFirebase.isSavedFromQueue(id); // Якщо False - фільм НЕ додан в список Queue
+
+    console.log('isQueue', isQueue);
+
+    // --- РЕНДЕР МОДАЛКИ
+    modal.innerHTML = renderFullInfo(
+      response.data,
+      id,
+      isWatched,
+      isQueue,
+      isSignIn
+    );
+
+    if (!isSignIn) {
+      console.log('малюємо');
+      document.querySelector('.buttons-flex').style.flexDirection = 'column';
+      document.querySelector('.buttons-flex').style.alignItems = 'center';
+    }
+
+    // Події на кнопку закрить модалку
     document
       .querySelector('.modal-cross')
       .addEventListener('click', onBtnClose);
     backdrop.addEventListener('click', onBackdropClose);
     document.body.addEventListener('keyup', onEcsClose);
+    // ----------------
 
-    //ks
-    // document
-    //   .querySelector('.button-modal-watch')
-    //   .addEventListener('click', this.addToWatch.bind(this));
+    // Якщо залогінен - вішаємо потрібні слухачі на кнопки
+    if (isSignIn) {
+      // Перевіряемо і вішаємо слухач на кнопку Watch
 
-    // document
-    //   .querySelector('.button-modal-queue')
-    //   .addEventListener('click', this.addToQueue.bind(this));
+      document
+        .querySelector('.button-modal-watch')
+        .addEventListener('click', async e => {
+          const isWatched = await this.apiFirebase.isSavedFromWatched(id);
+
+          console.log(isWatched);
+
+          const movieId = e.target
+            .closest('.buttons-flex')
+            .getAttribute('data-id');
+
+          const filmName = document.querySelector('.modal-h2').textContent;
+
+          console.log(filmName);
+
+          isWatched
+            ? (document.querySelector('.button-modal-watch').textContent =
+                'ADD TO WATCHED')
+            : (document.querySelector('.button-modal-watch').textContent =
+                'DELETE FROM WATCHED');
+
+          return isWatched
+            ? await this.apiFirebase.deleteFromWatched(movieId, filmName)
+            : await this.apiFirebase.addToWatched(movieId, filmName);
+        });
+
+      // Перевіряемо і вішаємо слухач на кнопку Queue
+      document
+        .querySelector('.button-modal-queue')
+        .addEventListener('click', async e => {
+          const isQueue = await this.apiFirebase.isSavedFromQueue(id);
+
+          console.log(isQueue);
+
+          const movieId = e.target
+            .closest('.buttons-flex')
+            .getAttribute('data-id');
+
+          const filmName = document.querySelector('.modal-h2').textContent;
+
+          console.log(filmName);
+
+          isQueue
+            ? (document.querySelector('.button-modal-queue').textContent =
+                'ADD TO QUEUE')
+            : (document.querySelector('.button-modal-queue').textContent =
+                'DELETE FROM QUEUE');
+
+          return isQueue
+            ? await this.apiFirebase.deleteFromQueue(movieId, filmName)
+            : await this.apiFirebase.addToQueue(movieId, filmName);
+        });
+    }
+
+    // якщо не залогінен - вішаємо подію відкриття модалки логіну
+    if (!isSignIn) {
+      document
+        .querySelector('.button-modal-signIn')
+        .addEventListener('click', () => {
+          console.log('Відкрити модалку!');
+          // Тут треба выдкривати модалку Входу по кліку!!!
+          openMenuSignIn();
+        });
+    }
   }
-  //ks
-  // async addToWatch(e) {
-  //   const result = await this.apiFirebase.addToWatched(123);
+
+  // ks;
+  // async addToWatch(id) {
+  //   const result = await this.apiFirebase.addToWatched(id);
+  //   console.log(result);
+  // }
+
+  // async removeFromWatch(id) {
+  //   const result = await this.apiFirebase.deleteFromWatched(id);
   //   console.log(result);
   // }
 

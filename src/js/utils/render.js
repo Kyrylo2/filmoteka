@@ -51,7 +51,13 @@ function isPoster(poster) {
     : "src='./images/no-picture.png'";
 }
 
-function renderFullInfo(movie, id) {
+function renderFullInfo(
+  movie,
+  id,
+  isWatched = false,
+  isQueue = false,
+  isSignIn
+) {
   return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
       <img ${isPoster(movie.poster_path)} class="modal-img" alt="${
@@ -100,12 +106,20 @@ function renderFullInfo(movie, id) {
           ${movie.overview}
         </p>
       </div>
-      <div class="buttons-flex">
-        <button class="button-modal button-modal-watch">ADD TO WATCHED</button>
+      <div class="buttons-flex" data-id="${id}"> ${
+    !isSignIn
+      ? `<button class="button-modal button-modal-signIn">PLEASE LOGIN
+      </button>`
+      : `
+        <button class="button-modal button-modal-watch">${
+          isWatched ? 'DELETE FROM WATCHED' : 'ADD TO WATCHED'
+        }</button>
         <button class="button-modal button-modal-queue">
-          ADD TO QUEUE
+        ${isQueue ? 'DELETE FROM QUEUE' : 'ADD TO QUEUE'}
         </button>
-        <button class="button-modal">
+        `
+  }
+      <button class="button-modal">
           TRAILER
         </button>
       </div>
