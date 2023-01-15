@@ -18,8 +18,8 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "basiclightbox": "^5.0.4",
     "axios": "^1.2.2",
+    "basiclightbox": "^5.0.4",
     "firebase": "^9.15.0",
     "lodash.debounce": "^4.0.8",
     "lodash.isobject": "^3.0.2",
