@@ -277,7 +277,7 @@
 
   gap: 10px;
 
-  transition-property: all;
+  transition-property: color, border-color, background-color;
   transition-duration: $time-cubic;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 
