@@ -138,3 +138,51 @@ moviesApiService.getTrendMovies();
 // console.log('signOutUser', signOutUser());
 
 // const pagination = new Pagination('tui-pagination-container', options);
+
+//TODO DELETE
+const resfKS = {
+  add: document.querySelector('.button__add'),
+  delete: document.querySelector('.button__delete'),
+  issave: document.querySelector('.button__issave'),
+  read: document.querySelector('.button__read'),
+  input: document.querySelector('.search-box'),
+};
+
+resfKS.add.addEventListener('click', btnAdd);
+resfKS.delete.addEventListener('click', btnDelete);
+resfKS.issave.addEventListener('click', btnIs);
+resfKS.read.addEventListener('click', btnRead);
+
+async function btnAdd(e) {
+  e.preventDefault();
+
+  const value = resfKS.input.value;
+  if (!value) return;
+  const result = await apiFirebase.addToQueue(value);
+  console.log(result);
+}
+
+async function btnDelete(e) {
+  e.preventDefault();
+  const value = resfKS.input.value;
+  if (!value) return;
+
+  const result = await apiFirebase.deleteFromQueue(value);
+  console.log(result);
+}
+
+async function btnIs(e) {
+  e.preventDefault();
+  const value = resfKS.input.value;
+  if (!value) return;
+
+  const result = await apiFirebase.isSavedFromQueue(value);
+  console.log(result);
+}
+
+async function btnRead(e) {
+  e.preventDefault();
+
+  const result = await apiFirebase.readQueue();
+  console.log(result);
+}
