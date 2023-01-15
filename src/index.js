@@ -3,6 +3,7 @@ import { renderMovies } from './js/utils/render';
 import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
+import {} from './js/btn_up';
 // import './js/utils/get_watced_and_queue';
 
 //* Authentication
@@ -76,3 +77,5 @@ moviesApiService.getGenres();
 moviesApiService.getTrendMovies();
 
 // console.log('signOutUser', signOutUser());
+
+// Кнопка возврата на верх
