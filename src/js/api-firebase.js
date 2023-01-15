@@ -19,6 +19,8 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 // ! додають filmId у відповідне сховище, якщо операція не вдалася то повертає false
 // async addToWatched(filmId)
 // async addToQueue(filmId)
@@ -116,19 +118,26 @@ export default class APIFirebase {
   // * Work from  Cloud Firestore
 
   // * Work from File Store
-  async addToWatched(filmId) {
+  async addToWatched(filmId, filmName) {
+    Notify.success(`${filmName} was successfully added to watched list!`);
     return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
-  async addToQueue(filmId) {
+  async addToQueue(filmId, filmName) {
+    Notify.success(`${filmName} was successfully added to queue list!`);
+    console.log('ФУНКЦІЯ ADD TO QUEUE');
     return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
-  async deleteFromWatched(filmId) {
+  async deleteFromWatched(filmId, filmName) {
+    Notify.info(`${filmName} was successfully removed from watched list!`);
+
     return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
-  async deleteFromQueue(filmId) {
+  async deleteFromQueue(filmId, filmName) {
+    Notify.info(`${filmName} was successfully removed from queue list!`);
+
     return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
