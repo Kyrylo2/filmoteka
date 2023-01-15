@@ -138,65 +138,66 @@ export default class APIFirebase {
   }
 
   isSavedFromWatched(filmId) {
-    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_WATCHED);
+    return this.isSavedFromStarage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
   isSavedFromQueue(filmId) {
-    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_QUEUE);
+    return this.isSavedFromStarage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
   // !Storage
   async addToStorage(filmId, typeStorage) {
     const arrFilm = await this.readData(typeStorage);
-    console.log(arrFilm);
-    if (await arrFilm.includes(filmId)) {
-      return;
+
+    if (arrFilm.includes(filmId)) {
+      return true;
     } else {
       arrFilm.push(filmId);
-      console.log(arrFilm);
-      await this.saveObjectSet(arrFilm, typeStorage);
+      try {
+        await this.saveObjectSet(arrFilm, typeStorage);
+      } catch {
+        return false;
+      }
     }
-
-    // let arrFilm = await this.readData(typeStorage);
-    // if (!arrFilm) arrFilm = [];
-    // arrFilm.push(filmId);
-    // await this.saveObjectSet(arrFilm, typeStorage);
+    return true;
   }
 
   async deleteFromStorage(filmId, typeStorage) {
     const arrFilm = await this.readData(typeStorage);
-    console.log(arrFilm);
     const index = arrFilm.indexOf(filmId);
-    if ((await index) === -1) {
-      return;
+    if (index === -1) {
+      return true;
     } else {
       arrFilm.splice(index, 1);
-      console.log(arrFilm);
-      await this.saveObjectSet(arrFilm, typeStorage);
+
+      try {
+        await this.saveObjectSet(arrFilm, typeStorage);
+      } catch {
+        return false;
+      }
     }
+    return true;
   }
 
-  readStorage(typeStorage) {
+  async readStorage(typeStorage) {
     const arr = [];
-    if (!isUserSignedIn()) {
-      console.log(arr);
+    if (!this.isUserSignedIn()) {
       return arr;
     } else {
-      const allListStorage = this.readData(typeStorage);
-      console.log(allListStorage);
+      const allListStorage = await this.readData(typeStorage);
       return allListStorage;
     }
   }
 
-  isSavedFromStarage(filmId, typeStorage) {
-    const arr = this.readData(typeStorage);
-    console.log(arr);
+  async isSavedFromStarage(filmId, typeStorage) {
+    const arr = await this.readData(typeStorage);
+
     return arr.includes(filmId);
   }
 
   // * -----------------------------------------------------------------------
   async saveObjectSet(obj, typeInfo) {
-    if (!this.isUserSignedIn()) return;
+    if (!this.isUserSignedIn()) throw 'No autenteficate';
 
     const uid = getAuth().currentUser.uid;
 
@@ -211,14 +212,14 @@ export default class APIFirebase {
     // Add a new message entry to the Firebase database.
     try {
       await setDoc(docRef, data);
-      console.log('Doc wrote');
     } catch (error) {
-      console.error('Error writing new message to Firebase Database', error);
+      throw error;
+      // console.error('Error writing new message to Firebase Database', error);
     }
   }
 
   async readData(typeInfo) {
-    if (!this.isUserSignedIn()) return;
+    if (!this.isUserSignedIn()) return [];
 
     const uid = getAuth().currentUser.uid;
 
