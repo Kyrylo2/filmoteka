@@ -116,11 +116,3 @@ moviesApiService.getTrendMovies();
 
 // const pagination = new Pagination('tui-pagination-container', options);
 
-
-
-function paginationStyles() {
-    const divEl = document.getElementById('tui-pagination-container');
-    style = divEl.style;
-    return divEl.classList.add('pagination-container')
-}
-paginationStyles()
