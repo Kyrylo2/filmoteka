@@ -13,16 +13,9 @@ import {
 
 import {
   getFirestore,
-  collection,
-  addDoc,
   setDoc,
   doc,
   getDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  startAt,
   serverTimestamp,
 } from 'firebase/firestore';
 
@@ -36,12 +29,12 @@ import {
 //
 // ! Повертають масив ВСІХ філмів з відповідного сховища, якщо якась помилка,
 //то оповерне пустий масив(наприклад користувач не авторизований)
-// readWatched()
-// readQueue()
+// async readWatched()
+// async readQueue()
 //
 // ! Перевіряє чи є filmId у відповідному сховищі, true - false
-// isSavedFromWatched(filmId)
-// isSavedFromQueue(filmId)
+// async isSavedFromWatched(filmId)
+// async isSavedFromQueue(filmId)
 //
 // ! Перевіряє чи авторизовані ви
 // isUserSignedIn()
