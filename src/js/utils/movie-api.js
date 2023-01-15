@@ -64,6 +64,13 @@ class MoviesApiServise {
       });
 
       this.totalItems = response.data.total_results;
+      console.log(this.totalItems);
+
+      if (this.totalItems === 0) {
+        return;
+        // Notify.failure("Sorry, we haven't found any movie.");
+      }
+      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data.results;
 
@@ -105,7 +112,7 @@ class MoviesApiServise {
           },
         }
       );
-      console.log(response);
+
       this.totalItems = response.data.total_results;
       // createMarkup(renderMovies(response.data.results));
       filmsMainContainer.innerHTML = renderMovies(response.data.results);
@@ -134,13 +141,12 @@ class MoviesApiServise {
         },
       }
     );
-    console.log(response.data);
-    modal.innerHTML = renderFullInfo(response.data);
+
+    modal.innerHTML = renderFullInfo(response.data, id);
     document
       .querySelector('.modal-cross')
       .addEventListener('click', onBtnClose);
     backdrop.addEventListener('click', onBackdropClose);
-
     document.body.addEventListener('keyup', onEcsClose);
   }
 
