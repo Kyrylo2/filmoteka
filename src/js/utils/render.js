@@ -1,4 +1,3 @@
-
 function renderMovies(movies) {
   return movies
     .map(movie => {
@@ -123,5 +122,3 @@ function renderFullInfo(movie) {
 function getGenresFullInfo(genres) {
   return genres.map(genre => genre.name).join(', ');
 }
-
-//
