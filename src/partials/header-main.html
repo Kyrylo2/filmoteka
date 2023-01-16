@@ -69,8 +69,24 @@
         </svg>
       </button>
     </form>
-    <p class="header__error-message" id="errorMessage">
+    <form id="sortForm">
+      <select name="genre" id="genreSelect">
+        <option value="">Select genre</option>
+      </select>
+      <select name="year" id="yearSelect">
+        <option value="">Select year</option>
+      </select>
+      <select name="sortBy" id="sortSelect">
+        <option value="">Sort by</option>
+        <option value="popularity.desc">Popularity</option>
+        <option value="vote_average.desc">Rating</option>
+        <option value="primary_release_date.desc">Release date</option>
+        <option value="original_title.desc">Title</option>
+      </select>
+      <button type="submit">find</button>
+    </form>
+    <!-- <p class="header__error-message" id="errorMessage">
       Search result not successful. Enter the correct movie name and try again.
-    </p>
+    </p> -->
   </div>
 </header>

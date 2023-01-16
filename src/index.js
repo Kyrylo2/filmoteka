@@ -1,11 +1,20 @@
 import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
-import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
+import {
+  search,
+  filmsMainContainer,
+  backdrop,
+  modal,
+  sortForm,
+} from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
-import { options } from './js/pagination';
+import { ModalTeamInit } from './js/students';
+import validator from 'validator';
 
 import Pagination from 'tui-pagination';
+
+import btn_up from './js/btn_up';
 
 // import './js/utils/get_watced_and_queue';
 
@@ -15,6 +24,11 @@ const apiFirebase = initializeFirebase({
   funcSignIn: onSignIn,
   funcSignOut: onSignOut,
 });
+
+//ks
+moviesApiService.apiFirebase = apiFirebase;
+
+ModalTeamInit();
 
 function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
@@ -36,25 +50,32 @@ search.addEventListener('submit', onFormSubmit);
 
 filmsMainContainer.addEventListener('click', onContainerClick);
 
-backdrop.addEventListener('click', onBackdropClose);
-
-document.body.addEventListener('keyup', onEcsClose);
-
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
+  moviesApiService.filmId = movieId;
   moviesApiService.getFullInfo(movieId);
+
   modal.classList.remove('visually-hidden');
   backdrop.classList.toggle('modal-open');
 }
 
 async function onFormSubmit(e) {
   e.preventDefault();
-  moviesApiService.query = e.currentTarget.elements.searchQuery.value;
+  const inputValue = e.currentTarget.elements.searchQuery.value.trim();
+  if (!validator.isAlphanumeric(inputValue)) {
+    return Notify.failure(
+      'Search result not successful. Enter the correct movie name and try again.'
+    );
+  }
+  moviesApiService.query = inputValue;
   clearMarkup();
   moviesApiService.resetPage();
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
+    // if (arrOfMovies.length === 0) {
+    //   Notify.failure("Sorry, we haven't found any movie.");
+    // }
     createMarkup(renderMovies(arrOfMovies));
     console.log(arrOfMovies);
 
@@ -91,11 +112,17 @@ function closeModal() {
   backdrop.classList.toggle('modal-open');
 }
 
-export { closeModal };
+function onBtnClose() {
+  closeModal();
+  removeAllListeners();
+}
+
+export { onBtnClose, onEcsClose, onBackdropClose };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
     closeModal();
+    removeAllListeners();
   }
 }
 
@@ -105,7 +132,16 @@ function onBackdropClose(e) {
     e.target.classList.contains('backdrop')
   ) {
     closeModal();
+    removeAllListeners();
   }
+}
+
+function removeAllListeners() {
+  backdrop.removeEventListener('click', onBackdropClose);
+  document.body.removeEventListener('keyup', onEcsClose);
+  document
+    .querySelector('.modal-cross')
+    .removeEventListener('click', onBtnClose);
 }
 
 moviesApiService.getGenres();
@@ -115,3 +151,43 @@ moviesApiService.getTrendMovies();
 
 // const pagination = new Pagination('tui-pagination-container', options);
 
+function addSortingGenres() {
+  const parsedGenres = JSON.parse(localStorage.getItem('genres'));
+  const arrOfGenres = [];
+  parsedGenres.map(el =>
+    arrOfGenres.push(`<option value="${el.id}">${el.name}</option>`)
+  );
+  // console.log(arrOfGenres);
+  sortForm.elements.genreSelect.insertAdjacentHTML(
+    'beforeend',
+    arrOfGenres.join('')
+  );
+}
+addSortingGenres();
+
+function addSortingYears() {
+  const minYear = 1999;
+  const maxYear = 2022;
+  const arrOfYears = [];
+  for (let i = minYear; i <= maxYear; i++) {
+    arrOfYears.push(`<option value="${i}">${i}</option>`);
+  }
+  // console.log(arrOfYears);
+  sortForm.elements.yearSelect.insertAdjacentHTML(
+    'beforeend',
+    arrOfYears.join('')
+  );
+}
+addSortingYears();
+
+sortForm.addEventListener('submit', onSortFormSubmit);
+
+async function onSortFormSubmit(e) {
+  e.preventDefault();
+  moviesApiService.sortBy = e.currentTarget.elements.sortBy.value;
+  moviesApiService.year = e.currentTarget.elements.yearSelect.value;
+  moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
+  clearMarkup();
+  const arrOfMovies = await moviesApiService.getSortedMovies();
+  createMarkup(renderMovies(arrOfMovies));
+}

@@ -19,6 +19,7 @@ function initializeFirebase(data = {}) {
   apiFirebase = new APIFirebase(visualisationSignElement);
 
   refs = findRefs();
+
   addEvents();
   return apiFirebase;
 }
@@ -28,7 +29,8 @@ function findRefs() {
     signInButtonElement: document.getElementById('signInButton'),
     signOutButtonElement: document.getElementById('signOutButton'),
 
-    signInMenu: document.getElementById('menu_sign_in'),
+    //signInMenu: document.getElementById('menu_sign_in'),
+    signInMenu: document.getElementById('menu_sign_in_new'),
     signInGoogleButtonElement: document.getElementById('btn-sign-in-google'),
     signInFacebookButtonElement: document.getElementById(
       'btn-sign-in-facebook'
@@ -75,6 +77,9 @@ function openMenuSignIn() {
   document.body.classList.add(NAME_CLASS_NO_SCROOL_BODY);
 
   // show windows
+  console.log(refs.signInMenu);
+  apiFirebase.ui.start('#firebaseui-auth-container', apiFirebase.getUiConfig());
+
   refs.signInMenu.classList.remove(NAME_CLASS_VISUALLY_HIDDEN);
   refs.signInBackdrop.classList.remove(NAME_CLASS_VISUALLY_HIDDEN);
 }
@@ -127,4 +132,4 @@ function runFunction(callBackFunction, user) {
   callBackFunction.call(user);
 }
 
-export { initializeFirebase };
+export { initializeFirebase, openMenuSignIn };

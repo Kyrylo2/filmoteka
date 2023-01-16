@@ -4,7 +4,7 @@
 @import './base/resetStyles';
 @import './layout/header-main';
 @import './layout/footer';
-@import './layout/students';
+// @import './layout/students';
 @import './layout/section-films';
 @import './components/container';
 @import './components/films';
@@ -15,4 +15,6 @@
 @import './components/backdrop';
 @import './layout/pagination.scss';
 @import './layout/footer_in_down';
-
+@import './layout/trailer';
+@import './layout/btn-up';
+@import './components/basicLightBox';

@@ -1,34 +1,38 @@
+import {
+  backdrop,
+  openModalBtn,
+  closeModalBtn,
+  modalStudents,
+} from './utils/refs';
 
-
-const refs = {
-openModalBtn: document.querySelector(".footer__button"),
-closeModalBtn: document.querySelector("[data-modal-close]"),
-backdrop: document.querySelector('.backdrop')
+export function ModalTeamInit() {
+  openModalBtn.addEventListener('click', onOpenModal);
+  closeModalBtn.addEventListener('click', onCloseModal);
+  backdrop.addEventListener('click', onBackdropClick);
 }
 
-refs.openModalBtn.addEventListener('click', onOpenModal);
-refs.closeModalBtn.addEventListener('click', onCloseModal);
-refs.backdrop.addEventListener('click', onBackdropClick);
-
-
 function onOpenModal() {
-    window.addEventListener('keydown', onEscKeydown);
-    document.body.classList.add('show-modal');	
+  backdrop.classList.add('modal-open');
+  modalStudents.classList.remove('visually-hidden');
+
+  window.addEventListener('keydown', onEscKeydown);
 }
 
 function onCloseModal() {
-    window.removeEventListener('keydown', onEscKeydown);
-    document.body.classList.remove('show-modal');
+  backdrop.classList.toggle('modal-open');
+  modalStudents.classList.add('visually-hidden');
+
+  window.removeEventListener('keydown', onEscKeydown);
 }
 
 function onBackdropClick(e) {
-    if (e.currentTarget === e.target) {
-        onCloseModal();
-    }
+  if (e.currentTarget === e.target) {
+    onCloseModal();
+  }
 }
 
 function onEscKeydown(e) {
-    if (e.code === 'Escape') {
-      onCloseModal();  
-    }    
+  if (e.code === 'Escape') {
+    onCloseModal();
+  }
 }
