@@ -23,9 +23,9 @@ class MoviesApiServise {
     this.page = 1;
     this.totalItems;
     this.apiFirebase;
-    this.sortBy;
-    this.choosedGenres;
-    this.year;
+    this.sortBy = undefined;
+    this.choosedGenres = undefined;
+    this.year = undefined;
     this.filmId;
   }
 
@@ -304,23 +304,70 @@ class MoviesApiServise {
   // }
 
   async getSortedMovies() {
-    const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
-    const response = await axios.get(
-      'https://api.themoviedb.org/3/discover/movie',
-      {
-        params: {
-          api_key: API_KEY,
-          page: this.page,
-          sort_by: this.sortBy,
-          with_genres: this.choosedGenres,
-          primary_release_year: this.year,
-          include_adult: false,
-        },
+    Loading.circle({ svgColor: 'red' });
+    try {
+      const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
+      const response = await axios.get(
+        'https://api.themoviedb.org/3/discover/movie',
+        {
+          params: {
+            api_key: API_KEY,
+            page: this.page,
+            sort_by: this.sortBy ? this.sortBy : undefined,
+            with_genres: this.choosedGenres ? this.choosedGenres : undefined,
+            primary_release_year: this.year ? this.year : undefined,
+            include_adult: false,
+          },
+        }
+      );
+      // ----------------------
+
+      // Loading.circle({ svgColor: 'red' });
+      // try {
+      //   const BASE_URL = 'https://api.themoviedb.org/3/search/movie?';
+      //   const response = await axios.get(BASE_URL, {
+      //     params: {
+      //       api_key: API_KEY,
+      //       query: this.searchQuery,
+      //       page: this.page,
+      //       include_adult: false,
+      //     },
+      //   });
+
+      //   this.totalItems = response.data.total_results;
+      //   console.log(this.totalItems);
+
+      //   if (this.totalItems === 0) {
+      //     return;
+      //     // Notify.failure("Sorry, we haven't found any movie.");
+      //   }
+      //   Notify.success(`Cool, we found more than ${this.totalItems} films!`);
+
+      //   let movies = response.data.results;
+
+      //   // this.incrementPage();
+      //   return movies;
+
+      // ----------------------
+      console.log(response.data);
+
+      this.totalItems = response.data.total_results;
+      console.log(this.totalItems);
+
+      if (this.totalItems === 0) {
+        return;
+        // Notify.failure("Sorry, we haven't found any movie.");
       }
-    );
-    let movies = response.data;
-    console.log(movies.results);
-    return movies.results;
+      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
+
+      let movies = response.data;
+      console.log(movies.results);
+      return movies.results;
+    } catch (e) {
+      Notify.failure('Oups! Something went wrong');
+    } finally {
+      Loading.remove();
+    }
   }
 
   get query() {

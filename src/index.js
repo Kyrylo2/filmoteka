@@ -169,7 +169,7 @@ function addSortingYears() {
   const minYear = 1999;
   const maxYear = 2022;
   const arrOfYears = [];
-  for (let i = minYear; i <= maxYear; i++) {
+  for (let i = maxYear; i - 1 > minYear; i--) {
     arrOfYears.push(`<option value="${i}">${i}</option>`);
   }
   // console.log(arrOfYears);
@@ -187,7 +187,27 @@ async function onSortFormSubmit(e) {
   moviesApiService.sortBy = e.currentTarget.elements.sortBy.value;
   moviesApiService.year = e.currentTarget.elements.yearSelect.value;
   moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
-  clearMarkup();
+  const resetButton = e.currentTarget.elements.resetBtn;
+  resetButton.addEventListener('click', () => {
+    console.log('qeqeqw');
+    moviesApiService.getTrendMovies();
+  });
+  // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
+
+  const pagination = new Pagination(
+    'tui-pagination-container',
+    moviesApiService.PaginationOptions
+  );
+
+  pagination.on('beforeMove', async e => {
+    try {
+      moviesApiService.page = e.page;
+      const arrOfMovies = await moviesApiService.getSortedMovies();
+      createMarkup(renderMovies(arrOfMovies));
+    } catch (e) {
+      console.log(e);
+    }
+  });
 }

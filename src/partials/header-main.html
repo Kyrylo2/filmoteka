@@ -25,7 +25,7 @@
       </ul>
     </nav>
 
-    <div class="sign-in">
+       <div class="sign-in">
       <div class="changeMode">
         <input type="checkbox" class="checkbox" id="checkbox" />
         <label for="checkbox" class="checkbox-label">
@@ -78,12 +78,17 @@
       </select>
       <select name="sortBy" id="sortSelect">
         <option value="">Sort by</option>
-        <option value="popularity.desc">Popularity</option>
-        <option value="vote_average.desc">Rating</option>
-        <option value="primary_release_date.desc">Release date</option>
         <option value="original_title.desc">Title</option>
+        <option value="popularity.desc">Popularity (HIGH - LOW)</option>
+        <option value="popularity.asc">Popularity (LOW - HIGH)</option>
+        <option value="vote_average.desc">Rating (HIGH - LOW)</option>
+        <option value="vote_average.asc">Rating (LOW - HIGH)</option>
+        <option value="primary_release_date.desc">Release date (HIGH - LOW)</option>
+        <option value="primary_release_date.asc">Release date (LOW - HIGH)</option>
+        
       </select>
-      <button type="submit">find</button>
+      <button type="submit">Find</button>
+      <button type="reset" name="resetBtn">Reset</button>
     </form>
     <!-- <p class="header__error-message" id="errorMessage">
       Search result not successful. Enter the correct movie name and try again.
