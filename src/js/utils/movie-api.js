@@ -168,7 +168,8 @@ class MoviesApiServise {
       id,
       isWatched,
       isQueue,
-      isSignIn
+      isSignIn,
+      trailerFilmUrl
     );
 
     if (!isSignIn) {
@@ -185,22 +186,22 @@ class MoviesApiServise {
     document.body.addEventListener('keyup', onEcsClose);
     // ----------------
 
-    // Подія на відкриття трейлеру фільму
-    document.querySelector('button.open-trailer').onclick = () => {
-      console.log('відкриваю трейлер');
-      basicLightbox
-        .create(
-          `
-            <video controls>
-              <source src="${trailerFilmUrl}" type="video/mp4">
-            </video>
-          `
-          //       `<video controls>
-          // 	<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
-          // </video>`
-        )
-        .show();
-    };
+    // // Подія на відкриття трейлеру фільму
+    // document.querySelector('button.open-trailer').onclick = () => {
+    //   console.log('відкриваю трейлер');
+    //   basicLightbox
+    //     .create(
+    //       `
+    //         <video controls>
+    //         <iframe width="560" height="315" src="https://www.youtube.com/embed/tHb7WlgyaUc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    //         </video>
+    //       `
+    //       //       `<video controls>
+    //       // 	<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
+    //       // </video>`
+    //     )
+    //     .show();
+    // };
 
     // Якщо залогінен - вішаємо потрібні слухачі на кнопки
     if (isSignIn) {
@@ -297,10 +298,7 @@ class MoviesApiServise {
           new Date(filmDataSecond.published_at).getTime()
       );
 
-    return `https://youtu.be/${trailerArr[0].key}`;
-
-    console.log(trailerArr);
-    // return response.data.results;
+    return trailerArr[0].key;
   }
 
   // ks;
