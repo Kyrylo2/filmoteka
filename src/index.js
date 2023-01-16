@@ -41,10 +41,10 @@ function onSignOut(user) {
   // console.log('onSignOut');
 }
 
-//Перевірити чи авториований
-//майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
-//Це буде одразу після завантаження сторінки
-//apiFirebase.isUserSignedIn()
+// Перевірити чи авториований
+// майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
+// Це буде одразу після завантаження сторінки
+// apiFirebase.isUserSignedIn()
 
 search.addEventListener('submit', onFormSubmit);
 

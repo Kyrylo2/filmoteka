@@ -104,4 +104,28 @@
   border: 1px solid #ff6b08;
   border-radius: 10px;
   padding: 10px;
+
 }
+
+.close_menu_sign_in {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  .icon-close {
+    fill: currentColor;
+  }
+
+  &:hover,
+    &:focus {
+      color: #ff6b08;
+    }
+}
+    
