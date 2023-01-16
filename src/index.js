@@ -186,7 +186,12 @@ async function onSortFormSubmit(e) {
   moviesApiService.sortBy = e.currentTarget.elements.sortBy.value;
   moviesApiService.year = e.currentTarget.elements.yearSelect.value;
   moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
-  clearMarkup();
+  const resetButton = e.currentTarget.elements.resetBtn;
+  resetButton.addEventListener('click', () => {
+    console.log('qeqeqw');
+    moviesApiService.getTrendMovies();
+  });
+  // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
 }
