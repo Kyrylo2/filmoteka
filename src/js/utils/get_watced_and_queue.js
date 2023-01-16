@@ -1,6 +1,11 @@
 import axios from 'axios';
 import throttle from 'lodash.throttle';
 import { filmsMainContainer } from '../utils/refs';
+import APIFirebase from '../api-firebase';
+
+const apiFirebase = new APIFirebase();
+
+console.log(apiFirebase);
 
 const refs = {
   watchedButton: document.getElementById('watchedButton'),

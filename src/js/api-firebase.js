@@ -13,18 +13,13 @@ import {
 
 import {
   getFirestore,
-  collection,
-  addDoc,
   setDoc,
   doc,
   getDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  startAt,
   serverTimestamp,
 } from 'firebase/firestore';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 // ! додають filmId у відповідне сховище, якщо операція не вдалася то повертає false
 // async addToWatched(filmId)
@@ -36,12 +31,12 @@ import {
 //
 // ! Повертають масив ВСІХ філмів з відповідного сховища, якщо якась помилка,
 //то оповерне пустий масив(наприклад користувач не авторизований)
-// readWatched()
-// readQueue()
+// async readWatched()
+// async readQueue()
 //
 // ! Перевіряє чи є filmId у відповідному сховищі, true - false
-// isSavedFromWatched(filmId)
-// isSavedFromQueue(filmId)
+// async isSavedFromWatched(filmId)
+// async isSavedFromQueue(filmId)
 //
 // ! Перевіряє чи авторизовані ви
 // isUserSignedIn()
@@ -81,7 +76,17 @@ export default class APIFirebase {
   // Initialize firebase auth
   initFirebaseAuth() {
     // Listen to auth state changes.
+    if (!this.authStateObserver) {
+      this.authStateObserver = this.authStateObserver_;
+    }
+
+    // console.log('authStateObserver', authStateObserver);
+
     onAuthStateChanged(getAuth(), this.authStateObserver.bind(this));
+  }
+
+  authStateObserver_() {
+    //
   }
 
   // Returns the signed-in user's profile Pic URL.
@@ -113,19 +118,26 @@ export default class APIFirebase {
   // * Work from  Cloud Firestore
 
   // * Work from File Store
-  async addToWatched(filmId) {
+  async addToWatched(filmId, filmName) {
+    Notify.success(`${filmName} was successfully added to watched list!`);
     return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
-  async addToQueue(filmId) {
+  async addToQueue(filmId, filmName) {
+    Notify.success(`${filmName} was successfully added to queue list!`);
+    console.log('ФУНКЦІЯ ADD TO QUEUE');
     return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
-  async deleteFromWatched(filmId) {
+  async deleteFromWatched(filmId, filmName) {
+    Notify.info(`${filmName} was successfully removed from watched list!`);
+
     return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
-  async deleteFromQueue(filmId) {
+  async deleteFromQueue(filmId, filmName) {
+    Notify.info(`${filmName} was successfully removed from queue list!`);
+
     return await this.deleteFromStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
@@ -138,52 +150,66 @@ export default class APIFirebase {
   }
 
   isSavedFromWatched(filmId) {
-    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_WATCHED);
+    return this.isSavedFromStarage(filmId, this.NAME_KEY_STORAGE_WATCHED);
   }
 
   isSavedFromQueue(filmId) {
-    return this.isSavedFromStarage(this.NAME_KEY_STORAGE_QUEUE);
+    return this.isSavedFromStarage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 
-  // !Storfge
+  // !Storage..
   async addToStorage(filmId, typeStorage) {
-    return true;
+    const arrFilm = await this.readData(typeStorage);
 
-    // let arrFilm = await this.readData(typeStorage);
-    // if (!arrFilm) arrFilm = [];
-    // arrFilm.push(filmId);
-    // await this.saveObjectSet(arrFilm, typeStorage);
+    if (arrFilm.includes(filmId)) {
+      return true;
+    } else {
+      arrFilm.push(filmId);
+      try {
+        await this.saveObjectSet(arrFilm, typeStorage);
+      } catch {
+        return false;
+      }
+    }
+    return true;
   }
 
   async deleteFromStorage(filmId, typeStorage) {
+    const arrFilm = await this.readData(typeStorage);
+    const index = arrFilm.indexOf(filmId);
+    if (index === -1) {
+      return true;
+    } else {
+      arrFilm.splice(index, 1);
+
+      try {
+        await this.saveObjectSet(arrFilm, typeStorage);
+      } catch {
+        return false;
+      }
+    }
     return true;
   }
 
-  readStorage(typeStorage) {
-    return [
-      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
-      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
-      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
-      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
-      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
-      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
-    ];
-
-    // this.readData(this.NAME_KEY_STORAGE_WATCHED);
+  async readStorage(typeStorage) {
+    const arr = [];
+    if (!this.isUserSignedIn()) {
+      return arr;
+    } else {
+      const allListStorage = await this.readData(typeStorage);
+      return allListStorage;
+    }
   }
 
-  isSavedFromStarage(typeStorage) {
-    return false;
+  async isSavedFromStarage(filmId, typeStorage) {
+    const arr = await this.readData(typeStorage);
+
+    return arr.includes(filmId);
   }
 
   // * -----------------------------------------------------------------------
   async saveObjectSet(obj, typeInfo) {
-    if (!this.isUserSignedIn()) return;
+    if (!this.isUserSignedIn()) throw 'No autenteficate';
 
     const uid = getAuth().currentUser.uid;
 
@@ -198,14 +224,14 @@ export default class APIFirebase {
     // Add a new message entry to the Firebase database.
     try {
       await setDoc(docRef, data);
-      console.log('Doc wrote');
     } catch (error) {
-      console.error('Error writing new message to Firebase Database', error);
+      throw error;
+      // console.error('Error writing new message to Firebase Database', error);
     }
   }
 
   async readData(typeInfo) {
-    if (!this.isUserSignedIn()) return;
+    if (!this.isUserSignedIn()) return [];
 
     const uid = getAuth().currentUser.uid;
 
