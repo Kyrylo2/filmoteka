@@ -120,7 +120,7 @@ function renderFullInfo(
         </button>
         `
   }
-      <button class="button-modal">
+      <button class="button-modal open-trailer">
           TRAILER
         </button>
       </div>

@@ -11,6 +11,8 @@ import { onBtnClose, onBackdropClose, onEcsClose } from '../..';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
+import * as basicLightbox from 'basiclightbox';
+
 import { openMenuSignIn } from '..//authentication-firebase';
 import { doc } from 'firebase/firestore';
 import { async } from '@firebase/util';
@@ -26,6 +28,7 @@ class MoviesApiServise {
     this.sortBy;
     this.choosedGenres;
     this.year;
+    this.filmId;
   }
 
   get PaginationOptions() {
@@ -149,16 +152,15 @@ class MoviesApiServise {
         },
       }
     );
+    // отримаэмо данні з API трейлеру фільму. Використовуємо всередині this.filmId який кладемо в конструктор по кліку на фільм в index.js
+    const trailerFilmUrl = await this.getFilmTrailer();
+
+    // перевіряємо чи користувач залогінен
     const isSignIn = await this.apiFirebase.isUserSignedIn();
-    console.log('isSignIn', isSignIn);
 
     const isWatched = await this.apiFirebase.isSavedFromWatched(id); // Якщо False - фільм НЕ додан в список Watched
 
-    console.log('isWatched', isWatched);
-
     const isQueue = await this.apiFirebase.isSavedFromQueue(id); // Якщо False - фільм НЕ додан в список Queue
-
-    console.log('isQueue', isQueue);
 
     // --- РЕНДЕР МОДАЛКИ
     modal.innerHTML = renderFullInfo(
@@ -182,6 +184,23 @@ class MoviesApiServise {
     backdrop.addEventListener('click', onBackdropClose);
     document.body.addEventListener('keyup', onEcsClose);
     // ----------------
+
+    // Подія на відкриття трейлеру фільму
+    document.querySelector('button.open-trailer').onclick = () => {
+      console.log('відкриваю трейлер');
+      basicLightbox
+        .create(
+          `
+            <video controls>
+              <source src="${trailerFilmUrl}" type="video/mp4">
+            </video>
+          `
+          //       `<video controls>
+          // 	<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
+          // </video>`
+        )
+        .show();
+    };
 
     // Якщо залогінен - вішаємо потрібні слухачі на кнопки
     if (isSignIn) {
@@ -251,6 +270,37 @@ class MoviesApiServise {
           openMenuSignIn();
         });
     }
+  }
+
+  async getFilmTrailer() {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${this.filmId}/videos`,
+      {
+        params: {
+          api_key: API_KEY,
+        },
+      }
+    );
+
+    //Видаляємо з масива все що не відповідає вимогам + сортую від найновішого до найстарішого
+    const trailerArr = response.data.results
+      .filter(
+        filmData =>
+          (filmData.name =
+            'Oficial trailer' &&
+            filmData.official === true &&
+            filmData.type === 'Trailer')
+      )
+      .sort(
+        (filmDataFirst, filmDataSecond) =>
+          new Date(filmDataFirst.published_at).getTime() +
+          new Date(filmDataSecond.published_at).getTime()
+      );
+
+    return `https://youtu.be/${trailerArr[0].key}`;
+
+    console.log(trailerArr);
+    // return response.data.results;
   }
 
   // ks;

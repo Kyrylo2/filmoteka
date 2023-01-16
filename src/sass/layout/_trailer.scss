@@ -1,0 +1,73 @@
+// .trailer {
+//   &__iframe {
+//     width: 90%;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     position: absolute;
+
+//     @include tablet {
+//       width: 700px;
+//       height: 470px;
+//     }
+//     @include desktop {
+//       width: 815px;
+//       height: 550px;
+//     }
+//   }
+// }
+
+// .trailer__backdrop {
+//   z-index: 10;
+// }
+
+// .modal__backdrop {
+//   background: rgba(0, 0, 0, 0.2);
+//   opacity: 1;
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   left: 0px;
+//   top: 0px;
+//   overflow-y: scroll;
+//   z-index: 0;
+//   padding: 20px 20px 0 20px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .modal__container-trailer {
+//   position: absolute;
+//   z-index: 10;
+//   padding: 0;
+//   margin: 0;
+//   // top: 60%;
+//   // left: 50%;
+//   // transform: translate(-50%, -50%);
+//   width: 100%;
+
+//   // @media screen and (max-width: 1023px) {
+//   //   // height: 100%;
+//   // }
+
+//   @include tablet {
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 700px;
+//   }
+//   @media desktop {
+//     width: 815px;
+//   }
+// }
+
+// .basicLightbox {
+//   width: 100%;
+//   z-index: 9;
+
+//   @media screen and (max-width: 767px) {
+//     padding: 50px 20px 50px 20px;
+//     overflow-y: scroll;
+//   }
+// }

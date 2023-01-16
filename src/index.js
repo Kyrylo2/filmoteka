@@ -52,6 +52,7 @@ filmsMainContainer.addEventListener('click', onContainerClick);
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
+  moviesApiService.filmId = movieId;
   moviesApiService.getFullInfo(movieId);
 
   modal.classList.remove('visually-hidden');
