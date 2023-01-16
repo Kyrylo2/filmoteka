@@ -20,7 +20,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-const  firebaseui = require('firebaseui');
+const firebaseui = require('firebaseui');
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -49,13 +49,16 @@ export default class APIFirebase {
   NAME_COLLECTION_FILESTORAGE = 'Storage_Filmoteka';
 
   constructor(authStateObserver) {
-    this.authStateObserver = authStateObserver;
+    if (!this.authStateObserver) {
+      this.authStateObserver = this.authStateObserver_;
+    } else {
+      this.authStateObserver = authStateObserver;
+      this.ui = new firebaseui.auth.AuthUI(getAuth());
+    }
 
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
     this.initFirebaseAuth();
-
-    this.ui = new firebaseui.auth.AuthUI(getAuth());
   }
 
   // Signs-in Friendly Chat.
@@ -81,11 +84,6 @@ export default class APIFirebase {
   // Initialize firebase auth
   initFirebaseAuth() {
     // Listen to auth state changes.
-    if (!this.authStateObserver) {
-      this.authStateObserver = this.authStateObserver_;
-    }
-
-    // console.log('authStateObserver', authStateObserver);
 
     onAuthStateChanged(getAuth(), this.authStateObserver.bind(this));
   }
@@ -123,32 +121,33 @@ export default class APIFirebase {
   getUiConfig() {
     return {
       callbacks: {
-        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
           // User successfully signed in.
           // Return type determines whether we continue the redirect automatically
           // or whether we leave that to developer to handle.
+          // this.closeMenuSignIn();
+
           return true;
         },
-        uiShown: function() {
+        uiShown: function () {
           // The widget is rendered.
           // Hide the loader.
           document.getElementById('loader').style.display = 'none';
-        }
+        },
       },
       // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
       signInFlow: 'popup',
-      signInSuccessUrl: '<url-to-redirect-to-on-success>',
+      signInSuccessUrl: '/',
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         GoogleAuthProvider.PROVIDER_ID,
-        EmailAuthProvider.PROVIDER_ID,        
+        FacebookAuthProvider.PROVIDER_ID,
+        EmailAuthProvider.PROVIDER_ID,
       ],
       // Terms of service url.
       //tosUrl: '<your-tos-url>',
       // Privacy policy url.
     };
-    
-
   }
   // * Work from  Cloud Firestore
 
@@ -261,7 +260,6 @@ export default class APIFirebase {
       await setDoc(docRef, data);
     } catch (error) {
       throw error;
-      // console.error('Error writing new message to Firebase Database', error);
     }
   }
 
@@ -275,11 +273,8 @@ export default class APIFirebase {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // console.log('Document data:', docSnap.data().arrFilms);
       return docSnap.data().arrFilms;
     } else {
-      // doc.data() will be undefined in this case
-      // console.log('No such document!');
       return [];
     }
   }
