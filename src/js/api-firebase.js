@@ -49,12 +49,7 @@ export default class APIFirebase {
   NAME_COLLECTION_FILESTORAGE = 'Storage_Filmoteka';
 
   constructor(authStateObserver) {
-    if (!this.authStateObserver) {
-      this.authStateObserver = this.authStateObserver_;
-    } else {
-      this.authStateObserver = authStateObserver;
-    }
-
+    this.authStateObserver = authStateObserver;
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
     this.initFirebaseAuth();
@@ -83,6 +78,9 @@ export default class APIFirebase {
 
   // Initialize firebase auth
   initFirebaseAuth() {
+    if (!this.authStateObserver) {
+      this.authStateObserver = this.authStateObserver_;
+    }
     // Listen to auth state changes.
 
     onAuthStateChanged(getAuth(), this.authStateObserver.bind(this));
@@ -127,7 +125,7 @@ export default class APIFirebase {
           // or whether we leave that to developer to handle.
           // this.closeMenuSignIn();
 
-          return false;
+          return true;
         },
         uiShown: function () {
           // The widget is rendered.
