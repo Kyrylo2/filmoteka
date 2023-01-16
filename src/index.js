@@ -6,7 +6,6 @@ import { initializeFirebase } from './js/authentication-firebase';
 import { options } from './js/pagination';
 
 import Pagination from 'tui-pagination';
-// import 'tui-pagination/dist/tui-pagination.css';
 
 // import './js/utils/get_watced_and_queue';
 
