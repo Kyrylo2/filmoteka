@@ -1,6 +1,12 @@
 import { moviesApiService } from './js/utils/movie-api';
 import { renderMovies } from './js/utils/render';
-import { search, filmsMainContainer, backdrop, modal } from './js/utils/refs';
+import {
+  search,
+  filmsMainContainer,
+  backdrop,
+  modal,
+  sortForm,
+} from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
@@ -46,6 +52,7 @@ filmsMainContainer.addEventListener('click', onContainerClick);
 function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
+  moviesApiService.filmId = movieId;
   moviesApiService.getFullInfo(movieId);
 
   modal.classList.remove('visually-hidden');
@@ -142,3 +149,44 @@ moviesApiService.getTrendMovies();
 // console.log('signOutUser', signOutUser());
 
 // const pagination = new Pagination('tui-pagination-container', options);
+
+function addSortingGenres() {
+  const parsedGenres = JSON.parse(localStorage.getItem('genres'));
+  const arrOfGenres = [];
+  parsedGenres.map(el =>
+    arrOfGenres.push(`<option value="${el.id}">${el.name}</option>`)
+  );
+  // console.log(arrOfGenres);
+  sortForm.elements.genreSelect.insertAdjacentHTML(
+    'beforeend',
+    arrOfGenres.join('')
+  );
+}
+addSortingGenres();
+
+function addSortingYears() {
+  const minYear = 1999;
+  const maxYear = 2022;
+  const arrOfYears = [];
+  for (let i = minYear; i <= maxYear; i++) {
+    arrOfYears.push(`<option value="${i}">${i}</option>`);
+  }
+  // console.log(arrOfYears);
+  sortForm.elements.yearSelect.insertAdjacentHTML(
+    'beforeend',
+    arrOfYears.join('')
+  );
+}
+addSortingYears();
+
+sortForm.addEventListener('submit', onSortFormSubmit);
+
+async function onSortFormSubmit(e) {
+  e.preventDefault();
+  moviesApiService.sortBy = e.currentTarget.elements.sortBy.value;
+  moviesApiService.year = e.currentTarget.elements.yearSelect.value;
+  moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
+  clearMarkup();
+  const arrOfMovies = await moviesApiService.getSortedMovies();
+  createMarkup(renderMovies(arrOfMovies));
+}

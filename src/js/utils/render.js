@@ -57,7 +57,8 @@ function renderFullInfo(
   id,
   isWatched = false,
   isQueue = false,
-  isSignIn
+  isSignIn,
+  trailerPath = false
 ) {
   return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
@@ -120,9 +121,12 @@ function renderFullInfo(
         </button>
         `
   }
-      <button class="button-modal">
-          TRAILER
-        </button>
+        ${
+          trailerPath
+            ? `<iframe src="https://www.youtube.com/embed/${trailerPath}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+            : ''
+        }
+        
       </div>
     </div> 
     <button class="modal-cross"> 

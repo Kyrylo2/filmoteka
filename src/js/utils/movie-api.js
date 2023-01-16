@@ -23,6 +23,10 @@ class MoviesApiServise {
     this.page = 1;
     this.totalItems;
     this.apiFirebase;
+    this.sortBy;
+    this.choosedGenres;
+    this.year;
+    this.filmId;
   }
 
   get PaginationOptions() {
@@ -146,16 +150,15 @@ class MoviesApiServise {
         },
       }
     );
+    // отримаэмо данні з API трейлеру фільму. Використовуємо всередині this.filmId який кладемо в конструктор по кліку на фільм в index.js
+    const trailerFilmUrl = await this.getFilmTrailer();
+
+    // перевіряємо чи користувач залогінен
     const isSignIn = await this.apiFirebase.isUserSignedIn();
-    console.log('isSignIn', isSignIn);
 
     const isWatched = await this.apiFirebase.isSavedFromWatched(id); // Якщо False - фільм НЕ додан в список Watched
 
-    console.log('isWatched', isWatched);
-
     const isQueue = await this.apiFirebase.isSavedFromQueue(id); // Якщо False - фільм НЕ додан в список Queue
-
-    console.log('isQueue', isQueue);
 
     // --- РЕНДЕР МОДАЛКИ
     modal.innerHTML = renderFullInfo(
@@ -163,7 +166,8 @@ class MoviesApiServise {
       id,
       isWatched,
       isQueue,
-      isSignIn
+      isSignIn,
+      trailerFilmUrl
     );
 
     if (!isSignIn) {
@@ -250,6 +254,34 @@ class MoviesApiServise {
     }
   }
 
+  async getFilmTrailer() {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${this.filmId}/videos`,
+      {
+        params: {
+          api_key: API_KEY,
+        },
+      }
+    );
+
+    //Видаляємо з масива все що не відповідає вимогам + сортую від найновішого до найстарішого
+    const trailerArr = response.data.results
+      .filter(
+        filmData =>
+          (filmData.name =
+            'Oficial trailer' &&
+            filmData.official === true &&
+            filmData.type === 'Trailer')
+      )
+      .sort(
+        (filmDataFirst, filmDataSecond) =>
+          new Date(filmDataFirst.published_at).getTime() +
+          new Date(filmDataSecond.published_at).getTime()
+      );
+
+    return trailerArr.length === 0 ? false : trailerArr[0].key;
+  }
+
   // ks;
   // async addToWatch(id) {
   //   const result = await this.apiFirebase.addToWatched(id);
@@ -265,6 +297,26 @@ class MoviesApiServise {
   //   const result = await this.apiFirebase.addToQueue(456);
   //   console.log(result);
   // }
+
+  async getSortedMovies() {
+    const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
+    const response = await axios.get(
+      'https://api.themoviedb.org/3/discover/movie',
+      {
+        params: {
+          api_key: API_KEY,
+          page: this.page,
+          sort_by: this.sortBy,
+          with_genres: this.choosedGenres,
+          primary_release_year: this.year,
+          include_adult: false,
+        },
+      }
+    );
+    let movies = response.data;
+    console.log(movies.results);
+    return movies.results;
+  }
 
   get query() {
     return this.searchQuery;
