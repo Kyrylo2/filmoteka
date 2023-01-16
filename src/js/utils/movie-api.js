@@ -23,6 +23,9 @@ class MoviesApiServise {
     this.page = 1;
     this.totalItems;
     this.apiFirebase;
+    this.sortBy;
+    this.choosedGenres;
+    this.year;
   }
 
   get PaginationOptions() {
@@ -265,6 +268,26 @@ class MoviesApiServise {
   //   const result = await this.apiFirebase.addToQueue(456);
   //   console.log(result);
   // }
+
+  async getSortedMovies() {
+    const API_KEY = '48efdd88d1650cc055b0f5a157a41228';
+    const response = await axios.get(
+      'https://api.themoviedb.org/3/discover/movie',
+      {
+        params: {
+          api_key: API_KEY,
+          page: this.page,
+          sort_by: this.sortBy,
+          with_genres: this.choosedGenres,
+          primary_release_year: this.year,
+          include_adult: false,
+        },
+      }
+    );
+    let movies = response.data;
+    console.log(movies.results);
+    return movies.results;
+  }
 
   get query() {
     return this.searchQuery;
