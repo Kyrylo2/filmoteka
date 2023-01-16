@@ -1,8 +1,9 @@
 import axios from 'axios';
 import APIFirebase from '../api-firebase';
 import { filmsMainContainer } from '../utils/refs';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
-const apiFirebase = new APIFirebase();
+// const apiFirebase = new APIFirebase();
 
 const API_KEY = '6251e629c61bceaf56a3d45f05637256';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -28,53 +29,89 @@ export default class MyLibrary {
   }
 
   async getWatchedMovies() {
-    //
-    try {
-      this.movieArray = await apiFirebase.readWatched();
-      return this.movieArray;
-    } catch (error) {
-      console.log(error);
-    }
+    // TEST
+    // Loading.circle({ svgColor: 'red' });
+    // this.resetAll();
+    // try {
+    //   this.movieArray = await apiFirebase.readWatched();
+    //   filmsMainContainer.innerHTML = '';
+    //   return this.movieArray;
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   Loading.remove();
+    // }
     //
 
     // TEST
-    // this.movieArray = [
-    //   76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
-    //   555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-    //   19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-    //   536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-    //   661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-    //   315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-    //   804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
-    //   668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
-    //   545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
-    //   436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
-    //   593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
-    // ];
-    // return this.movieArray;
+    filmsMainContainer.innerHTML = '';
+
+    this.movieArray = [
+      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    ];
+
+    return this.movieArray;
   }
 
   async getQueueMovies() {
-    //
-    try {
-      this.movieArray = await apiFirebase.readQueue();
-      return this.movieArray;
-    } catch (error) {
-      console.log(error);
-    }
+    // TEST
+    // Loading.circle({ svgColor: 'red' });
+    // this.resetAll();
+    // try {
+    //   this.movieArray = await apiFirebase.readQueue();
+    //   filmsMainContainer.innerHTML = '';
+    //   return this.movieArray;
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   Loading.remove();
+    // }
     //
 
     // TEST
-    // this.movieArray = [
-    //   668482, 555604, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-    //   19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-    //   536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-    //   661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-    //   315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-    //   804095, 76600, 315162, 593643,
-    // ];
+    filmsMainContainer.innerHTML = '';
 
-    // return this.movieArray;
+    this.movieArray = [
+      668482, 555604, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+      804095, 76600, 315162, 593643,
+    ];
+
+    return this.movieArray;
+  }
+
+  async preload() {
+    Loading.circle({ svgColor: 'red' });
+    try {
+      this.movieArray = await this.getQueueMovies();
+      console.log(this.movieArray.length);
+      if (this.movieArray.length === 0) {
+        this.movieArray = await this.getWatchedMovies();
+      }
+
+      if (this.movieArray.length === 0) {
+        console.log('NO DATA');
+        return;
+      }
+      this.renderMovies();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      Loading.remove();
+    }
   }
 
   reverseArray() {
@@ -106,16 +143,14 @@ export default class MyLibrary {
     }, {});
   }
 
-  renderDefault() {
-    filmsMainContainer.innerHTML = `<img
-        class="emty-library-img"
-      src="./images/GdunNN_min.jpg" 
-        alt="Empty library"
-        width='500' height='800'
-      />`;
-  }
-
   renderMovies() {
+    if (this.movieArray === 0) {
+      console.log(this.movieArray);
+      return;
+    }
+    this.reverseArray();
+    this.calcTotalPages();
+    this.calcPagesData();
     const page = `page${this.page}`;
     getMyMovies(this.pagesData[page]);
   }
@@ -130,20 +165,20 @@ export default class MyLibrary {
 }
 
 async function getMyMovies(array) {
-  const arrayOfPromises = array.map(async el => {
-    try {
+  try {
+    const arrayOfPromises = array.map(async el => {
       const res = await apiInstanceMovie.get(`/movie/${el}`, config);
       return res.data;
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    });
 
-  const movies = await Promise.all(arrayOfPromises);
+    const movies = await Promise.all(arrayOfPromises);
 
-  const template = renderMovies(movies);
+    const template = renderMovies(movies);
 
-  filmsMainContainer.insertAdjacentHTML('beforeend', template);
+    filmsMainContainer.insertAdjacentHTML('beforeend', template);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Рендеремо фільми

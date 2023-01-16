@@ -1,29 +1,40 @@
 import throttle from 'lodash.throttle';
 import MyLibrary from './movies-library';
-import getWatchedMovies from './get_watched_movies';
-import getQueueMovies from './get_queue_movies';
-import preload from './preload';
+// import APIFirebase from '../api-firebase';
+
+// import { Loading } from 'notiflix/build/notiflix-loading-aio';
+// const apiFirebase = new APIFirebase();
+// console.log(apiFirebase);
 
 const myLibrary = new MyLibrary();
 
+console.log(myLibrary);
+
 const refs = {
-  watchedButton: document.getElementById('watchedButton'),
-  queueButton: document.getElementById('queueButton'),
+  buttonsContainer: document.querySelector('.container-buttons'),
 };
 
-refs.watchedButton.addEventListener('click', onWatchedButtonClick);
-refs.queueButton.addEventListener('click', onQueueButton);
+refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
 
 myLibrary.resetAll();
+myLibrary.preload();
 
-preload();
+function onButtonsContainerClick(e) {
+  if (e.target.getAttribute('id') === 'watchedButton') {
+    myLibrary.resetAll();
+    myLibrary.getWatchedMovies();
+    console.log(myLibrary);
+    myLibrary.renderMovies();
+    return;
+  }
 
-function onWatchedButtonClick() {
-  getWatchedMovies();
-}
-
-function onQueueButton() {
-  getQueueMovies();
+  if (e.target.getAttribute('id') === 'queueButton') {
+    myLibrary.resetAll();
+    myLibrary.getQueueMovies();
+    console.log(myLibrary);
+    myLibrary.renderMovies();
+    return;
+  }
 }
 
 // Infinite scroll
@@ -41,7 +52,6 @@ window.addEventListener(
       myLibrary.page += 1;
       myLibrary.everythingIsLoaded = myLibrary.page >= myLibrary.totalPages;
       myLibrary.renderMovies();
-      console.log(myLibrary);
     }
   }, 400)
 );
