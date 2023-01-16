@@ -11,8 +11,6 @@ import { onBtnClose, onBackdropClose, onEcsClose } from '../..';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
-import * as basicLightbox from 'basiclightbox';
-
 import { openMenuSignIn } from '..//authentication-firebase';
 import { doc } from 'firebase/firestore';
 import { async } from '@firebase/util';
@@ -186,23 +184,6 @@ class MoviesApiServise {
     document.body.addEventListener('keyup', onEcsClose);
     // ----------------
 
-    // // Подія на відкриття трейлеру фільму
-    // document.querySelector('button.open-trailer').onclick = () => {
-    //   console.log('відкриваю трейлер');
-    //   basicLightbox
-    //     .create(
-    //       `
-    //         <video controls>
-    //         <iframe width="560" height="315" src="https://www.youtube.com/embed/tHb7WlgyaUc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    //         </video>
-    //       `
-    //       //       `<video controls>
-    //       // 	<source src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" type="video/mp4">
-    //       // </video>`
-    //     )
-    //     .show();
-    // };
-
     // Якщо залогінен - вішаємо потрібні слухачі на кнопки
     if (isSignIn) {
       // Перевіряемо і вішаємо слухач на кнопку Watch
@@ -298,7 +279,7 @@ class MoviesApiServise {
           new Date(filmDataSecond.published_at).getTime()
       );
 
-    return trailerArr[0].key;
+    return trailerArr.length === 0 ? false : trailerArr[0].key;
   }
 
   // ks;
