@@ -1,16 +1,23 @@
-const themeSwitcher = document.querySelector('.checkbox');
-console.log(themeSwitcher);
-themeSwitcher.addEventListener('change', event => {
-  console.log(event.currentTarget.checked);
-  localStorage.setItem('Значение', event.currentTarget.checked);
-  const cuttentChecked = localStorage.getItem('Значение');
-  console.log(localStorage.getItem('Значение'));
-  if (cuttentChecked) {
-    event.currentTarget.checked = cuttentChecked;
-    console.log(event.currentTarget.checked);
+const STORAGE_KEY = 'checked';
+
+const refs = {
+  themeSwitcher: document.querySelector('.checkbox'),
+};
+
+onLocalStorage();
+
+refs.themeSwitcher.addEventListener('change', event => {
+  let savedDataLocalStorage = localStorage.getItem(STORAGE_KEY);
+  if (savedDataLocalStorage) {
   }
+  savedDataLocalStorage = refs.themeSwitcher.checked;
+  localStorage.setItem(STORAGE_KEY, savedDataLocalStorage);
 });
 
-// function currentTheme(event) {
-//   localStorage.setItem('Значение', event.currentTarget.checked);
-// }
+function onLocalStorage() {
+  const parsedCheck = localStorage.getItem(STORAGE_KEY);
+  console.log(parsedCheck);
+  if (parsedCheck) {
+    refs.themeSwitcher.checked = parsedCheck;
+  }
+}
