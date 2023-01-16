@@ -82,14 +82,14 @@
 }
 
 .menu_sign_in_new {
-//  display: flex;
-//  justify-content: space-around;
-//  gap: 10px;
-  
-  position: absolute;
+  //  display: flex;
+  //  justify-content: space-around;
+  //  gap: 10px;
+
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50% -50%);
+  transform: translate(-50%, -50%);
 
   z-index: 900;
   width: 480px;
@@ -97,12 +97,11 @@
 
   visibility: visible;
   opacity: 1;
-  
+
   background-color: white;
   color: #161616;
-  
+
   border: 1px solid #ff6b08;
   border-radius: 10px;
   padding: 10px;
-
 }

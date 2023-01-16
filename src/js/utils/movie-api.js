@@ -9,7 +9,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { onBtnClose, onBackdropClose, onEcsClose } from '../..';
 
 import Pagination from 'tui-pagination';
-// import 'tui-pagination/dist/tui-pagination.css';
+import 'tui-pagination/dist/tui-pagination.css';
 
 import { openMenuSignIn } from '..//authentication-firebase';
 import { doc } from 'firebase/firestore';
@@ -30,7 +30,8 @@ class MoviesApiServise {
   }
 
   get PaginationOptions() {
-    const newLocal = '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+    const newLocal =
+      '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
       '<span class="tui-ico-{{type}}">{{type}}</span>' +
       // '<?xml version="1.0" ?>' +
       '</span>';
@@ -47,12 +48,11 @@ class MoviesApiServise {
         page: '<a href="#" class="tui-page-btn">{{page}}</a>',
         currentPage:
           '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
-        moveButton:
-          '<a href="#" class="tui-page-btn tui-{{type}}">' +
-                 '<span class="tui-ico-{{type}}">{{type}}</span>' +
-             '</a>',
-         disabledMoveButton:
-           newLocal,
+        // moveButton:
+        //   '<a href="#" class="tui-page-btn tui-{{type}}">' +
+        //   '<span class="tui-ico-{{type}}">></span>' +
+        //   '</a>',
+        // disabledMoveButton: newLocal,
         moreButton:
           '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
           '<span class="tui-ico-ellip">...</span>' +
@@ -61,8 +61,7 @@ class MoviesApiServise {
     };
   }
 
-// <?xml version="1.0" ?><svg fill="#000000" width="800px" height="800px" viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M214.78,478l-20.67-21.57L403.27,256,194.11,55.57,214.78,34,446.46,256ZM317.89,256,86.22,34,65.54,55.57,274.7,256,65.54,456.43,86.22,478Z"/></svg>
-
+  // <?xml version="1.0" ?><svg fill="#000000" width="800px" height="800px" viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M214.78,478l-20.67-21.57L403.27,256,194.11,55.57,214.78,34,446.46,256ZM317.89,256,86.22,34,65.54,55.57,274.7,256,65.54,456.43,86.22,478Z"/></svg>
 
   async fetchMovies() {
     Loading.circle({ svgColor: 'red' });
