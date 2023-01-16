@@ -53,12 +53,12 @@ export default class APIFirebase {
       this.authStateObserver = this.authStateObserver_;
     } else {
       this.authStateObserver = authStateObserver;
-      this.ui = new firebaseui.auth.AuthUI(getAuth());
     }
 
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
     this.initFirebaseAuth();
+    this.ui = new firebaseui.auth.AuthUI(getAuth());
   }
 
   // Signs-in Friendly Chat.
@@ -127,7 +127,7 @@ export default class APIFirebase {
           // or whether we leave that to developer to handle.
           // this.closeMenuSignIn();
 
-          return true;
+          return false;
         },
         uiShown: function () {
           // The widget is rendered.

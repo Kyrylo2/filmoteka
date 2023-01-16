@@ -73,7 +73,6 @@ function keydownEscCloseMenuSignIn(event) {
 
 function clickWindowSignIn(event) {
   event.preventDefault();
-  console.log('clickWindowSignIn');
 }
 
 function clickCloseMenuSignIn(event) {
@@ -81,8 +80,6 @@ function clickCloseMenuSignIn(event) {
 }
 
 function closeMenuSignIn(event) {
-  console.log('CLOSE');
-
   //Delete events
   document.removeEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.removeEventListener('click', clickCloseMenuSignIn);
