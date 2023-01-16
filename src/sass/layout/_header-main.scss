@@ -417,6 +417,10 @@ select {
   border-bottom: 0.5px solid #fff;
   outline: none;
   cursor: pointer;
+
+  & option {
+    color: $black;
+  }
 }
 
 #sortForm button {

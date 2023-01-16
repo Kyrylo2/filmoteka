@@ -78,10 +78,14 @@
       </select>
       <select name="sortBy" id="sortSelect">
         <option value="">Sort by</option>
-        <option value="popularity.desc">Popularity</option>
-        <option value="vote_average.desc">Rating</option>
-        <option value="primary_release_date.desc">Release date</option>
         <option value="original_title.desc">Title</option>
+        <option value="popularity.desc">Popularity (HIGH - LOW)</option>
+        <option value="popularity.asc">Popularity (LOW - HIGH)</option>
+        <option value="vote_average.desc">Rating (HIGH - LOW)</option>
+        <option value="vote_average.asc">Rating (LOW - HIGH)</option>
+        <option value="primary_release_date.desc">Release date (HIGH - LOW)</option>
+        <option value="primary_release_date.asc">Release date (LOW - HIGH)</option>
+        
       </select>
       <button type="submit">Find</button>
       <button type="reset" name="resetBtn">Reset</button>
