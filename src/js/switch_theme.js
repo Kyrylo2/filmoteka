@@ -31,7 +31,11 @@ function windowLoad() {
   const themeButton = document.querySelector('.switch_theme');
   const resetButton = document.querySelector('.reset_theme');
   if (themeButton) {
-    themeButton.addEventListener('click', function (e) {
+    themeButton.addEventListener('change', function (e) {
+      //     if (this.checked) {
+      //     resetButton.classList.add('active');
+      //     changeTheme(true);
+      //   }
       resetButton.classList.add('active');
       changeTheme(true);
     });
