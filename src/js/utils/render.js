@@ -105,7 +105,7 @@ function renderFullInfo(movie, id) {
         <button class="button-modal">
           ADD TO QUEUE
         </button>
-        <button class="button-modal open-trailer">
+        <button class="button-modal">
           TRAILER
         </button>
       </div>
