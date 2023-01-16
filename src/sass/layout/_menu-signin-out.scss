@@ -67,62 +67,81 @@
 
 
 // -----Modal Sign_in -----
-.backdrop_menu_sign_in{
+
+
+.backdrop_menu_sign_in {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  top: 0;
-    left: 0;
+
   background-color: rgb(0, 0, 0, 0.6);
-  opacity: 1;
+
   visibility: visible;
-  //   pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 
-    // transition: opacity 500ms cubic-bezier(0.19, 1, 0.22, 1)
-      //   visibility 500ms cubic-bezier(0.19, 1, 0.22, 1);
+  // transition: opacity 500ms cubic-bezier(0.19, 1, 0.22, 1)
+  //   visibility 500ms cubic-bezier(0.19, 1, 0.22, 1);
 }
-.menu_sign_in_new{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 10px;
-  background-color: white;
-    color: #161616;
-  border: 1px solid #161616;
-  border-radius: 10px;
 
-  position: absolute;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50% -50%);
-  
-    z-index: 900;
-    // max-width: 550px;
-    width: 450px;
-    height: 350px;
-      visibility: visible;
-        opacity: 1;
-}
-// ---Button close---
-.btn-close{
-  width: 20px;
-  height: 20px;
-  background-color:tomato;
+.menu_sign_in_new {
+  padding: 35px 20px;
+  text-align: center;
+ 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   z-index: 900;
-    max-width: 480px;
-    height: 480px;
-    position: absolute;
-}
-.title{
-  margin-bottom: 15px;
-}
+  max-width: 480px;
+  height: 380px;
+
+  visibility: visible;
+  opacity: 1;
+
+  background-color: white;
+  color: #161616;
+
+  
+  border-radius: 10px;
+  border: 1px solid #161616;
  
 
+}
 
-  
-  
-  
-  
+    .firebaseui-idp-list{
+      margin-top: 40px;
+    }
+     .firebaseui-idp-list > .firebaseui-list-item{
+margin-bottom: 20px;
+     }
+
+.firebaseui-idp-button{
+  font-size: 25px;
+  padding-left: 25px;
+}
+
+// ----Sign in with email---
+.firebaseui-title{
+  text-align: center;
+}
+
+
+
+
+// // ---Button close---
+// .btn-close{
+//   width: 20px;
+//   height: 20px;
+//   background-color:tomato;
+//   z-index: 900;
+//     max-width: 480px;
+//     height: 480px;
+//     position: absolute;
+// }
 
 
 // }
