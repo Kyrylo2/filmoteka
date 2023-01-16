@@ -18,6 +18,9 @@ const apiFirebase = initializeFirebase({
   funcSignOut: onSignOut,
 });
 
+//ks
+moviesApiService.apiFirebase = apiFirebase;
+
 ModalTeamInit();
 
 function onSignIn(user) {
@@ -44,6 +47,7 @@ function onContainerClick(e) {
   e.preventDefault();
   const movieId = e.target.closest('li').getAttribute('data-id');
   moviesApiService.getFullInfo(movieId);
+
   modal.classList.remove('visually-hidden');
   backdrop.classList.toggle('modal-open');
 }

@@ -68,6 +68,8 @@ function addEvents() {
 
 // * Function
 function openMenuSignIn() {
+  console.log('ok');
+
   //add Events
   document.addEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.addEventListener('click', clickCloseMenuSignIn);
@@ -128,4 +130,4 @@ function runFunction(callBackFunction, user) {
   callBackFunction.call(user);
 }
 
-export { initializeFirebase };
+export { initializeFirebase, openMenuSignIn };
