@@ -49,7 +49,7 @@ function showGenres(genres) {
 function isPoster(poster) {
   return poster
     ? `src="https://image.tmdb.org/t/p/original${poster}"`
-    : `src="/images/no-picture.png"`;
+    : `src=${require('../../images/no-picture.png')}`;
 }
 
 function renderFullInfo(
