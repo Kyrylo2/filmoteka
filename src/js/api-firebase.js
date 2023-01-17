@@ -135,7 +135,7 @@ export default class APIFirebase {
       },
       // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
       signInFlow: 'popup',
-      signInSuccessUrl: '/',
+      signInSuccessUrl: '/index.html',
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         GoogleAuthProvider.PROVIDER_ID,
