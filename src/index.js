@@ -11,6 +11,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
 import validator from 'validator';
+// import { MyLibrary as MyLibraryClass } from './js/utils/movies-library';
 
 import Pagination from 'tui-pagination';
 
@@ -133,6 +134,10 @@ function clearMarkup() {
 function closeModal() {
   modal.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
+
+  // if (document.querySelector('body.my-lib-event')) {
+  //   ТУТ МОЖНА ДЕЛАТЬ РЕЛОР???
+  // }
 }
 
 function onBtnClose() {
