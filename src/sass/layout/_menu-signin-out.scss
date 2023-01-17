@@ -96,19 +96,21 @@
   transform: translate(-50%, -50%);
 
   z-index: 900;
-  max-width: 480px;
+  // max-width: 480px;
   height: 380px;
 
   visibility: visible;
   opacity: 1;
 
-  background-color: white;
+  background-color: rgb(235, 229, 229);
   color: #161616;
 
   
   border-radius: 10px;
   border: 1px solid #161616;
- 
+    box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7);
+    width: 80%;
+    max-width: 500px;
 
 }
 
@@ -129,9 +131,33 @@ margin-bottom: 20px;
   text-align: center;
 }
 
+.mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-sign-in{
+      --color: hsl(200, 100%, 6%, .7);
+        background-color: var(--color);
+        box-shadow: 0 0 15px 0 var(--color);
+}
+.form{
+  --color: hsl(200, 100%, 6%, .7);
+    background-color: var(--color);
+    box-shadow: 0 0 15px 0 var(--color);
+}
+
+// Контейнер для кнопок Далі та Відмінити
+
+
+.firebaseui-id-secondary-link {
+  --color: hsl(200, 100%, 6%, .7);
+    background-color: #f8f7f6;
+  
+    box-shadow: 0 0 2px 0 var(--color);
+    border-radius: 5px;
+}
 
 
 
+.firebaseui-id-submit .firebaseui-button .mdl-button .mdl-js-button .mdl-button--raised .mdl-button--colored{
+background-color: #FF6B01;
+}
 // // ---Button close---
 // .btn-close{
 //   width: 20px;
