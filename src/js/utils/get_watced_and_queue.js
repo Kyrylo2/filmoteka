@@ -11,13 +11,16 @@ let refs;
 let apiFirebase;
 function itializeWatchQueue(firebase) {
   // apiFirebase = firebase;
-
   myLibrary = new MyLibrary();
   myLibrary.apiFirebase = firebase;
   refs = {
     buttonsContainer: document.querySelector('.container-buttons'),
+    queueButton: document.querySelector('.queueButton'),
+    watchedButton: document.querySelector('.watchedButton'),
   };
+
   refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
+
   myLibrary.resetAll();
   // myLibrary.preload();
 
@@ -28,23 +31,30 @@ function itializeWatchQueue(firebase) {
 
 async function onButtonsContainerClick(e) {
   if (e.target.getAttribute('id') === 'watchedButton') {
-    // const arrLib = await apiFirebase.readWatched();
-    // console.log('readWatched', arrLib);
-
+    e.target.classList.add('watchedButton--active');
+    const activeButton = e.currentTarget.querySelector('.queueButton--active');
+    if (activeButton) {
+      activeButton.classList.remove('queueButton--active');
+    }
     myLibrary.resetAll();
-    myLibrary.getWatchedMovies();
+    await myLibrary.getWatchedMovies();
     console.log(myLibrary);
-    myLibrary.renderMovies();
+    await myLibrary.renderMovies();
     return;
   }
 
   if (e.target.getAttribute('id') === 'queueButton') {
-    // const arrLib = await apiFirebase.readQueue();
-    // console.log('readQueue', arrLib);
+    e.target.classList.add('queueButton--active');
+    const activeButton = e.currentTarget.querySelector(
+      '.watchedButton--active'
+    );
+    if (activeButton) {
+      activeButton.classList.remove('watchedButton--active');
+    }
     myLibrary.resetAll();
-    myLibrary.getQueueMovies();
+    await myLibrary.getQueueMovies();
     console.log(myLibrary);
-    myLibrary.renderMovies();
+    await myLibrary.renderMovies();
     return;
   }
 }
@@ -69,4 +79,4 @@ function initializeScrool() {
   );
 }
 
-export { itializeWatchQueue };
+export { itializeWatchQueue, refs };
