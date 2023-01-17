@@ -97,7 +97,7 @@ function initializeScrool() {
       ) {
         myLibrary.page += 1;
         myLibrary.everythingIsLoaded = myLibrary.page >= myLibrary.totalPages;
-        myLibrary.renderMovies();
+        myLibrary.scrollRenderMovies();
       }
     }, 400)
   );

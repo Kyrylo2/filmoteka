@@ -157,10 +157,10 @@ export default class MyLibrary {
       acc[key] = el;
       return acc;
     }, {});
+    console.log(this.pagesData);
   }
 
   renderMovies() {
-    console.log();
     if (this.movieArray.length === 0) {
       console.log(this.movieArray);
       return;
@@ -169,6 +169,18 @@ export default class MyLibrary {
     this.calcTotalPages();
     this.calcPagesData();
     const page = `page${this.page}`;
+    console.log(page);
+    getMyMovies(this.pagesData[page]);
+  }
+
+  scrollRenderMovies() {
+    console.log(this.pagesData);
+    if (this.movieArray.length === 0) {
+      console.log(this.movieArray);
+      return;
+    }
+    const page = `page${this.page}`;
+    console.log(page);
     getMyMovies(this.pagesData[page]);
   }
 
