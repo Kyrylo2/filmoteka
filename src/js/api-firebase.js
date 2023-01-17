@@ -53,7 +53,9 @@ export default class APIFirebase {
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
     this.initFirebaseAuth();
-    this.ui = new firebaseui.auth.AuthUI(getAuth());
+    if (authStateObserver) {
+      this.ui = new firebaseui.auth.AuthUI(getAuth());
+    }
   }
 
   // Signs-in Friendly Chat.
@@ -136,6 +138,7 @@ export default class APIFirebase {
       // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
       signInFlow: 'popup',
       signInSuccessUrl: './index.html',
+
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         GoogleAuthProvider.PROVIDER_ID,

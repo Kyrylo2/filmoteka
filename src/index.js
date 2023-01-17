@@ -16,7 +16,7 @@ import Pagination from 'tui-pagination';
 
 import btn_up from './js/btn_up';
 
-// import './js/utils/get_watced_and_queue';
+import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
 
 //* Authentication
 // initializeFirebase - можна викликати без параметрів
@@ -28,12 +28,23 @@ const apiFirebase = initializeFirebase({
 //ks
 moviesApiService.apiFirebase = apiFirebase;
 
-ModalTeamInit();
+const myLibrary = getmyLibrary();
 
-function onSignIn(user) {
+function getmyLibrary() {
+  if (ifLibrary()) {
+    const myLibrary = itializeWatchQueue(apiFirebase);
+    return myLibrary;
+  }
+  return null;
+}
+
+async function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
   //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
   // console.log(apiFirebase.isUserSignedIn());
+  if (ifLibrary()) {
+    myLibrary.preload.call(myLibrary);
+  }
 }
 
 function onSignOut(user) {
@@ -53,6 +64,10 @@ function onSignOut(user) {
 function ifLibrary() {
   return document.documentURI.includes('my-library.html');
 }
+
+if (ifLibrary()) return;
+
+ModalTeamInit();
 
 search.addEventListener('submit', onFormSubmit);
 

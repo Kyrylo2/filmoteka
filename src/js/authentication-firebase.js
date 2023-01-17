@@ -57,7 +57,7 @@ function openMenuSignIn() {
   //add Events
   document.addEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.addEventListener('click', clickCloseMenuSignIn);
-  refs.btnCloseMenuSignIn.addEventListener('click', closeMenuSignIn);
+  refs.btnCloseMenuSignIn.addEventListener('mousedown', closeMenuSignIn);
 
   //disasble scrool
   document.body.classList.add(NAME_CLASS_NO_SCROOL_BODY);
@@ -81,6 +81,21 @@ function clickWindowSignIn(event) {
 
 function clickCloseMenuSignIn(event) {
   if (event.currentTarget === event.target) closeMenuSignIn(event);
+}
+
+async function clickToLibrary(event) {
+  if (!apiFirebase.isUserSignedIn()) {
+    console.log('STOP');
+    // event.stopPropagation();
+    event.preventDefault();
+  }
+
+  const dataWatched = await apiFirebase.readWatched();
+  const dataQueue = await apiFirebase.readQueue();
+  localStorage.setItem(
+    'filmotekaToLibrary',
+    JSON.stringify({ dataWatched, dataQueue })
+  );
 }
 
 function closeMenuSignIn(event) {

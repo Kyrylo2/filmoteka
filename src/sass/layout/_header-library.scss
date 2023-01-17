@@ -175,6 +175,11 @@
     background-color: $orange-button;
   }
 
+  &--active {
+    background-color: $orange-button;
+    border-color: $orange-button;
+  }
+
   @include tablet {
     width: 152px;
   }
@@ -211,6 +216,11 @@
 
   &:hover,
   &:focus {
+    background-color: $orange-button;
+    border-color: $orange-button;
+  }
+
+  &--active {
     background-color: $orange-button;
     border-color: $orange-button;
   }

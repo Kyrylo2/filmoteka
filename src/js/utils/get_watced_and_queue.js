@@ -1,57 +1,81 @@
 import throttle from 'lodash.throttle';
 import MyLibrary from './movies-library';
-// import APIFirebase from '../api-firebase';
+import APIFirebase from '../api-firebase';
 
 // import { Loading } from 'notiflix/build/notiflix-loading-aio';
 // const apiFirebase = new APIFirebase();
 // console.log(apiFirebase);
 
-const myLibrary = new MyLibrary();
+let myLibrary;
+let refs;
+let apiFirebase;
+function itializeWatchQueue(firebase) {
+  // apiFirebase = firebase;
+  myLibrary = new MyLibrary();
+  myLibrary.apiFirebase = firebase;
+  refs = {
+    buttonsContainer: document.querySelector('.container-buttons'),
+    queueButton: document.querySelector('.queueButton'),
+    watchedButton: document.querySelector('.watchedButton'),
+  };
 
-console.log(myLibrary);
+  refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
 
-const refs = {
-  buttonsContainer: document.querySelector('.container-buttons'),
-};
+  myLibrary.resetAll();
 
-refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
+  initializeScrool();
 
-myLibrary.resetAll();
-myLibrary.preload();
+  return myLibrary;
+}
 
-function onButtonsContainerClick(e) {
+async function onButtonsContainerClick(e) {
   if (e.target.getAttribute('id') === 'watchedButton') {
+    e.target.classList.add('watchedButton--active');
+    const activeButton = e.currentTarget.querySelector('.queueButton--active');
+    if (activeButton) {
+      activeButton.classList.remove('queueButton--active');
+    }
     myLibrary.resetAll();
-    myLibrary.getWatchedMovies();
+    await myLibrary.getWatchedMovies();
     console.log(myLibrary);
-    myLibrary.renderMovies();
+    await myLibrary.renderMovies();
     return;
   }
 
   if (e.target.getAttribute('id') === 'queueButton') {
+    e.target.classList.add('queueButton--active');
+    const activeButton = e.currentTarget.querySelector(
+      '.watchedButton--active'
+    );
+    if (activeButton) {
+      activeButton.classList.remove('watchedButton--active');
+    }
     myLibrary.resetAll();
-    myLibrary.getQueueMovies();
+    await myLibrary.getQueueMovies();
     console.log(myLibrary);
-    myLibrary.renderMovies();
+    await myLibrary.renderMovies();
     return;
   }
 }
 
 // Infinite scroll
+function initializeScrool() {
+  window.addEventListener(
+    'scroll',
+    throttle(() => {
+      if (myLibrary.everythingIsLoaded) return;
 
-window.addEventListener(
-  'scroll',
-  throttle(() => {
-    if (myLibrary.everythingIsLoaded) return;
+      if (
+        document.documentElement.scrollHeight -
+          (window.scrollY + window.innerHeight) <=
+        400
+      ) {
+        myLibrary.page += 1;
+        myLibrary.everythingIsLoaded = myLibrary.page >= myLibrary.totalPages;
+        myLibrary.renderMovies();
+      }
+    }, 400)
+  );
+}
 
-    if (
-      document.documentElement.scrollHeight -
-        (window.scrollY + window.innerHeight) <=
-      400
-    ) {
-      myLibrary.page += 1;
-      myLibrary.everythingIsLoaded = myLibrary.page >= myLibrary.totalPages;
-      myLibrary.renderMovies();
-    }
-  }, 400)
-);
+export { itializeWatchQueue, refs };
