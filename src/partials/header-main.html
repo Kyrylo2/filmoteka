@@ -17,7 +17,7 @@
         </li>
         <li class="site-nav__item">
           <a
-            class="site-nav__link site-nav__link--no-current link"
+            class="site-nav__link site-nav__link--no-current link site-nav__to_library"
             href="./my-library.html"
             >my library</a
           >
@@ -25,7 +25,7 @@
       </ul>
     </nav>
 
-       <div class="sign-in">
+    <div class="sign-in">
       <div class="changeMode">
         <input type="checkbox" class="checkbox" id="checkbox" />
         <label for="checkbox" class="checkbox-label">
@@ -83,9 +83,12 @@
         <option value="popularity.asc">Popularity (LOW - HIGH)</option>
         <option value="vote_average.desc">Rating (HIGH - LOW)</option>
         <option value="vote_average.asc">Rating (LOW - HIGH)</option>
-        <option value="primary_release_date.desc">Release date (HIGH - LOW)</option>
-        <option value="primary_release_date.asc">Release date (LOW - HIGH)</option>
-        
+        <option value="primary_release_date.desc">
+          Release date (HIGH - LOW)
+        </option>
+        <option value="primary_release_date.asc">
+          Release date (LOW - HIGH)
+        </option>
       </select>
       <button type="submit">Find</button>
       <button type="reset" name="resetBtn">Reset</button>
