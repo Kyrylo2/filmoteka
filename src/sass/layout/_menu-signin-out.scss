@@ -102,13 +102,14 @@
   visibility: visible;
   opacity: 1;
 
-  background-color: rgb(235, 229, 229);
+  background-color: #F7F7F7;;
   color: #161616;
 
   
   border-radius: 10px;
   border: 1px solid #161616;
-    box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7);
+    // box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7)
+    box-shadow: 0px 0px 12px rgba(255, 100, 1, 0.4);
     width: 80%;
     max-width: 500px;
 
@@ -131,43 +132,76 @@ margin-bottom: 20px;
   text-align: center;
 }
 
-.mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-sign-in{
-      --color: hsl(200, 100%, 6%, .7);
-        background-color: var(--color);
-        box-shadow: 0 0 15px 0 var(--color);
-}
-.form{
-  --color: hsl(200, 100%, 6%, .7);
-    background-color: var(--color);
-    box-shadow: 0 0 15px 0 var(--color);
-}
-
-// Контейнер для кнопок Далі та Відмінити
-
-
+// Button Cancel
 .firebaseui-id-secondary-link {
+  margin-right: 7px;
   --color: hsl(200, 100%, 6%, .7);
-    background-color: #f8f7f6;
-  
+    background-color: rgb(256, 256, 256);
     box-shadow: 0 0 2px 0 var(--color);
     border-radius: 5px;
 }
-
-
-
-.firebaseui-id-submit .firebaseui-button .mdl-button .mdl-js-button .mdl-button--raised .mdl-button--colored{
-background-color: #FF6B01;
+.firebaseui-id-secondary-link:hover,
+.firebaseui-id-secondary-link:focus{
+// background-color: rgb(256, 256, 258);
+background-color: rgb(244, 241, 241);
 }
-// // ---Button close---
-// .btn-close{
-//   width: 20px;
-//   height: 20px;
-//   background-color:tomato;
-//   z-index: 900;
-//     max-width: 480px;
-//     height: 480px;
-//     position: absolute;
-// }
+
+
+// Button Next
+.mdl-button--raised.mdl-button--colored {
+background-color: #FF6B01;
+border-radius: 5px;
+box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, .7);
+}
+
+.mdl-button--raised.mdl-button--colored:hover,
+.mdl-button--raised.mdl-button--colored:focus{
+  background-color: #FF6B01;
+  color: #3f51b5;
+  
+}
+.firebaseui-textfield.mdl-textfield .firebaseui-input{
+  color: #161616 !important;
+  border-bottom-style: inset !important;
+  border-radius: 0 !important;
+}
+
+// ----Input----
+.firebaseui-textfield.mdl-textfield .firebaseui-input{
+  font-size: 1.25rem;
+    // padding: .5em;
+    // background-color: hsl(200, 100%, 91%, .3);
+    border: none;
+    outline: none;
+    border-radius: .25em;
+    color: white;
+    font-weight: lighter;
+}
+
+
+
+
+// ---Button close---
+
+.button_position{
+  position: relative;
+  top: 0;
+  right: 20px;
+}
+
+.btn-close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: #161616;
+  background-color: $orange-button;
+  border-radius: 50%;
+  border: 1px solid rgb(47, 47, 47);
+  // z-index: 900;
+}
 
 
 // }
