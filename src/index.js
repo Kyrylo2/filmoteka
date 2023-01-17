@@ -19,7 +19,6 @@ import btn_up from './js/btn_up';
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
 
 // import './js/utils/get_watced_and_queue';
-console.dir(document);
 
 //* Authentication
 // initializeFirebase - можна викликати без параметрів
@@ -31,10 +30,23 @@ const apiFirebase = initializeFirebase({
 //ks
 moviesApiService.apiFirebase = apiFirebase;
 
-function onSignIn(user) {
+const myLibrary = getmyLibrary();
+
+function getmyLibrary() {
+  if (ifLibrary()) {
+    const myLibrary = itializeWatchQueue(apiFirebase);
+    return myLibrary;
+  }
+  return null;
+}
+
+async function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
   //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
   // console.log(apiFirebase.isUserSignedIn());
+  if (ifLibrary()) {
+    myLibrary.preload.call(myLibrary);
+  }
 }
 
 function onSignOut(user) {
