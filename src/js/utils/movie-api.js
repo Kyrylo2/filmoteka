@@ -149,6 +149,12 @@ class MoviesApiServise {
         ).innerHTML = `Trending movies, you on page - <span>${this.page}</span>`;
         document.querySelector('h1').classList.remove('visually-hidden');
       });
+      pagination.on('afterMove', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
     } finally {
