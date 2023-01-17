@@ -130,6 +130,11 @@ class MoviesApiServise {
       // createMarkup(renderMovies(response.data.results));
       filmsMainContainer.innerHTML = renderMovies(response.data.results);
 
+      document.querySelector(
+        'h1'
+      ).innerHTML = `Trending movies, you on page - <span>${this.page}</span>`;
+      document.querySelector('h1').classList.remove('visually-hidden');
+
       const pagination = new Pagination(
         'tui-pagination-container',
         this.PaginationOptions
@@ -138,6 +143,11 @@ class MoviesApiServise {
       pagination.on('beforeMove', e => {
         this.page = e.page;
         this.getTrendMovies();
+
+        document.querySelector(
+          'h1'
+        ).innerHTML = `Trending movies, you on page - <span>${this.page}</span>`;
+        document.querySelector('h1').classList.remove('visually-hidden');
       });
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
@@ -175,7 +185,6 @@ class MoviesApiServise {
     );
 
     if (!isSignIn) {
-      console.log('малюємо');
       document.querySelector('.buttons-flex').style.flexDirection = 'column';
       document.querySelector('.buttons-flex').style.alignItems = 'center';
     }

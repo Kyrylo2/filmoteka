@@ -101,7 +101,12 @@ async function onFormSubmit(e) {
     //   Notify.failure("Sorry, we haven't found any movie.");
     // }
     createMarkup(renderMovies(arrOfMovies));
-    console.log(arrOfMovies);
+
+    document.querySelector(
+      'h1'
+    ).innerHTML = `Here's what we found by searching for "${
+      moviesApiService.query[0].toUpperCase() + moviesApiService.query.slice(1)
+    }". You on page - <span>${moviesApiService.page}</span>`;
 
     const pagination = new Pagination(
       'tui-pagination-container',
@@ -113,6 +118,13 @@ async function onFormSubmit(e) {
         moviesApiService.page = e.page;
         const arrOfMovies = await moviesApiService.fetchMovies();
         createMarkup(renderMovies(arrOfMovies));
+
+        document.querySelector(
+          'h1'
+        ).innerHTML = `Here's what we found by searching for "${
+          moviesApiService.query[0].toUpperCase() +
+          moviesApiService.query.slice(1)
+        }". You on page - <span>${moviesApiService.page}</span>`;
       } catch (e) {
         console.log(e);
       }
@@ -135,6 +147,7 @@ function closeModal() {
   modal.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
 
+  modal.innerHTML = '';
   // Перерендер
   if (document.querySelector('body.my-lib-event')) {
     myLibrary.closeModal();
@@ -221,6 +234,13 @@ async function onSortFormSubmit(e) {
     console.log('qeqeqw');
     moviesApiService.getTrendMovies();
   });
+
+  const ganreName = moviesApiService.choosedGenres
+    ? e.currentTarget.elements.genreSelect.options[
+        e.currentTarget.elements.genreSelect.selectedIndex
+      ].text
+    : false;
+
   // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
@@ -235,8 +255,26 @@ async function onSortFormSubmit(e) {
       moviesApiService.page = e.page;
       const arrOfMovies = await moviesApiService.getSortedMovies();
       createMarkup(renderMovies(arrOfMovies));
+
+      document.querySelector(
+        'h1'
+      ).innerHTML = `Here's what we found by searching ${
+        moviesApiService.choosedGenres ? ganreName + ', ' : ''
+      }${
+        moviesApiService.year ? moviesApiService.year + ' year, ' : ''
+      }you on page - <span>${moviesApiService.page}</span>`;
     } catch (e) {
       console.log(e);
     }
   });
+
+  document.querySelector('h1').innerHTML = `Here's what we found by searching ${
+    moviesApiService.choosedGenres ? ganreName : ''
+  } ${
+    moviesApiService.year
+      ? `${moviesApiService.choosedGenres ? ', ' : ''}` +
+        moviesApiService.year +
+        ' year'
+      : ''
+  }, you on page - <span>${moviesApiService.page}</span>`;
 }
