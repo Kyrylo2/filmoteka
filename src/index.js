@@ -135,8 +135,9 @@ function closeModal() {
   modal.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
 
+  // Перерендер
   if (document.querySelector('body.my-lib-event')) {
-    myLibrary.preload();
+    myLibrary.closeModal();
   }
 }
 
