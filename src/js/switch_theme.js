@@ -14,7 +14,7 @@ function windowLoad() {
   if (saveUserTheme === 'dark') {
     check();
     // addBlackColor();
-    allNameFilmsAddBlackColor();
+    addAllNameFilmsBlackColor();
     // const currentColor = 'dark';
     // changeTextColor(currentColor);
   }
@@ -36,7 +36,7 @@ function windowLoad() {
   if (userTheme === 'dark') {
     check();
     // addBlackColor();
-    allNameFilmsAddBlackColor();
+    addAllNameFilmsBlackColor();
     // const currentColor = 'dark';
     // changeTextColor(currentColor);
   }
@@ -44,7 +44,7 @@ function windowLoad() {
     userTheme = '';
     uncheck();
     // removeBlackColor();
-    allNameFilmsRemoveBlackColor();
+    removeAllNameFilmsBlackColor();
   }
 
   window
@@ -98,34 +98,34 @@ function windowLoad() {
     htmlBlock.classList.add(newTheme);
     saveTheme ? localStorage.setItem('user-theme', newTheme) : null;
   }
-  function changeTextColor(newTheme) {
-    if (newTheme === 'dark') {
-      filmsNameText.classList.add('films__name--color');
-    } else {
-      filmsNameText.classList.remove('films__name--color');
-    }
-  }
-  function addBlackColor() {
-    filmsNameText.classList.add('films__name--color');
-  }
+  //   function changeTextColor(newTheme) {
+  //     if (newTheme === 'dark') {
+  //       filmsNameText.classList.add('films__name--color');
+  //     } else {
+  //       filmsNameText.classList.remove('films__name--color');
+  //     }
+  //   }
+  //   function addBlackColor() {
+  //     filmsNameText.classList.add('films__name--color');
+  //   }
 
-  function removeBlackColor() {
-    filmsNameText.classList.remove('films__name--color');
-  }
+  //   function removeBlackColor() {
+  //     filmsNameText.classList.remove('films__name--color');
+  //   }
 
   function changeAllTextColor(newTheme) {
     if (newTheme === 'dark') {
-      allNameFilmsAddBlackColor();
+      addAllNameFilmsBlackColor();
     } else {
-      allNameFilmsRemoveBlackColor();
+      removeAllNameFilmsBlackColor();
     }
   }
-  function allNameFilmsAddBlackColor() {
+  function addAllNameFilmsBlackColor() {
     for (let i = 0; i < allFilmsNameText.length; i += 1) {
       allFilmsNameText[i].classList.add('films__name--color');
     }
   }
-  function allNameFilmsRemoveBlackColor() {
+  function removeAllNameFilmsBlackColor() {
     for (let i = 0; i < allFilmsNameText.length; i += 1) {
       allFilmsNameText[i].classList.remove('films__name--color');
     }
