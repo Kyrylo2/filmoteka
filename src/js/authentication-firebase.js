@@ -82,6 +82,12 @@ function clickCloseMenuSignIn(event) {
 }
 
 async function clickToLibrary(event) {
+  if (!apiFirebase.isUserSignedIn()) {
+    console.log('STOP');
+    // event.stopPropagation();
+    event.preventDefault();
+  }
+
   const dataWatched = await apiFirebase.readWatched();
   const dataQueue = await apiFirebase.readQueue();
   localStorage.setItem(

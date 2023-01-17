@@ -40,6 +40,10 @@ function onSignIn(user) {
 function onSignOut(user) {
   // Оце викличеться коли користувач вийде з аккаунту
   // console.log('onSignOut');
+  if (ifLibrary()) {
+    //to home
+    location.href = './index.html';
+  }
 }
 
 // Перевірити чи авториований
@@ -47,9 +51,13 @@ function onSignOut(user) {
 // Це буде одразу після завантаження сторінки
 // apiFirebase.isUserSignedIn()
 
-if (document.documentURI.includes('my-library.html')) {
+if (ifLibrary()) {
   itializeWatchQueue(apiFirebase);
   return;
+}
+
+function ifLibrary() {
+  return document.documentURI.includes('my-library.html');
 }
 
 ModalTeamInit();
