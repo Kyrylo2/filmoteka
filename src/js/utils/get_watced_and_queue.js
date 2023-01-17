@@ -9,8 +9,13 @@ import MyLibrary from './movies-library';
 let myLibrary;
 let refs;
 let apiFirebase;
-function itializeWatchQueue(firebase) {
+async function itializeWatchQueue(firebase) {
   apiFirebase = firebase;
+
+  console.log(apiFirebase.isUserSignedIn());
+  const arrLib = await apiFirebase.readWatched();
+  console.log('readWatched', arrLib);
+
   myLibrary = new MyLibrary();
   refs = {
     buttonsContainer: document.querySelector('.container-buttons'),

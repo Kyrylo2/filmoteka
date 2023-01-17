@@ -32,6 +32,7 @@ function findRefs() {
     signInMenu: document.getElementById('menu_sign_in_new'),
     signInBackdrop: document.getElementById('backdrop_menu_sign_in'),
     btnCloseMenuSignIn: document.querySelector('.close_menu_sign_in'),
+    linkToLibrary: document.querySelector('.site-nav__to_library'),
   };
 }
 
@@ -40,6 +41,7 @@ function addEvents() {
   // * Open menu
   refs.signInButtonElement.addEventListener('click', openMenuSignIn);
   refs.signInMenu.addEventListener('click', clickWindowSignIn);
+  refs.linkToLibrary.addEventListener('click', clickToLibrary);
 
   // * Sign Out
   refs.signOutButtonElement.addEventListener(
@@ -53,7 +55,7 @@ function openMenuSignIn() {
   //add Events
   document.addEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.addEventListener('click', clickCloseMenuSignIn);
-  refs.btnCloseMenuSignIn.addEventListener('click', closeMenuSignIn);
+  refs.btnCloseMenuSignIn.addEventListener('mousedown', closeMenuSignIn);
 
   //disasble scrool
   document.body.classList.add(NAME_CLASS_NO_SCROOL_BODY);
@@ -77,6 +79,15 @@ function clickWindowSignIn(event) {
 
 function clickCloseMenuSignIn(event) {
   if (event.currentTarget === event.target) closeMenuSignIn(event);
+}
+
+async function clickToLibrary(event) {
+  const dataWatched = await apiFirebase.readWatched();
+  const dataQueue = await apiFirebase.readQueue();
+  localStorage.setItem(
+    'filmotekaToLibrary',
+    JSON.stringify({ dataWatched, dataQueue })
+  );
 }
 
 function closeMenuSignIn(event) {

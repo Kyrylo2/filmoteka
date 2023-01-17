@@ -19,6 +19,7 @@ import btn_up from './js/btn_up';
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
 
 // import './js/utils/get_watced_and_queue';
+console.dir(document);
 
 //* Authentication
 // initializeFirebase - можна викликати без параметрів
