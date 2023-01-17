@@ -6,11 +6,15 @@ function windowLoad() {
   // зберігаємо тему
   const saveUserTheme = localStorage.getItem('user-theme');
   const filmsNameText = document.querySelector('.films__info p:first-child');
-  console.log('windowLoad ~ filmsNameText', filmsNameText);
+  const allFilmsNameText = document.querySelectorAll(
+    '.films__info p:first-child'
+  );
+  console.log('windowLoad ~ allFilmsNameText', allFilmsNameText);
 
   if (saveUserTheme === 'dark') {
     check();
-    addBlackColor();
+    // addBlackColor();
+    allNameFilmsAddBlackColor();
     // const currentColor = 'dark';
     // changeTextColor(currentColor);
   }
@@ -31,14 +35,16 @@ function windowLoad() {
   }
   if (userTheme === 'dark') {
     check();
-    addBlackColor();
+    // addBlackColor();
+    allNameFilmsAddBlackColor();
     // const currentColor = 'dark';
     // changeTextColor(currentColor);
   }
   if (saveUserTheme === 'light') {
     userTheme = '';
     uncheck();
-    removeBlackColor();
+    // removeBlackColor();
+    allNameFilmsRemoveBlackColor();
   }
 
   window
@@ -86,7 +92,8 @@ function windowLoad() {
     } else if (currentTheme === 'dark') {
       newTheme = 'light';
     }
-    changeTextColor(newTheme);
+    //   changeTextColor(newTheme);
+    changeAllTextColor(newTheme);
     htmlBlock.classList.remove(currentTheme);
     htmlBlock.classList.add(newTheme);
     saveTheme ? localStorage.setItem('user-theme', newTheme) : null;
@@ -104,5 +111,23 @@ function windowLoad() {
 
   function removeBlackColor() {
     filmsNameText.classList.remove('films__name--color');
+  }
+
+  function changeAllTextColor(newTheme) {
+    if (newTheme === 'dark') {
+      allNameFilmsAddBlackColor();
+    } else {
+      allNameFilmsRemoveBlackColor();
+    }
+  }
+  function allNameFilmsAddBlackColor() {
+    for (let i = 0; i < allFilmsNameText.length; i += 1) {
+      allFilmsNameText[i].classList.add('films__name--color');
+    }
+  }
+  function allNameFilmsRemoveBlackColor() {
+    for (let i = 0; i < allFilmsNameText.length; i += 1) {
+      allFilmsNameText[i].classList.remove('films__name--color');
+    }
   }
 }
