@@ -182,7 +182,7 @@ class MoviesApiServise {
 
     // Події на кнопку закрить модалку
     document
-      .querySelector('.modal-cross')
+      .querySelector('.modal-window .modal-cross')
       .addEventListener('click', onBtnClose);
     backdrop.addEventListener('click', onBackdropClose);
     document.body.addEventListener('keyup', onEcsClose);
