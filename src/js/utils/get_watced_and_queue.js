@@ -1,6 +1,6 @@
 import throttle from 'lodash.throttle';
 import MyLibrary from './movies-library';
-// import APIFirebase from '../api-firebase';
+import APIFirebase from '../api-firebase';
 
 // import { Loading } from 'notiflix/build/notiflix-loading-aio';
 // const apiFirebase = new APIFirebase();
@@ -10,13 +10,14 @@ let myLibrary;
 let refs;
 let apiFirebase;
 async function itializeWatchQueue(firebase) {
-  apiFirebase = firebase;
+  // apiFirebase = firebase;
 
   console.log(apiFirebase.isUserSignedIn());
   const arrLib = await apiFirebase.readWatched();
   console.log('readWatched', arrLib);
 
   myLibrary = new MyLibrary();
+  myLibrary.apiFirebase = firebase;
   refs = {
     buttonsContainer: document.querySelector('.container-buttons'),
   };
@@ -29,8 +30,8 @@ async function itializeWatchQueue(firebase) {
 
 async function onButtonsContainerClick(e) {
   if (e.target.getAttribute('id') === 'watchedButton') {
-    const arrLib = await apiFirebase.readWatched();
-    console.log('readWatched', arrLib);
+    // const arrLib = await apiFirebase.readWatched();
+    // console.log('readWatched', arrLib);
 
     myLibrary.resetAll();
     myLibrary.getWatchedMovies();
@@ -40,8 +41,8 @@ async function onButtonsContainerClick(e) {
   }
 
   if (e.target.getAttribute('id') === 'queueButton') {
-    const arrLib = await apiFirebase.readQueue();
-    console.log('readQueue', arrLib);
+    // const arrLib = await apiFirebase.readQueue();
+    // console.log('readQueue', arrLib);
     myLibrary.resetAll();
     myLibrary.getQueueMovies();
     console.log(myLibrary);

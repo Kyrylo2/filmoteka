@@ -1,9 +1,6 @@
 import axios from 'axios';
-import APIFirebase from '../api-firebase';
 import { filmsMainContainer } from '../utils/refs';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
-
-// const apiFirebase = new APIFirebase();
 
 const API_KEY = '6251e629c61bceaf56a3d45f05637256';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -30,67 +27,67 @@ export default class MyLibrary {
 
   async getWatchedMovies() {
     // TEST
-    // Loading.circle({ svgColor: 'red' });
-    // this.resetAll();
-    // try {
-    //   this.movieArray = await apiFirebase.readWatched();
-    //   filmsMainContainer.innerHTML = '';
-    //   return this.movieArray;
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   Loading.remove();
-    // }
+    Loading.circle({ svgColor: 'red' });
+    this.resetAll();
+    try {
+      this.movieArray = await this.apiFirebase.readWatched();
+      filmsMainContainer.innerHTML = '';
+      return this.movieArray;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      Loading.remove();
+    }
     //
 
     // TEST
-    filmsMainContainer.innerHTML = '';
+    // filmsMainContainer.innerHTML = '';
 
-    this.movieArray = [
-      76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
-      555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-      804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
-      668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
-      545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
-      436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
-      593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
-    ];
+    // this.movieArray = [
+    //   76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482,
+    //   555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+    //   19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+    //   536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+    //   661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+    //   315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+    //   804095, 76600, 315162, 593643, 661374, 436270, 536554, 545611, 19995,
+    //   668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270, 536554,
+    //   545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374,
+    //   436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162,
+    //   593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095,
+    // ];
 
-    return this.movieArray;
+    // return this.movieArray;
   }
 
   async getQueueMovies() {
     // TEST
-    // Loading.circle({ svgColor: 'red' });
-    // this.resetAll();
-    // try {
-    //   this.movieArray = await apiFirebase.readQueue();
-    //   filmsMainContainer.innerHTML = '';
-    //   return this.movieArray;
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   Loading.remove();
-    // }
+    Loading.circle({ svgColor: 'red' });
+    this.resetAll();
+    try {
+      this.movieArray = await this.apiFirebase.readQueue();
+      filmsMainContainer.innerHTML = '';
+      return this.movieArray;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      Loading.remove();
+    }
     //
 
     // TEST
-    filmsMainContainer.innerHTML = '';
+    // filmsMainContainer.innerHTML = '';
 
-    this.movieArray = [
-      668482, 555604, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
-      19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
-      536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
-      661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
-      315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
-      804095, 76600, 315162, 593643,
-    ];
+    // this.movieArray = [
+    //   668482, 555604, 76600, 315162, 593643, 661374, 436270, 536554, 545611,
+    //   19995, 668482, 555604, 804095, 76600, 315162, 593643, 661374, 436270,
+    //   536554, 545611, 19995, 668482, 555604, 804095, 76600, 315162, 593643,
+    //   661374, 436270, 536554, 545611, 19995, 668482, 555604, 804095, 76600,
+    //   315162, 593643, 661374, 436270, 536554, 545611, 19995, 668482, 555604,
+    //   804095, 76600, 315162, 593643,
+    // ];
 
-    return this.movieArray;
+    // return this.movieArray;
   }
 
   async preload() {
@@ -144,7 +141,8 @@ export default class MyLibrary {
   }
 
   renderMovies() {
-    if (this.movieArray === 0) {
+    console.log();
+    if (this.movieArray.length === 0) {
       console.log(this.movieArray);
       return;
     }
@@ -165,6 +163,7 @@ export default class MyLibrary {
 }
 
 async function getMyMovies(array) {
+  console.log(array);
   try {
     const arrayOfPromises = array.map(async el => {
       const res = await apiInstanceMovie.get(`/movie/${el}`, config);
