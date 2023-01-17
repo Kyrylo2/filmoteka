@@ -11,9 +11,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
 import validator from 'validator';
-
+import MyLibraryClass from './js/utils/movies-library';
+const myLibrarty = new MyLibraryClass();
 import Pagination from 'tui-pagination';
-
+console.log(myLibrarty);
 import btn_up from './js/btn_up';
 
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
@@ -100,7 +101,12 @@ async function onFormSubmit(e) {
     //   Notify.failure("Sorry, we haven't found any movie.");
     // }
     createMarkup(renderMovies(arrOfMovies));
-    console.log(arrOfMovies);
+
+    document.querySelector(
+      'h1'
+    ).innerHTML = `Here's what we found by searching for "${
+      moviesApiService.query[0].toUpperCase() + moviesApiService.query.slice(1)
+    }". You on page - <span>${moviesApiService.page}</span>`;
 
     const pagination = new Pagination(
       'tui-pagination-container',
@@ -112,9 +118,22 @@ async function onFormSubmit(e) {
         moviesApiService.page = e.page;
         const arrOfMovies = await moviesApiService.fetchMovies();
         createMarkup(renderMovies(arrOfMovies));
+
+        document.querySelector(
+          'h1'
+        ).innerHTML = `Here's what we found by searching for "${
+          moviesApiService.query[0].toUpperCase() +
+          moviesApiService.query.slice(1)
+        }". You on page - <span>${moviesApiService.page}</span>`;
       } catch (e) {
         console.log(e);
       }
+    });
+    pagination.on('afterMove', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
   } catch (e) {
     Notify.failure('Oups! Something went wrong');
@@ -133,6 +152,12 @@ function clearMarkup() {
 function closeModal() {
   modal.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
+
+  modal.innerHTML = '';
+  // Перерендер
+  if (document.querySelector('body.my-lib-event')) {
+    myLibrary.closeModal();
+  }
 }
 
 function onBtnClose() {
@@ -215,6 +240,13 @@ async function onSortFormSubmit(e) {
     console.log('qeqeqw');
     moviesApiService.getTrendMovies();
   });
+
+  const ganreName = moviesApiService.choosedGenres
+    ? e.currentTarget.elements.genreSelect.options[
+        e.currentTarget.elements.genreSelect.selectedIndex
+      ].text
+    : false;
+
   // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
@@ -229,8 +261,32 @@ async function onSortFormSubmit(e) {
       moviesApiService.page = e.page;
       const arrOfMovies = await moviesApiService.getSortedMovies();
       createMarkup(renderMovies(arrOfMovies));
+
+      document.querySelector(
+        'h1'
+      ).innerHTML = `Here's what we found by searching ${
+        moviesApiService.choosedGenres ? ganreName + ', ' : ''
+      }${
+        moviesApiService.year ? moviesApiService.year + ' year, ' : ''
+      }you on page - <span>${moviesApiService.page}</span>`;
     } catch (e) {
       console.log(e);
     }
   });
+  pagination.on('afterMove', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
+
+  document.querySelector('h1').innerHTML = `Here's what we found by searching ${
+    moviesApiService.choosedGenres ? ganreName : ''
+  } ${
+    moviesApiService.year
+      ? `${moviesApiService.choosedGenres ? ', ' : ''}` +
+        moviesApiService.year +
+        ' year'
+      : ''
+  }, you on page - <span>${moviesApiService.page}</span>`;
 }

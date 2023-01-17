@@ -2,6 +2,27 @@
   flex: 1;
 }
 
+h1.main-section-title {
+  color: $black;
+
+  margin-bottom: 20px;
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+
+  @include tablet {
+    font-size: 24px;
+  }
+  @include desktop {
+    font-size: 30px;
+  }
+
+  & span {
+    color: $orange;
+  }
+}
+
 .films {
   display: flex;
   justify-content: center;

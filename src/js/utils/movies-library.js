@@ -25,6 +25,7 @@ export default class MyLibrary {
     this.movieArray = [];
     this.pagesData = {};
     this.everythingIsLoaded = false;
+    this.statusLibrary = null;
   }
 
   async getWatchedMovies() {
@@ -106,6 +107,7 @@ export default class MyLibrary {
     console.log(this.movieArray.length);
     if (this.movieArray.length !== 0) {
       refs.queueButton.classList.add('queueButton--active');
+      this.statusLibrary = 'queue';
       this.renderMovies();
       return;
     }
@@ -118,6 +120,7 @@ export default class MyLibrary {
 
     if (this.movieArray.length !== 0) {
       refs.watchedButton.classList.add('watchedButton--active');
+      this.statusLibrary = 'watched';
       this.renderMovies();
       return;
     }
@@ -134,6 +137,10 @@ export default class MyLibrary {
     this.totalPages = Math.ceil(
       this.movieArray.length / this.numberResultsPerPage
     );
+
+    if (this.totalPages === 1) {
+      this.everythingIsLoaded = true;
+    }
   }
 
   calcPagesData() {
@@ -153,10 +160,10 @@ export default class MyLibrary {
       acc[key] = el;
       return acc;
     }, {});
+    console.log(this.pagesData);
   }
 
   renderMovies() {
-    console.log();
     if (this.movieArray.length === 0) {
       console.log(this.movieArray);
       return;
@@ -165,6 +172,18 @@ export default class MyLibrary {
     this.calcTotalPages();
     this.calcPagesData();
     const page = `page${this.page}`;
+    console.log(page);
+    getMyMovies(this.pagesData[page]);
+  }
+
+  scrollRenderMovies() {
+    console.log(this.pagesData);
+    if (this.movieArray.length === 0) {
+      console.log(this.movieArray);
+      return;
+    }
+    const page = `page${this.page}`;
+    console.log(page);
     getMyMovies(this.pagesData[page]);
   }
 
@@ -174,6 +193,27 @@ export default class MyLibrary {
     this.movieArray = [];
     this.pagesData = {};
     this.everythingIsLoaded = false;
+    // this.statusLibrary = null;
+  }
+
+  async closeModal() {
+    console.log(this.statusLibrary);
+    if (this.statusLibrary === 'queue') {
+      this.resetAll();
+      await this.getQueueMovies();
+      console.log(this);
+      this.renderMovies();
+      return;
+    }
+
+    if (this.statusLibrary === 'watched') {
+      this.resetAll();
+      await this.getWatchedMovies();
+
+      console.log(this);
+      this.renderMovies();
+      return;
+    }
   }
 }
 

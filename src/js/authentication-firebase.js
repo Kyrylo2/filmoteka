@@ -1,5 +1,6 @@
 import APIFirebase from './api-firebase';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const NAME_CLASS_NO_SCROOL_BODY = 'no-scroll-body';
 const NAME_CLASS_VISUALLY_HIDDEN = 'visually-hidden';
@@ -114,7 +115,7 @@ function closeMenuSignIn(event) {
 
 function clickToLibrary(event) {
   if (!apiFirebase.isUserSignedIn()) {
-    Notify.failure('Oh! Please SignIn', { timeout: 500 });
+    Report.warning('Please sign in to your account', '', 'Okay');
     event.preventDefault();
   }
   // saveToLacalStorage();
