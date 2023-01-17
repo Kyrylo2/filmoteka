@@ -16,6 +16,8 @@ import Pagination from 'tui-pagination';
 
 import btn_up from './js/btn_up';
 
+import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
+
 // import './js/utils/get_watced_and_queue';
 
 //* Authentication
@@ -27,6 +29,8 @@ const apiFirebase = initializeFirebase({
 
 //ks
 moviesApiService.apiFirebase = apiFirebase;
+
+itializeWatchQueue(apiFirebase);
 
 ModalTeamInit();
 
