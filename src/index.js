@@ -65,6 +65,8 @@ function ifLibrary() {
   return document.documentURI.includes('my-library.html');
 }
 
+if (ifLibrary()) return;
+
 ModalTeamInit();
 
 search.addEventListener('submit', onFormSubmit);
