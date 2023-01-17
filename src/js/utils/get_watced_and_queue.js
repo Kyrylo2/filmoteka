@@ -22,7 +22,6 @@ function itializeWatchQueue(firebase) {
   refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
 
   myLibrary.resetAll();
-  // myLibrary.preload();
 
   initializeScrool();
 

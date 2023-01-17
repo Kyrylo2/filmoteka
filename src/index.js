@@ -18,8 +18,6 @@ import btn_up from './js/btn_up';
 
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
 
-// import './js/utils/get_watced_and_queue';
-
 //* Authentication
 // initializeFirebase - можна викликати без параметрів
 const apiFirebase = initializeFirebase({
@@ -62,11 +60,6 @@ function onSignOut(user) {
 // майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
 // Це буде одразу після завантаження сторінки
 // apiFirebase.isUserSignedIn()
-
-if (ifLibrary()) {
-  itializeWatchQueue(apiFirebase);
-  return;
-}
 
 function ifLibrary() {
   return document.documentURI.includes('my-library.html');

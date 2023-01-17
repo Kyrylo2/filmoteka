@@ -1,7 +1,7 @@
 @import './utilities/vars';
 @import './utilities/mixins';
 @import './base/common';
-@import './base/visually-hidden';
+
 @import './base/resetStyles';
 @import './layout/header-main';
 @import './layout/footer';
@@ -18,3 +18,4 @@
 @import './layout/footer_in_down';
 @import './layout/btn-up';
 @import './components/basicLightBox';
+@import './base/visually-hidden';
