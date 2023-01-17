@@ -1,4 +1,5 @@
 import APIFirebase from './api-firebase';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const NAME_CLASS_NO_SCROOL_BODY = 'no-scroll-body';
 const NAME_CLASS_VISUALLY_HIDDEN = 'visually-hidden';
@@ -32,6 +33,7 @@ function findRefs() {
     signInMenu: document.getElementById('menu_sign_in_new'),
     signInBackdrop: document.getElementById('backdrop_menu_sign_in'),
     btnCloseMenuSignIn: document.querySelector('.close_menu_sign_in'),
+    linkToLibrary: document.querySelector('.site-nav__to_library'),
   };
 }
 
@@ -40,6 +42,7 @@ function addEvents() {
   // * Open menu
   refs.signInButtonElement.addEventListener('click', openMenuSignIn);
   refs.signInMenu.addEventListener('click', clickWindowSignIn);
+  refs.linkToLibrary.addEventListener('mousedown', clickToLibrary);
 
   // * Sign Out
   refs.signOutButtonElement.addEventListener(
@@ -91,6 +94,20 @@ function closeMenuSignIn(event) {
   //Hide Windows
   refs.signInMenu.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
   refs.signInBackdrop.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
+}
+
+async function clickToLibrary(event) {
+  if (!apiFirebase.isUserSignedIn()) {
+    Notify.failure('Oh! Please SignIn', { timeout: 500 });
+    event.preventDefault();
+  }
+
+  const dataWatched = await apiFirebase.readWatched();
+  const dataQueue = await apiFirebase.readQueue();
+  localStorage.setItem(
+    'filmotekaToLibrary',
+    JSON.stringify({ dataWatched, dataQueue })
+  );
 }
 
 function visualisationSignElement(user) {
