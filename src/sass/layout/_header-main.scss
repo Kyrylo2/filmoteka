@@ -3,7 +3,6 @@
   padding-bottom: 44px;
   max-width: 100%;
   height: 230px;
-  margin: 0 auto;
 
   background-color: rgba(0, 0, 0, 0.56);
 
@@ -277,7 +276,7 @@
 
   gap: 10px;
 
-  transition-property: all;
+  transition-property: color, border-color, background-color;
   transition-duration: $time-cubic;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 
@@ -396,5 +395,50 @@
 
   @include tablet {
     top: 40px;
+  }
+}
+
+#sortForm {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  gap: 7px;
+  // flex-direction: column;
+  // @include tablet {
+  //   flex-direction: row;
+  // }
+}
+
+select {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 0.5px solid #fff;
+  outline: none;
+  cursor: pointer;
+
+  & option {
+    color: $black;
+  }
+}
+
+#sortForm button {
+  padding: 3px 5px;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  transition-property: color, border-color, background-color;
+  transition-duration: $time-cubic;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  &:hover,
+  &:focus {
+    color: $orange;
+    border-color: $orange;
+    background-color: #161616;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
+    box-shadow: 0px 0px 20px 0px rgba(255, 106, 0, 1);
   }
 }

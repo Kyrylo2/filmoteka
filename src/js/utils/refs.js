@@ -5,8 +5,8 @@ const refs = {
   modal: document.querySelector('.modal'),
   openModalBtn: document.querySelector('.footer__btn'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
-
   modalStudents: document.querySelector('.modal__students'),
+  sortForm: document.querySelector('#sortForm'),
 };
 
 export const {
@@ -17,4 +17,5 @@ export const {
   openModalBtn,
   closeModalBtn,
   modalStudents,
+  sortForm,
 } = refs;

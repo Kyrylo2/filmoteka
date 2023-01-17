@@ -1,4 +1,5 @@
 import APIFirebase from './api-firebase';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const NAME_CLASS_NO_SCROOL_BODY = 'no-scroll-body';
 const NAME_CLASS_VISUALLY_HIDDEN = 'visually-hidden';
@@ -17,8 +18,10 @@ function initializeFirebase(data = {}) {
   functionSignOut = funcSignOut;
 
   apiFirebase = new APIFirebase(visualisationSignElement);
+  apiFirebase.closeMenuSignIn = closeMenuSignIn;
 
   refs = findRefs();
+
   addEvents();
   return apiFirebase;
 }
@@ -27,14 +30,10 @@ function findRefs() {
   return {
     signInButtonElement: document.getElementById('signInButton'),
     signOutButtonElement: document.getElementById('signOutButton'),
-
-    signInMenu: document.getElementById('menu_sign_in'),
-    signInGoogleButtonElement: document.getElementById('btn-sign-in-google'),
-    signInFacebookButtonElement: document.getElementById(
-      'btn-sign-in-facebook'
-    ),
-
+    signInMenu: document.getElementById('menu_sign_in_new'),
     signInBackdrop: document.getElementById('backdrop_menu_sign_in'),
+    btnCloseMenuSignIn: document.querySelector('.close_menu_sign_in'),
+    linkToLibrary: document.querySelector('.site-nav__to_library'),
   };
 }
 
@@ -42,27 +41,15 @@ function findRefs() {
 function addEvents() {
   // * Open menu
   refs.signInButtonElement.addEventListener('click', openMenuSignIn);
-
-  // * Google Sign In
-  refs.signInGoogleButtonElement.addEventListener(
-    'click',
-    apiFirebase.signInGoogle.bind(apiFirebase)
-  );
-
-  // * FaceBook Sign In
-  refs.signInFacebookButtonElement.addEventListener(
-    'click',
-    apiFirebase.signInFacebook.bind(apiFirebase)
-  );
+  refs.signInMenu.addEventListener('click', clickWindowSignIn);
+  refs.linkToLibrary.addEventListener('click', clickToLibrary);
+  refs.linkToLibrary.addEventListener('mousedown', mousedownToLibrary);
 
   // * Sign Out
   refs.signOutButtonElement.addEventListener(
     'click',
     apiFirebase.signOutUser.bind(apiFirebase)
   );
-
-  refs.signInGoogleButtonElement.addEventListener('click', closeMenuSignIn);
-  refs.signInFacebookButtonElement.addEventListener('click', closeMenuSignIn);
 }
 
 // * Function
@@ -70,11 +57,14 @@ function openMenuSignIn() {
   //add Events
   document.addEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.addEventListener('click', clickCloseMenuSignIn);
+  refs.btnCloseMenuSignIn.addEventListener('click', closeMenuSignIn);
 
   //disasble scrool
   document.body.classList.add(NAME_CLASS_NO_SCROOL_BODY);
 
   // show windows
+  apiFirebase.ui.start('#firebaseui-auth-container', apiFirebase.getUiConfig());
+
   refs.signInMenu.classList.remove(NAME_CLASS_VISUALLY_HIDDEN);
   refs.signInBackdrop.classList.remove(NAME_CLASS_VISUALLY_HIDDEN);
 }
@@ -85,14 +75,19 @@ function keydownEscCloseMenuSignIn(event) {
   closeMenuSignIn(event);
 }
 
+function clickWindowSignIn(event) {
+  event.preventDefault();
+}
+
 function clickCloseMenuSignIn(event) {
-  closeMenuSignIn(event);
+  if (event.currentTarget === event.target) closeMenuSignIn(event);
 }
 
 function closeMenuSignIn(event) {
   //Delete events
   document.removeEventListener('keydown', keydownEscCloseMenuSignIn);
   refs.signInBackdrop.removeEventListener('click', clickCloseMenuSignIn);
+  refs.btnCloseMenuSignIn.removeEventListener('click', closeMenuSignIn);
 
   //Enable scrool
   document.body.classList.remove(NAME_CLASS_NO_SCROOL_BODY);
@@ -100,6 +95,27 @@ function closeMenuSignIn(event) {
   //Hide Windows
   refs.signInMenu.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
   refs.signInBackdrop.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
+}
+
+function clickToLibrary(event) {
+  if (!apiFirebase.isUserSignedIn()) {
+    Notify.failure('Oh! Please SignIn', { timeout: 500 });
+    event.preventDefault();
+  }
+  // saveToLacalStorage();
+}
+
+function mousedownToLibrary() {
+  saveToLacalStorage();
+}
+
+async function saveToLacalStorage() {
+  const dataWatched = await apiFirebase.readWatched();
+  const dataQueue = await apiFirebase.readQueue();
+  localStorage.setItem(
+    'filmotekaToLibrary',
+    JSON.stringify({ dataWatched, dataQueue })
+  );
 }
 
 function visualisationSignElement(user) {
@@ -127,4 +143,4 @@ function runFunction(callBackFunction, user) {
   callBackFunction.call(user);
 }
 
-export { initializeFirebase };
+export { initializeFirebase, openMenuSignIn };
