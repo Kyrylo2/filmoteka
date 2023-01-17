@@ -1,8 +1,8 @@
 .header {
-  padding-top: 40px;
-  padding-bottom: 44px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   max-width: 100%;
-  height: 230px;
+  min-height: 230px;
 
   background-color: rgba(0, 0, 0, 0.56);
 
@@ -403,7 +403,7 @@
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: center;
-  gap: 7px;
+  gap: 10px;
   // flex-direction: column;
   // @include tablet {
   //   flex-direction: row;
@@ -412,21 +412,27 @@
 
 select {
   background-color: transparent;
-  color: #fff;
+  color: $white;
   border: none;
-  border-bottom: 0.5px solid #fff;
+  border-bottom: 0.5px solid $white;
   outline: none;
   cursor: pointer;
 
+  transition: all 250ms ease-in-out;
+
   & option {
     color: $black;
+  }
+
+  &:hover {
+    border-bottom: 0.5px solid $orange;
   }
 }
 
 #sortForm button {
   padding: 3px 5px;
-  color: #fff;
-  border: 1px solid #fff;
+  color: $white;
+  border: 1px solid $white;
   border-radius: 5px;
   transition-property: color, border-color, background-color;
   transition-duration: $time-cubic;

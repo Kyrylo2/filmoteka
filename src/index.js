@@ -129,6 +129,12 @@ async function onFormSubmit(e) {
         console.log(e);
       }
     });
+    pagination.on('afterMove', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
   } catch (e) {
     Notify.failure('Oups! Something went wrong');
   }
@@ -266,6 +272,12 @@ async function onSortFormSubmit(e) {
     } catch (e) {
       console.log(e);
     }
+  });
+  pagination.on('afterMove', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   });
 
   document.querySelector('h1').innerHTML = `Here's what we found by searching ${
