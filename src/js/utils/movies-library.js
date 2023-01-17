@@ -134,6 +134,10 @@ export default class MyLibrary {
     this.totalPages = Math.ceil(
       this.movieArray.length / this.numberResultsPerPage
     );
+
+    if (this.totalPages === 1) {
+      this.everythingIsLoaded = true;
+    }
   }
 
   calcPagesData() {
