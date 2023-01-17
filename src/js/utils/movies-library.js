@@ -26,6 +26,7 @@ export default class MyLibrary {
     this.pagesData = {};
     this.everythingIsLoaded = false;
     this.statusLibrary = null;
+    this.gdunStatus = 'hidden';
   }
 
   async getWatchedMovies() {
@@ -165,8 +166,13 @@ export default class MyLibrary {
 
   renderMovies() {
     if (this.movieArray.length === 0) {
-      console.log(this.movieArray);
+      refs.gdun.classList.remove('visually-hidden');
+      this.gdunStatus = 'visible';
       return;
+    }
+    if (this.gdunStatus === 'visible') {
+      refs.gdun.classList.add('visually-hidden');
+      this.gdunStatus = 'hidden';
     }
     this.reverseArray();
     this.calcTotalPages();
