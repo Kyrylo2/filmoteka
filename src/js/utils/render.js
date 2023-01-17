@@ -22,7 +22,9 @@ function renderMovies(movies) {
 
     <div class="img__row">
             <p>${movie.vote_average}</p>
-      <p>${Number.parseInt(movie.release_date)}</p>
+      <p>${
+        movie.release_date !== '' ? Number.parseInt(movie.release_date) : ' '
+      }</p>
     </div>
 
     <div class="films__info">

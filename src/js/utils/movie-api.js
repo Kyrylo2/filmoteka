@@ -81,9 +81,7 @@ class MoviesApiServise {
 
       if (this.totalItems === 0) {
         return;
-        // Notify.failure("Sorry, we haven't found any movie.");
       }
-      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data.results;
 
@@ -372,7 +370,6 @@ class MoviesApiServise {
         return;
         // Notify.failure("Sorry, we haven't found any movie.");
       }
-      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data;
       console.log(movies.results);

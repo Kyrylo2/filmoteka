@@ -6,6 +6,7 @@ import {
   backdrop,
   modal,
   sortForm,
+  modalStudents,
 } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
@@ -97,9 +98,7 @@ async function onFormSubmit(e) {
   moviesApiService.resetPage();
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
-    // if (arrOfMovies.length === 0) {
-    //   Notify.failure("Sorry, we haven't found any movie.");
-    // }
+
     createMarkup(renderMovies(arrOfMovies));
 
     document.querySelector(
@@ -151,6 +150,7 @@ function clearMarkup() {
 
 function closeModal() {
   modal.classList.add('visually-hidden');
+  modalStudents.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
 
   modal.innerHTML = '';
@@ -175,6 +175,8 @@ function onEcsClose(e) {
 }
 
 function onBackdropClose(e) {
+  console.log('onBackdropClose', e);
+  console.log(e.target.classList);
   if (
     e.target.classList.contains('modal') ||
     e.target.classList.contains('backdrop')
@@ -193,7 +195,13 @@ function removeAllListeners() {
 }
 
 moviesApiService.getGenres();
-moviesApiService.getTrendMovies();
+
+(async () => {
+  await moviesApiService.getTrendMovies();
+  Notify.success(
+    `Cool, we found more than ${moviesApiService.totalItems} films!`
+  );
+})();
 
 // console.log('signOutUser', signOutUser());
 
@@ -250,6 +258,10 @@ async function onSortFormSubmit(e) {
   // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
+
+  Notify.success(
+    `Cool, we found more than ${moviesApiService.totalItems} films!`
+  );
 
   const pagination = new Pagination(
     'tui-pagination-container',
