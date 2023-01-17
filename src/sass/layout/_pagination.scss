@@ -1,0 +1,28 @@
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  height: 40px;
+  width: 40px;
+  color: #fff;
+  background: $orange !important;
+  border-color: $orange !important;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tui-pagination .tui-is-selected:hover {
+  background-color: $orange !important;
+}
+
+.tui-pagination-container > a {
+  border: none !important;
+  border-radius: 5px;
+}
+
+.tui-pagination .tui-page-btn {
+  border: none !important;
+}
+
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  height: auto !important;
+}

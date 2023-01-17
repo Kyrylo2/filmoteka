@@ -4,13 +4,20 @@ function renderMovies(movies) {
       return `<li class="films__item" data-id="${movie.id}">
   <a href="" class="films__wrapper">
     <div class="films__img-wrapper">
-      <img
-        class="films__img"
-        ${isPoster(movie.poster_path)}
-        alt="${movie.title}"
-        loading="lazy"
-        width='395' height='574'
-      />
+
+    ${
+      movie.poster_path
+        ? `<picture class="films__img">
+    <source media="(max-width: 480px)" srcset="https://image.tmdb.org/t/p/w342${movie.poster_path}">
+    <source media="(max-width: 768px)" srcset="https://image.tmdb.org/t/p/w500${movie.poster_path}">
+    <source media="(max-width: 1280px)" srcset="https://image.tmdb.org/t/p/w780${movie.poster_path}">
+    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}" loading="lazy">
+  </picture>`
+        : `<img     class="films__img"   src="${require('../../images/no-picture.png')}" alt="${
+            movie.title
+          }" loading="lazy"  width='395px' height='574px' />`
+    }
+       
     </div>
 
     <div class="img__row">
@@ -48,8 +55,9 @@ function showGenres(genres) {
 
 function isPoster(poster) {
   return poster
-    ? `src="https://image.tmdb.org/t/p/original${poster}"`
-    : "src='./images/no-picture.png'";
+    ? // ? `src="https://image.tmdb.org/t/p/original${poster}"`
+      `${poster}`
+    : `src=${require('../../images/no-picture.png')}`;
 }
 
 function renderFullInfo(
@@ -57,13 +65,26 @@ function renderFullInfo(
   id,
   isWatched = false,
   isQueue = false,
-  isSignIn
+  isSignIn,
+  trailerPath = false
 ) {
+  console.log(movie);
   return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
-      <img ${isPoster(movie.poster_path)} class="modal-img" alt="${
-    movie.title
-  }" />
+    <picture class="modal-img">
+          <source media="(max-width: 480px)" srcset="https://image.tmdb.org/t/p/w342${isPoster(
+            movie.poster_path
+          )}">
+          <source media="(max-width: 768px)" srcset="https://image.tmdb.org/t/p/w500${isPoster(
+            movie.poster_path
+          )}">
+          <source media="(max-width: 1280px)" srcset="https://image.tmdb.org/t/p/w780${isPoster(
+            movie.poster_path
+          )}">
+          <img src="https://image.tmdb.org/t/p/original${isPoster(
+            movie.poster_path
+          )}" alt="${movie.title}">
+        </picture>
     </div>
     <div class="modal-flex">
       <h2 class="modal-h2">${movie.title}</h2>
@@ -120,9 +141,12 @@ function renderFullInfo(
         </button>
         `
   }
-      <button class="button-modal">
-          TRAILER
-        </button>
+        ${
+          trailerPath
+            ? `<iframe src="https://www.youtube.com/embed/${trailerPath}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+            : ''
+        }
+        
       </div>
     </div> 
     <button class="modal-cross"> 

@@ -1,36 +1,35 @@
 .modal__students {
   background-color: $white;
   max-width: 380px;
-  // width: 280px;
+  width: 280px;
   border-radius: 15px;
   margin: auto;
   padding: 48px 20px 40px;
   position: relative;
 
   @include tablet {
-    // width: 704px;
-    // display: flex;
-    // justify-content: center;
+    width: 704px;
+    display: flex;
+    justify-content: center;
 
     max-width: 704px;
-    grid-column-gap: 68px;
-    grid-template-columns: 264px 1fr;
+
     display: grid;
     padding: 40px 72px 40px 36px;
   }
   @include desktop {
-    // width: 806px;
-    // display: flex;
-    // justify-content: center;
+    width: 806px;
+    display: flex;
+    justify-content: center;
 
     max-width: 806px;
-    grid-column-gap: 16px;
-    grid-template-columns: 375px 1fr;
-    // padding: 20px;
+
+    padding: 20px;
     padding: 40px 12px;
     display: grid;
   }
 }
+
 .close {
   position: absolute;
   top: 8px;
@@ -42,14 +41,14 @@
 
   width: 30px;
   height: 30px;
-  border: $border;
+  border: none;
   border-radius: $border-radius;
   background-color: transparent;
 
-  transition: fill $transition;
+  transition: all 300ms ease;
 
-  :hover,
-  :focus {
+  &:hover,
+  &:focus {
     fill: $white;
     background-color: $orange-button;
   }
@@ -57,23 +56,28 @@
 
 .modal-title {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 1.5;
   letter-spacing: 0.03em;
   text-align: center;
   margin-bottom: 12px;
-  color: $orange;
+  color: $black;
+
+  text-decoration: underline $orange;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 17px;
+    font-size: 25px;
+  }
 }
 
 .students-list {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-
   padding: 0;
   margin: 0;
   list-style: none;
-
   background-color: inherit;
 }
 
@@ -82,6 +86,22 @@
   justify-content: space-between;
   align-items: center;
   background-color: $grey-background;
+  border: $borger-lightgray;
+  border-radius: $border-radius;
+
+  @media screen and (min-width: 768px) {
+    width: calc((100% - 30px) / 2);
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: calc((100% - 60px) / 3);
+    display: block;
+  }
+
+  & img {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
 }
 
 .students-describtion {
@@ -98,16 +118,24 @@
   text-align: center;
   color: $black;
   margin-bottom: 10px;
+
+  @media screen and (min-width: 1200px) {
+    margin-top: 10px;
+  }
 }
 
 .students-text {
   letter-spacing: 0.03em;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.2;
   color: $black;
   margin-bottom: 16px;
   margin-left: 10px;
+
+  @media screen and (min-width: 1200px) {
+    text-align: center;
+  }
 }
 
 .students-contacts {
@@ -128,10 +156,10 @@
   border-radius: $border-radius;
   background-color: transparent;
   color: $black;
-  transition: color $transition background-color $transition;
+  transition: all 300ms ease;
 
-  :focus,
-  :hover {
+  &:focus,
+  &:hover {
     color: $white;
     background-color: $orange;
   }
@@ -139,5 +167,5 @@
 
 .contacts-icon {
   fill: currentColor;
-  transition: color $transition;
+  transition: all 300ms ease;
 }

@@ -1,18 +1,22 @@
 @import './utilities/vars';
 @import './utilities/mixins';
 @import './base/common';
+
 @import './base/resetStyles';
 @import './base/switch-themeHTML';
 @import './layout/header-main';
 @import './layout/footer';
-// @import './layout/students';
+@import './layout/students';
 @import './layout/section-films';
 @import './components/container';
 @import './components/films';
 @import './layout/modal-window';
-@import './base/visually-hidden';
+
 @import './layout/menu-signin-out';
 @import './layout/header-library';
 @import './components/backdrop';
+@import './layout/pagination.scss';
 @import './layout/footer_in_down';
 @import './layout/btn-up';
+@import './components/basicLightBox';
+@import './base/visually-hidden';

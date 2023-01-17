@@ -17,7 +17,7 @@
         </li>
         <li class="site-nav__item">
           <a
-            class="site-nav__link site-nav__link--no-current link"
+            class="site-nav__link site-nav__link--no-current link site-nav__to_library"
             href="./my-library.html"
             >my library</a
           >
@@ -37,9 +37,9 @@
       </div>
 
       <button class="signInButton" type="button" id="signInButton">
-        <svg class="signInButton_icon" width="20" height="20"">
-        <use href="./images/symbol-defs_minNN.svg#icon-login_min"></use>
-      </svg>
+        <svg class="signInButton_icon" width="20" height="20">
+          <use href="./images/symbol-defs_minNN.svg#icon-login_min"></use>
+        </svg>
         Sign in with
       </button>
 
@@ -54,7 +54,7 @@
         </svg>
       </button>
       <!-- Костюченко Сергій -->
-      <include src="./partials/menu-signin-out.html"></include>
+      <!-- <include src="./partials/menu-signin-out.html"></include> -->
     </div>
 
     <form action="" class="form header__form" id="searchForm">
@@ -69,6 +69,30 @@
           <use href="./images/symbol-defs_minNN.svg#icon-search"></use>
         </svg>
       </button>
+    </form>
+    <form id="sortForm">
+      <select name="genre" id="genreSelect">
+        <option value="">Select genre</option>
+      </select>
+      <select name="year" id="yearSelect">
+        <option value="">Select year</option>
+      </select>
+      <select name="sortBy" id="sortSelect">
+        <option value="">Sort by</option>
+        <option value="original_title.desc">Title</option>
+        <option value="popularity.desc">Popularity (HIGH - LOW)</option>
+        <option value="popularity.asc">Popularity (LOW - HIGH)</option>
+        <option value="vote_average.desc">Rating (HIGH - LOW)</option>
+        <option value="vote_average.asc">Rating (LOW - HIGH)</option>
+        <option value="primary_release_date.desc">
+          Release date (HIGH - LOW)
+        </option>
+        <option value="primary_release_date.asc">
+          Release date (LOW - HIGH)
+        </option>
+      </select>
+      <button type="submit">Find</button>
+      <button type="reset" name="resetBtn">Reset</button>
     </form>
     <!-- <p class="header__error-message" id="errorMessage">
       Search result not successful. Enter the correct movie name and try again.

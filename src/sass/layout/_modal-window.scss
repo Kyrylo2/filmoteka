@@ -1,16 +1,6 @@
 .modal-window {
-  // left: 50%;
-  // top: 50%;
-  // justify-content: center;
-  // background-color: white;
-  // position: absolute;
-  // transform: translate(-50%, -50%);
-  // width: 280px;
-  // z-index: 1;
-
   background-color: $white;
   max-width: 380px;
-  // width: 280px;
   border-radius: 15px;
   margin: auto;
   padding: 48px 20px 40px;
@@ -85,13 +75,16 @@
   line-height: 1.15;
 
   margin-bottom: 20px;
+  margin-top: 20px;
 
   @include tablet {
     font-size: 20px;
+    margin-top: 0px;
   }
   @include desktop {
     font-size: 30px;
     max-width: 80%;
+    margin-top: 0px;
   }
 }
 .modal-img {
