@@ -139,7 +139,7 @@ export default class APIFirebase {
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         GoogleAuthProvider.PROVIDER_ID,
-        FacebookAuthProvider.PROVIDER_ID,
+        // FacebookAuthProvider.PROVIDER_ID,
         EmailAuthProvider.PROVIDER_ID,
       ],
       // Terms of service url.

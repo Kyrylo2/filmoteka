@@ -43,7 +43,7 @@ function addEvents() {
   refs.signInButtonElement.addEventListener('click', openMenuSignIn);
   refs.signInMenu.addEventListener('click', clickWindowSignIn);
   refs.linkToLibrary.addEventListener('click', clickToLibrary);
-  // refs.linkToLibrary.addEventListener('click', clickToLibrary);
+  refs.linkToLibrary.addEventListener('mousedown', mousedownToLibrary);
 
   // * Sign Out
   refs.signOutButtonElement.addEventListener(
@@ -102,18 +102,21 @@ function clickToLibrary(event) {
     Notify.failure('Oh! Please SignIn', { timeout: 500 });
     event.preventDefault();
   }
-
   // saveToLacalStorage();
 }
 
-// async function saveToLacalStorage() {
-//   const dataWatched = await apiFirebase.readWatched();
-//   const dataQueue = await apiFirebase.readQueue();
-//   localStorage.setItem(
-//     'filmotekaToLibrary',
-//     JSON.stringify({ dataWatched, dataQueue })
-//   );
-// }
+function mousedownToLibrary() {
+  saveToLacalStorage();
+}
+
+async function saveToLacalStorage() {
+  const dataWatched = await apiFirebase.readWatched();
+  const dataQueue = await apiFirebase.readQueue();
+  localStorage.setItem(
+    'filmotekaToLibrary',
+    JSON.stringify({ dataWatched, dataQueue })
+  );
+}
 
 function visualisationSignElement(user) {
   if (user) {
