@@ -13,8 +13,9 @@ import { ModalTeamInit } from './js/students';
 import validator from 'validator';
 
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+
 import btn_up from './js/btn_up';
+
 // import './js/utils/get_watced_and_queue';
 
 //* Authentication
@@ -40,10 +41,10 @@ function onSignOut(user) {
   // console.log('onSignOut');
 }
 
-//Перевірити чи авториований
-//майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
-//Це буде одразу після завантаження сторінки
-//apiFirebase.isUserSignedIn()
+// Перевірити чи авториований
+// майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
+// Це буде одразу після завантаження сторінки
+// apiFirebase.isUserSignedIn()
 
 search.addEventListener('submit', onFormSubmit);
 
@@ -168,7 +169,7 @@ function addSortingYears() {
   const minYear = 1999;
   const maxYear = 2022;
   const arrOfYears = [];
-  for (let i = minYear; i <= maxYear; i++) {
+  for (let i = maxYear; i - 1 > minYear; i--) {
     arrOfYears.push(`<option value="${i}">${i}</option>`);
   }
   // console.log(arrOfYears);
@@ -194,4 +195,19 @@ async function onSortFormSubmit(e) {
   // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
+
+  const pagination = new Pagination(
+    'tui-pagination-container',
+    moviesApiService.PaginationOptions
+  );
+
+  pagination.on('beforeMove', async e => {
+    try {
+      moviesApiService.page = e.page;
+      const arrOfMovies = await moviesApiService.getSortedMovies();
+      createMarkup(renderMovies(arrOfMovies));
+    } catch (e) {
+      console.log(e);
+    }
+  });
 }

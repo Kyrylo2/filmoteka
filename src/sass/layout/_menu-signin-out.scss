@@ -64,10 +64,7 @@
   overflow-y: hidden;
 }
 
-
-
 // -----Modal Sign_in -----
-
 
 .backdrop_menu_sign_in {
   position: fixed;
@@ -89,7 +86,7 @@
 .menu_sign_in_new {
   padding: 35px 20px;
   text-align: center;
- 
+
   position: fixed;
   top: 50%;
   left: 50%;
@@ -102,82 +99,77 @@
   visibility: visible;
   opacity: 1;
 
-  background-color: #F7F7F7;;
+  background-color: #f7f7f7;
   color: #161616;
 
-  
   border-radius: 10px;
   border: 1px solid #161616;
-    // box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7)
-    box-shadow: 0px 0px 12px rgba(255, 100, 1, 0.4);
-    width: 80%;
-    max-width: 500px;
-
+  // box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7)
+  box-shadow: 0px 0px 12px rgba(255, 100, 1, 0.4);
+  width: 80%;
+  max-width: 500px;
 }
 
-    .firebaseui-idp-list{
-      margin-top: 40px;
-    }
-     .firebaseui-idp-list > .firebaseui-list-item{
-margin-bottom: 20px;
-     }
+.firebaseui-idp-list {
+  margin-top: 40px;
+}
+.firebaseui-idp-list > .firebaseui-list-item {
+  margin-bottom: 20px;
+}
 
-.firebaseui-idp-button{
+.firebaseui-idp-button {
   font-size: 25px;
   padding-left: 25px;
 }
 
 // ----Sign in with email---
-.firebaseui-title{
+.firebaseui-title {
   text-align: center;
 }
 
 // Button Cancel
 .firebaseui-id-secondary-link {
   margin-right: 7px;
-  --color: hsl(200, 100%, 6%, .7);
-    background-color: rgb(256, 256, 256);
-    box-shadow: 0 0 2px 0 var(--color);
-    border-radius: 5px;
+  --color: hsl(200, 100%, 6%, 0.7);
+  background-color: rgb(256, 256, 256);
+  box-shadow: 0 0 2px 0 var(--color);
+  border-radius: 5px;
 }
 .firebaseui-id-secondary-link:hover,
-.firebaseui-id-secondary-link:focus{
-// background-color: rgb(256, 256, 258);
-background-color: rgb(244, 241, 241);
+.firebaseui-id-secondary-link:focus {
+  // background-color: rgb(256, 256, 258);
+  background-color: rgb(244, 241, 241);
 }
-
 
 // Button Next
 .mdl-button--raised.mdl-button--colored {
-background-color: #FF6B01;
-border-radius: 5px;
-box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, .7);
+  background-color: #ff6b01;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, 0.7);
 }
 
 .mdl-button--raised.mdl-button--colored:hover,
-.mdl-button--raised.mdl-button--colored:focus{
-  background-color: #FF6B01;
+.mdl-button--raised.mdl-button--colored:focus {
+  background-color: #ff6b01;
   color: #3f51b5;
-  
 }
-.firebaseui-textfield.mdl-textfield .firebaseui-input{
+.firebaseui-textfield.mdl-textfield .firebaseui-input {
   color: #161616 !important;
   border-bottom-style: inset !important;
   border-radius: 0 !important;
 }
 
 // ----Input----
-.firebaseui-textfield.mdl-textfield .firebaseui-input{
+.firebaseui-textfield.mdl-textfield .firebaseui-input {
   font-size: 1.25rem;
-    // padding: .5em;
-    // background-color: hsl(200, 100%, 91%, .3);
-    border: none;
-    outline: none;
-    border-radius: .25em;
-    color: white;
-    font-weight: lighter;
+  // padding: .5em;
+  // background-color: hsl(200, 100%, 91%, .3);
+  border: none;
+  outline: none;
+  border-radius: 0.25em;
+  color: white;
+  font-weight: lighter;
 }
-
 
 // ---Button close---
 
@@ -185,7 +177,7 @@ box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, .7);
 
 // }
 
-.btn-close{
+.btn-close {
   position: absolute;
   top: 0;
   right: 0;
