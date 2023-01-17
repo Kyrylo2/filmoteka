@@ -31,10 +31,6 @@ const apiFirebase = initializeFirebase({
 //ks
 moviesApiService.apiFirebase = apiFirebase;
 
-itializeWatchQueue(apiFirebase);
-
-ModalTeamInit();
-
 function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
   //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
@@ -50,6 +46,13 @@ function onSignOut(user) {
 // майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
 // Це буде одразу після завантаження сторінки
 // apiFirebase.isUserSignedIn()
+
+if (document.documentURI.includes('my-library.html')) {
+  itializeWatchQueue(apiFirebase);
+  return;
+}
+
+ModalTeamInit();
 
 search.addEventListener('submit', onFormSubmit);
 

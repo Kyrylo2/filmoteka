@@ -53,7 +53,9 @@ export default class APIFirebase {
     const firebaseApp = initializeApp(getFirebaseConfig());
     getPerformance();
     this.initFirebaseAuth();
-    this.ui = new firebaseui.auth.AuthUI(getAuth());
+    if (authStateObserver) {
+      this.ui = new firebaseui.auth.AuthUI(getAuth());
+    }
   }
 
   // Signs-in Friendly Chat.
