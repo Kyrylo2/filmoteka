@@ -9,13 +9,8 @@ import APIFirebase from '../api-firebase';
 let myLibrary;
 let refs;
 let apiFirebase;
-async function itializeWatchQueue(firebase) {
+function itializeWatchQueue(firebase) {
   // apiFirebase = firebase;
-
-  console.log(apiFirebase.isUserSignedIn());
-  const arrLib = await apiFirebase.readWatched();
-  console.log('readWatched', arrLib);
-
   myLibrary = new MyLibrary();
   myLibrary.apiFirebase = firebase;
   refs = {
