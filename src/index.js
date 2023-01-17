@@ -12,7 +12,7 @@ import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
 import validator from 'validator';
 // import { MyLibrary as MyLibraryClass } from './js/utils/movies-library';
-
+import switchTheme from './js/switch_theme';
 import Pagination from 'tui-pagination';
 
 import btn_up from './js/btn_up';

@@ -1,22 +1,29 @@
 window.addEventListener('load', windowLoad);
 
 function windowLoad() {
+  // HTML
   const htmlBlock = document.documentElement;
-
-  // зберігаємо тему
+  // Змінна збереження теми в локалсторейдж
   const saveUserTheme = localStorage.getItem('user-theme');
-  const filmsNameText = document.querySelector('.films__info p:first-child');
+  //   змінна всіх назв фільмів
   const allFilmsNameText = document.querySelectorAll(
     '.films__info p:first-child'
   );
-  console.log('windowLoad ~ allFilmsNameText', allFilmsNameText);
+  // змінні пагінації
+  const btnPagination = document.querySelectorAll(
+    '.tui-pagination .tui-page-btn'
+  );
+  const btnPagNext = document.querySelector('.tui-next');
+  const btnPagLast = document.querySelector('.tui-last');
+  const btnPagPrev = document.querySelector('.tui-prev');
+  const btnPagFirst = document.querySelector('.tui-first');
+  const btnPagLastChild = document.querySelector('.tui-last-child');
 
+  // зберігаємо тему
   if (saveUserTheme === 'dark') {
     check();
-    // addBlackColor();
     addAllNameFilmsBlackColor();
-    // const currentColor = 'dark';
-    // changeTextColor(currentColor);
+    addWhitekColorPagination();
   }
 
   function check() {
@@ -37,6 +44,7 @@ function windowLoad() {
     check();
     // addBlackColor();
     addAllNameFilmsBlackColor();
+    addWhitekColorPagination();
     // const currentColor = 'dark';
     // changeTextColor(currentColor);
   }
@@ -45,6 +53,7 @@ function windowLoad() {
     uncheck();
     // removeBlackColor();
     removeAllNameFilmsBlackColor();
+    removeWhiteColorPagination();
   }
 
   window
@@ -92,27 +101,14 @@ function windowLoad() {
     } else if (currentTheme === 'dark') {
       newTheme = 'light';
     }
-    //   changeTextColor(newTheme);
+
     changeAllTextColor(newTheme);
+    changePaginationColor(newTheme);
     htmlBlock.classList.remove(currentTheme);
     htmlBlock.classList.add(newTheme);
     saveTheme ? localStorage.setItem('user-theme', newTheme) : null;
   }
-  //   function changeTextColor(newTheme) {
-  //     if (newTheme === 'dark') {
-  //       filmsNameText.classList.add('films__name--color');
-  //     } else {
-  //       filmsNameText.classList.remove('films__name--color');
-  //     }
-  //   }
-  //   function addBlackColor() {
-  //     filmsNameText.classList.add('films__name--color');
-  //   }
-
-  //   function removeBlackColor() {
-  //     filmsNameText.classList.remove('films__name--color');
-  //   }
-
+  //   зміна кольору назв фільмів
   function changeAllTextColor(newTheme) {
     if (newTheme === 'dark') {
       addAllNameFilmsBlackColor();
@@ -129,5 +125,36 @@ function windowLoad() {
     for (let i = 0; i < allFilmsNameText.length; i += 1) {
       allFilmsNameText[i].classList.remove('films__name--color');
     }
+  }
+
+  // Зміна кольору кнопок пагінації
+  function changePaginationColor(newTheme) {
+    if (newTheme === 'dark') {
+      addWhitekColorPagination();
+    } else {
+      removeWhiteColorPagination();
+    }
+  }
+
+  function addWhitekColorPagination() {
+    for (let i = 0; i < btnPagination.length; i += 1) {
+      btnPagination[i].classList.add('tui-page-btn--change-color');
+    }
+    btnPagNext.classList.add('tui-el-change');
+    btnPagLast.classList.add('tui-el-change');
+    btnPagPrev.classList.add('tui-el-change');
+    btnPagFirst.classList.add('tui-el-change');
+    btnPagLastChild.classList.add('tui-el-change');
+  }
+
+  function removeWhiteColorPagination() {
+    for (let i = 0; i < btnPagination.length; i += 1) {
+      btnPagination[i].classList.remove('tui-page-btn--change-color');
+    }
+    btnPagNext.classList.remove('tui-el-change');
+    btnPagLast.classList.remove('tui-el-change');
+    btnPagPrev.classList.remove('tui-el-change');
+    btnPagFirst.classList.remove('tui-el-change');
+    btnPagLastChild.classList.remove('tui-el-change');
   }
 }

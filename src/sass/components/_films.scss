@@ -9,9 +9,9 @@
 .films__info {
   margin-top: 10px;
 
-  & p:first-child {
-    color: $black;
-  }
+  // & p:first-child {
+  //   color: $black;
+  // }
 
   @include tablet {
     margin-top: 8px;
@@ -20,6 +20,12 @@
   @include desktop {
     margin-top: 12px;
   }
+}
+.films__name {
+  color: $black;
+}
+.films__name--color {
+  color: white;
 }
 
 .rating-on-library-card {
