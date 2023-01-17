@@ -39,12 +39,20 @@ function onSignIn(user) {
 function onSignOut(user) {
   // Оце викличеться коли користувач вийде з аккаунту
   // console.log('onSignOut');
+  if (ifLibrary()) {
+    //to home
+    location.href = './index.html';
+  }
 }
 
 // Перевірити чи авториований
 // майте на увазі, поки сервер не підтвердить авторизацію, то повертатиме false
 // Це буде одразу після завантаження сторінки
 // apiFirebase.isUserSignedIn()
+
+function ifLibrary() {
+  return document.documentURI.includes('my-library.html');
+}
 
 search.addEventListener('submit', onFormSubmit);
 

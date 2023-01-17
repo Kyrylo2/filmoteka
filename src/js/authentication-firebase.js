@@ -42,7 +42,8 @@ function addEvents() {
   // * Open menu
   refs.signInButtonElement.addEventListener('click', openMenuSignIn);
   refs.signInMenu.addEventListener('click', clickWindowSignIn);
-  refs.linkToLibrary.addEventListener('mousedown', clickToLibrary);
+  refs.linkToLibrary.addEventListener('click', clickToLibrary);
+  refs.linkToLibrary.addEventListener('mousedown', mousedownToLibrary);
 
   // * Sign Out
   refs.signOutButtonElement.addEventListener(
@@ -96,12 +97,19 @@ function closeMenuSignIn(event) {
   refs.signInBackdrop.classList.add(NAME_CLASS_VISUALLY_HIDDEN);
 }
 
-async function clickToLibrary(event) {
+function clickToLibrary(event) {
   if (!apiFirebase.isUserSignedIn()) {
     Notify.failure('Oh! Please SignIn', { timeout: 500 });
     event.preventDefault();
   }
+  // saveToLacalStorage();
+}
 
+function mousedownToLibrary() {
+  saveToLacalStorage();
+}
+
+async function saveToLacalStorage() {
   const dataWatched = await apiFirebase.readWatched();
   const dataQueue = await apiFirebase.readQueue();
   localStorage.setItem(
