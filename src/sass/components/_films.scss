@@ -9,9 +9,15 @@
 .films__info {
   margin-top: 8px;
 
-  & p:first-child {
-    color: $black;
-  }
+  // & p:first-child {
+  //   color: $black;
+  // }
+}
+.films__name {
+  color: $black;
+}
+.films__name--color {
+  color: white;
 }
 
 .rating-on-library-card {

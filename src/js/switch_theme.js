@@ -1,28 +1,48 @@
-// const btnSwitchTheme = document.querySelector('.switch_theme');
-// console.log('btnSwitchTheme', btnSwitchTheme);
-// console.log('test');
-// btnSwitchTheme.addEventListener('click', onBtnSwitchTheme);
-
-// function onBtnSwitchTheme() {
-//   console.log('click on button');
-// }
-
 window.addEventListener('load', windowLoad);
 
 function windowLoad() {
   const htmlBlock = document.documentElement;
 
+  // зберігаємо тему
   const saveUserTheme = localStorage.getItem('user-theme');
+  const filmsNameText = document.querySelector('.films__info p:first-child');
+  console.log('windowLoad ~ filmsNameText', filmsNameText);
+
+  if (saveUserTheme === 'dark') {
+    check();
+    addBlackColor();
+    // const currentColor = 'dark';
+    // changeTextColor(currentColor);
+  }
+
+  function check() {
+    document.getElementById('checkbox').checked = true;
+  }
+  function uncheck() {
+    document.getElementById('checkbox').checked = false;
+  }
 
   // Підятгування теми з системи
   let userTheme;
   if (window.matchMedia) {
-    userTheme = window.matchMedia('(preferens-color-scheme:dark)').matches
+    userTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
   }
+  if (userTheme === 'dark') {
+    check();
+    addBlackColor();
+    // const currentColor = 'dark';
+    // changeTextColor(currentColor);
+  }
+  if (saveUserTheme === 'light') {
+    userTheme = '';
+    uncheck();
+    removeBlackColor();
+  }
+
   window
-    .matchMedia('(preferens-color-scheme:dark)')
+    .matchMedia('(prefers-color-scheme:dark)')
     .addEventListener('change', e => {
       !saveUserTheme ? changeTheme() : null;
     });
@@ -30,12 +50,9 @@ function windowLoad() {
   // Зміна теми по кліку
   const themeButton = document.querySelector('.switch_theme');
   const resetButton = document.querySelector('.reset_theme');
+
   if (themeButton) {
     themeButton.addEventListener('change', function (e) {
-      //     if (this.checked) {
-      //     resetButton.classList.add('active');
-      //     changeTheme(true);
-      //   }
       resetButton.classList.add('active');
       changeTheme(true);
     });
@@ -47,7 +64,7 @@ function windowLoad() {
     });
   }
 
-  // функція додавання клау теми
+  // функція додавання клаcу теми
   function setThemeClass() {
     if (saveUserTheme) {
       htmlBlock.classList.add(saveUserTheme);
@@ -69,8 +86,23 @@ function windowLoad() {
     } else if (currentTheme === 'dark') {
       newTheme = 'light';
     }
+    changeTextColor(newTheme);
     htmlBlock.classList.remove(currentTheme);
     htmlBlock.classList.add(newTheme);
     saveTheme ? localStorage.setItem('user-theme', newTheme) : null;
+  }
+  function changeTextColor(newTheme) {
+    if (newTheme === 'dark') {
+      filmsNameText.classList.add('films__name--color');
+    } else {
+      filmsNameText.classList.remove('films__name--color');
+    }
+  }
+  function addBlackColor() {
+    filmsNameText.classList.add('films__name--color');
+  }
+
+  function removeBlackColor() {
+    filmsNameText.classList.remove('films__name--color');
   }
 }
