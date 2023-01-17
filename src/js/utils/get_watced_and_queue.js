@@ -56,6 +56,7 @@ function itializeWatchQueue(firebase) {
 async function onButtonsContainerClick(e) {
   if (e.target.getAttribute('id') === 'watchedButton') {
     e.target.classList.add('watchedButton--active');
+    myLibrary.statusLibrary = 'watched';
     const activeButton = e.currentTarget.querySelector('.queueButton--active');
     if (activeButton) {
       activeButton.classList.remove('queueButton--active');
@@ -69,6 +70,7 @@ async function onButtonsContainerClick(e) {
 
   if (e.target.getAttribute('id') === 'queueButton') {
     e.target.classList.add('queueButton--active');
+    myLibrary.statusLibrary = 'queue';
     const activeButton = e.currentTarget.querySelector(
       '.watchedButton--active'
     );

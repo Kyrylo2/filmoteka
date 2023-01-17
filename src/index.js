@@ -11,10 +11,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
 import validator from 'validator';
-// import { MyLibrary as MyLibraryClass } from './js/utils/movies-library';
-
+import MyLibraryClass from './js/utils/movies-library';
+const myLibrarty = new MyLibraryClass();
 import Pagination from 'tui-pagination';
-
+console.log(myLibrarty);
 import btn_up from './js/btn_up';
 
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
@@ -135,9 +135,10 @@ function closeModal() {
   modal.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
 
-  // if (document.querySelector('body.my-lib-event')) {
-  //   ТУТ МОЖНА ДЕЛАТЬ РЕЛОР???
-  // }
+  // Перерендер
+  if (document.querySelector('body.my-lib-event')) {
+    myLibrary.closeModal();
+  }
 }
 
 function onBtnClose() {
