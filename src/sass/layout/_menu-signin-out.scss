@@ -179,15 +179,11 @@ box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, .7);
 }
 
 
-
-
 // ---Button close---
 
-.button_position{
-  position: relative;
-  top: 0;
-  right: 20px;
-}
+// .button_position{
+
+// }
 
 .btn-close{
   position: absolute;
@@ -200,8 +196,4 @@ box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, .7);
   background-color: $orange-button;
   border-radius: 50%;
   border: 1px solid rgb(47, 47, 47);
-  // z-index: 900;
 }
-
-
-// }
