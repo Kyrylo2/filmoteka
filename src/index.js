@@ -6,15 +6,16 @@ import {
   backdrop,
   modal,
   sortForm,
+  modalStudents,
 } from './js/utils/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeFirebase } from './js/authentication-firebase';
 import { ModalTeamInit } from './js/students';
 import validator from 'validator';
-// import { MyLibrary as MyLibraryClass } from './js/utils/movies-library';
-// import switchTheme from './js/switch_theme';
+import MyLibraryClass from './js/utils/movies-library';
+const myLibrarty = new MyLibraryClass();
 import Pagination from 'tui-pagination';
-
+//  console.log(myLibrarty);
 import btn_up from './js/btn_up';
 
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
@@ -42,7 +43,7 @@ function getmyLibrary() {
 async function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
   //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
-  // console.log(apiFirebase.isUserSignedIn());
+  // //  console.log(apiFirebase.isUserSignedIn());
   if (ifLibrary()) {
     myLibrary.preload.call(myLibrary);
   }
@@ -50,7 +51,7 @@ async function onSignIn(user) {
 
 function onSignOut(user) {
   // Оце викличеться коли користувач вийде з аккаунту
-  // console.log('onSignOut');
+  // //  console.log('onSignOut');
   if (ifLibrary()) {
     //to home
     location.href = './index.html';
@@ -97,11 +98,14 @@ async function onFormSubmit(e) {
   moviesApiService.resetPage();
   try {
     const arrOfMovies = await moviesApiService.fetchMovies();
-    // if (arrOfMovies.length === 0) {
-    //   Notify.failure("Sorry, we haven't found any movie.");
-    // }
+
     createMarkup(renderMovies(arrOfMovies));
-    console.log(arrOfMovies);
+
+    document.querySelector(
+      'h1'
+    ).innerHTML = `Here's what we found by searching for "${
+      moviesApiService.query[0].toUpperCase() + moviesApiService.query.slice(1)
+    }". You on page - <span>${moviesApiService.page}</span>`;
 
     const pagination = new Pagination(
       'tui-pagination-container',
@@ -113,9 +117,22 @@ async function onFormSubmit(e) {
         moviesApiService.page = e.page;
         const arrOfMovies = await moviesApiService.fetchMovies();
         createMarkup(renderMovies(arrOfMovies));
+
+        document.querySelector(
+          'h1'
+        ).innerHTML = `Here's what we found by searching for "${
+          moviesApiService.query[0].toUpperCase() +
+          moviesApiService.query.slice(1)
+        }". You on page - <span>${moviesApiService.page}</span>`;
       } catch (e) {
-        console.log(e);
+        //  console.log(e);
       }
+    });
+    pagination.on('afterMove', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
   } catch (e) {
     Notify.failure('Oups! Something went wrong');
@@ -133,11 +150,14 @@ function clearMarkup() {
 
 function closeModal() {
   modal.classList.add('visually-hidden');
+  modalStudents.classList.add('visually-hidden');
   backdrop.classList.toggle('modal-open');
 
-  // if (document.querySelector('body.my-lib-event')) {
-  //   ТУТ МОЖНА ДЕЛАТЬ РЕЛОР???
-  // }
+  modal.innerHTML = '';
+  // Перерендер
+  if (document.querySelector('body.my-lib-event')) {
+    myLibrary.closeModal();
+  }
 }
 
 function onBtnClose() {
@@ -155,6 +175,8 @@ function onEcsClose(e) {
 }
 
 function onBackdropClose(e) {
+  //  console.log('onBackdropClose', e);
+  //  console.log(e.target.classList);
   if (
     e.target.classList.contains('modal') ||
     e.target.classList.contains('backdrop')
@@ -173,9 +195,15 @@ function removeAllListeners() {
 }
 
 moviesApiService.getGenres();
-moviesApiService.getTrendMovies();
 
-// console.log('signOutUser', signOutUser());
+(async () => {
+  await moviesApiService.getTrendMovies();
+  Notify.success(
+    `Cool, we found more than ${moviesApiService.totalItems} films!`
+  );
+})();
+
+// //  console.log('signOutUser', signOutUser());
 
 // const pagination = new Pagination('tui-pagination-container', options);
 
@@ -185,7 +213,7 @@ function addSortingGenres() {
   parsedGenres.map(el =>
     arrOfGenres.push(`<option value="${el.id}">${el.name}</option>`)
   );
-  // console.log(arrOfGenres);
+  // //  console.log(arrOfGenres);
   sortForm.elements.genreSelect.insertAdjacentHTML(
     'beforeend',
     arrOfGenres.join('')
@@ -200,7 +228,7 @@ function addSortingYears() {
   for (let i = maxYear; i - 1 > minYear; i--) {
     arrOfYears.push(`<option value="${i}">${i}</option>`);
   }
-  // console.log(arrOfYears);
+  // //  console.log(arrOfYears);
   sortForm.elements.yearSelect.insertAdjacentHTML(
     'beforeend',
     arrOfYears.join('')
@@ -217,12 +245,23 @@ async function onSortFormSubmit(e) {
   moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
   const resetButton = e.currentTarget.elements.resetBtn;
   resetButton.addEventListener('click', () => {
-    console.log('qeqeqw');
+    //  console.log('qeqeqw');
     moviesApiService.getTrendMovies();
   });
+
+  const ganreName = moviesApiService.choosedGenres
+    ? e.currentTarget.elements.genreSelect.options[
+        e.currentTarget.elements.genreSelect.selectedIndex
+      ].text
+    : false;
+
   // clearMarkup();
   const arrOfMovies = await moviesApiService.getSortedMovies();
   createMarkup(renderMovies(arrOfMovies));
+
+  Notify.success(
+    `Cool, we found more than ${moviesApiService.totalItems} films!`
+  );
 
   const pagination = new Pagination(
     'tui-pagination-container',
@@ -234,10 +273,34 @@ async function onSortFormSubmit(e) {
       moviesApiService.page = e.page;
       const arrOfMovies = await moviesApiService.getSortedMovies();
       createMarkup(renderMovies(arrOfMovies));
+
+      document.querySelector(
+        'h1'
+      ).innerHTML = `Here's what we found by searching ${
+        moviesApiService.choosedGenres ? ganreName + ', ' : ''
+      }${
+        moviesApiService.year ? moviesApiService.year + ' year, ' : ''
+      }you on page - <span>${moviesApiService.page}</span>`;
     } catch (e) {
-      console.log(e);
+      //  console.log(e);
     }
   });
+  pagination.on('afterMove', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
+
+  document.querySelector('h1').innerHTML = `Here's what we found by searching ${
+    moviesApiService.choosedGenres ? ganreName : ''
+  } ${
+    moviesApiService.year
+      ? `${moviesApiService.choosedGenres ? ', ' : ''}` +
+        moviesApiService.year +
+        ' year'
+      : ''
+  }, you on page - <span>${moviesApiService.page}</span>`;
 }
 
 import classSwitchTheme from './js/class-switch_theme';

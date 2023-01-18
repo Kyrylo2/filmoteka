@@ -5,17 +5,22 @@ import {
   modalStudents,
 } from './utils/refs';
 
+import { onBtnClose, onEcsClose, onBackdropClose } from '../index';
+
 export function ModalTeamInit() {
   openModalBtn.addEventListener('click', onOpenModal);
   closeModalBtn.addEventListener('click', onCloseModal);
-  backdrop.addEventListener('click', onBackdropClick);
 }
 
 function onOpenModal() {
   backdrop.classList.add('modal-open');
   modalStudents.classList.remove('visually-hidden');
 
-  window.addEventListener('keydown', onEscKeydown);
+  backdrop.addEventListener('click', onBackdropClose);
+
+  document.body.removeEventListener('keyup', onEcsClose);
+
+  // window.addEventListener('keydown', onEscKeydown);
 }
 
 function onCloseModal() {
@@ -25,11 +30,11 @@ function onCloseModal() {
   window.removeEventListener('keydown', onEscKeydown);
 }
 
-function onBackdropClick(e) {
-  if (e.currentTarget === e.target) {
-    onCloseModal();
-  }
-}
+// function onBackdropClick(e) {
+//   if (e.currentTarget === e.target) {
+//     onCloseModal();
+//   }
+// }
 
 function onEscKeydown(e) {
   if (e.code === 'Escape') {

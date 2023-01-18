@@ -11,18 +11,20 @@ function renderMovies(movies, currentTheme) {
     <source media="(max-width: 480px)" srcset="https://image.tmdb.org/t/p/w342${movie.poster_path}">
     <source media="(max-width: 768px)" srcset="https://image.tmdb.org/t/p/w500${movie.poster_path}">
     <source media="(max-width: 1280px)" srcset="https://image.tmdb.org/t/p/w780${movie.poster_path}">
-    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}" loading="lazy">
+    <img class="films__img" src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}"  width='395px' height='574px' loading="lazy">
   </picture>`
         : `<img     class="films__img"   src="${require('../../images/no-picture.png')}" alt="${
             movie.title
-          }" loading="lazy"  width='395px' height='574px' />`
+          }"  width='395px' height='574px' loading="lazy"  width='395px' height='574px' />`
     }
        
     </div>
 
     <div class="img__row">
             <p>${movie.vote_average}</p>
-      <p>${Number.parseInt(movie.release_date)}</p>
+      <p>${
+        movie.release_date !== '' ? Number.parseInt(movie.release_date) : ' '
+      }</p>
     </div>
 
     <div class="films__info">
@@ -50,7 +52,7 @@ function showGenres(genres) {
   genres.splice(0, genres.length / 2);
   if (genres.length > 3) {
     genres.splice(2, genres.length, 'Other');
-    // console.log(genres);
+    // //  console.log(genres);
   }
   return genres.join(', ');
 }
@@ -70,7 +72,7 @@ function renderFullInfo(
   isSignIn,
   trailerPath = false
 ) {
-  console.log(movie);
+  //  console.log(movie);
   return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
     <picture class="modal-img">

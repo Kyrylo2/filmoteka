@@ -83,13 +83,11 @@ class MoviesApiServise {
       });
 
       this.totalItems = response.data.total_results;
-      console.log(this.totalItems);
+      // //  console.log(this.totalItems);
 
       if (this.totalItems === 0) {
         return;
-        // Notify.failure("Sorry, we haven't found any movie.");
       }
-      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data.results;
 
@@ -140,6 +138,11 @@ class MoviesApiServise {
         currentTheme
       );
 
+      document.querySelector(
+        'h1'
+      ).innerHTML = `Trending movies, you on page - <span>${this.page}</span>`;
+      document.querySelector('h1').classList.remove('visually-hidden');
+
       const pagination = new Pagination(
         'tui-pagination-container',
         this.PaginationOptions
@@ -148,6 +151,17 @@ class MoviesApiServise {
       pagination.on('beforeMove', e => {
         this.page = e.page;
         this.getTrendMovies();
+
+        document.querySelector(
+          'h1'
+        ).innerHTML = `Trending movies, you on page - <span>${this.page}</span>`;
+        document.querySelector('h1').classList.remove('visually-hidden');
+      });
+      pagination.on('afterMove', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       });
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
@@ -185,7 +199,6 @@ class MoviesApiServise {
     );
 
     if (!isSignIn) {
-      console.log('малюємо');
       document.querySelector('.buttons-flex').style.flexDirection = 'column';
       document.querySelector('.buttons-flex').style.alignItems = 'center';
     }
@@ -207,7 +220,7 @@ class MoviesApiServise {
         .addEventListener('click', async e => {
           const isWatched = await this.apiFirebase.isSavedFromWatched(id);
 
-          console.log(isWatched);
+          //  console.log(isWatched);
 
           const movieId = e.target
             .closest('.buttons-flex')
@@ -215,7 +228,7 @@ class MoviesApiServise {
 
           const filmName = document.querySelector('.modal-h2').textContent;
 
-          console.log(filmName);
+          //  console.log(filmName);
 
           isWatched
             ? (document.querySelector('.button-modal-watch').textContent =
@@ -234,7 +247,7 @@ class MoviesApiServise {
         .addEventListener('click', async e => {
           const isQueue = await this.apiFirebase.isSavedFromQueue(id);
 
-          console.log(isQueue);
+          //  console.log(isQueue);
 
           const movieId = e.target
             .closest('.buttons-flex')
@@ -242,7 +255,7 @@ class MoviesApiServise {
 
           const filmName = document.querySelector('.modal-h2').textContent;
 
-          console.log(filmName);
+          //  console.log(filmName);
 
           isQueue
             ? (document.querySelector('.button-modal-queue').textContent =
@@ -261,7 +274,7 @@ class MoviesApiServise {
       document
         .querySelector('.button-modal-signIn')
         .addEventListener('click', () => {
-          console.log('Відкрити модалку!');
+          //  console.log('Відкрити модалку!');
           // Тут треба выдкривати модалку Входу по кліку!!!
           openMenuSignIn();
         });
@@ -299,17 +312,17 @@ class MoviesApiServise {
   // ks;
   // async addToWatch(id) {
   //   const result = await this.apiFirebase.addToWatched(id);
-  //   console.log(result);
+  //   //  console.log(result);
   // }
 
   // async removeFromWatch(id) {
   //   const result = await this.apiFirebase.deleteFromWatched(id);
-  //   console.log(result);
+  //   //  console.log(result);
   // }
 
   // async addToQueue(e) {
   //   const result = await this.apiFirebase.addToQueue(456);
-  //   console.log(result);
+  //   //  console.log(result);
   // }
 
   async getSortedMovies() {
@@ -344,7 +357,7 @@ class MoviesApiServise {
       //   });
 
       //   this.totalItems = response.data.total_results;
-      //   console.log(this.totalItems);
+      //   //  console.log(this.totalItems);
 
       //   if (this.totalItems === 0) {
       //     return;
@@ -358,19 +371,18 @@ class MoviesApiServise {
       //   return movies;
 
       // ----------------------
-      console.log(response.data);
+      //  console.log(response.data);
 
       this.totalItems = response.data.total_results;
-      console.log(this.totalItems);
+      //  console.log(this.totalItems);
 
       if (this.totalItems === 0) {
         return;
         // Notify.failure("Sorry, we haven't found any movie.");
       }
-      Notify.success(`Cool, we found more than ${this.totalItems} films!`);
 
       let movies = response.data;
-      console.log(movies.results);
+      //  console.log(movies.results);
       return movies.results;
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
@@ -388,7 +400,7 @@ class MoviesApiServise {
   }
 
   get currentPage() {
-    console.log(this.page);
+    //  console.log(this.page);
     return this.page;
   }
 
@@ -409,7 +421,7 @@ class MoviesApiServise {
    */
   set setTotalItems(NewTotalItems) {
     this.totalItems = NewTotalItems;
-    console.log(this.totalItems);
+    //  console.log(this.totalItems);
   }
 }
 const moviesApiService = new MoviesApiServise();

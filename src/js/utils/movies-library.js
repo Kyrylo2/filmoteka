@@ -25,6 +25,8 @@ export default class MyLibrary {
     this.movieArray = [];
     this.pagesData = {};
     this.everythingIsLoaded = false;
+    this.statusLibrary = null;
+    this.gdunStatus = 'hidden';
   }
 
   async getWatchedMovies() {
@@ -35,10 +37,10 @@ export default class MyLibrary {
     try {
       this.movieArray = await this.apiFirebase.readWatched();
       filmsMainContainer.innerHTML = '';
-      console.log(this.movieArray);
+      //  console.log(this.movieArray);
       return this.movieArray;
     } catch (error) {
-      console.log(error);
+      //  console.log(error);
     } finally {
       Loading.remove();
     }
@@ -71,10 +73,10 @@ export default class MyLibrary {
     try {
       this.movieArray = await this.apiFirebase.readQueue();
       filmsMainContainer.innerHTML = '';
-      console.log(this.movieArray);
+      //  console.log(this.movieArray);
       return this.movieArray;
     } catch (error) {
-      console.log(error);
+      //  console.log(error);
     } finally {
       Loading.remove();
     }
@@ -97,33 +99,35 @@ export default class MyLibrary {
 
   async preload() {
     this.movieArray = await this.apiFirebase.readQueue();
-    console.log('preload', this.movieArray);
+    //  console.log('preload', this.movieArray);
 
     Loading.circle({ svgColor: 'red' });
-    console.log('start');
+    //  console.log('start');
 
     this.movieArray = await this.getQueueMovies();
-    console.log(this.movieArray.length);
+    //  console.log(this.movieArray.length);
     if (this.movieArray.length !== 0) {
       refs.queueButton.classList.add('queueButton--active');
+      this.statusLibrary = 'queue';
       this.renderMovies();
       return;
     }
 
     if (this.movieArray.length === 0) {
       await this.getWatchedMovies();
-      // console.log('NO DATA');
+      // //  console.log('NO DATA');
       // return;
     }
 
     if (this.movieArray.length !== 0) {
       refs.watchedButton.classList.add('watchedButton--active');
+      this.statusLibrary = 'watched';
       this.renderMovies();
       return;
     }
-    console.log('NO DATA');
+    //  console.log('NO DATA');
 
-    console.log('finish');
+    //  console.log('finish');
   }
 
   reverseArray() {
@@ -157,30 +161,35 @@ export default class MyLibrary {
       acc[key] = el;
       return acc;
     }, {});
-    console.log(this.pagesData);
+    //  console.log(this.pagesData);
   }
 
   renderMovies() {
     if (this.movieArray.length === 0) {
-      console.log(this.movieArray);
+      refs.gdun.classList.remove('visually-hidden');
+      this.gdunStatus = 'visible';
       return;
+    }
+    if (this.gdunStatus === 'visible') {
+      refs.gdun.classList.add('visually-hidden');
+      this.gdunStatus = 'hidden';
     }
     this.reverseArray();
     this.calcTotalPages();
     this.calcPagesData();
     const page = `page${this.page}`;
-    console.log(page);
+    //  console.log(page);
     getMyMovies(this.pagesData[page]);
   }
 
   scrollRenderMovies() {
-    console.log(this.pagesData);
+    //  console.log(this.pagesData);
     if (this.movieArray.length === 0) {
-      console.log(this.movieArray);
+      //  console.log(this.movieArray);
       return;
     }
     const page = `page${this.page}`;
-    console.log(page);
+    //  console.log(page);
     getMyMovies(this.pagesData[page]);
   }
 
@@ -190,11 +199,32 @@ export default class MyLibrary {
     this.movieArray = [];
     this.pagesData = {};
     this.everythingIsLoaded = false;
+    // this.statusLibrary = null;
+  }
+
+  async closeModal() {
+    //  console.log(this.statusLibrary);
+    if (this.statusLibrary === 'queue') {
+      this.resetAll();
+      await this.getQueueMovies();
+      //  console.log(this);
+      this.renderMovies();
+      return;
+    }
+
+    if (this.statusLibrary === 'watched') {
+      this.resetAll();
+      await this.getWatchedMovies();
+
+      //  console.log(this);
+      this.renderMovies();
+      return;
+    }
   }
 }
 
 async function getMyMovies(array) {
-  console.log(array);
+  //  console.log(array);
   try {
     const arrayOfPromises = array.map(async el => {
       const res = await apiInstanceMovie.get(`/movie/${el}`, config);
@@ -207,7 +237,7 @@ async function getMyMovies(array) {
 
     filmsMainContainer.insertAdjacentHTML('beforeend', template);
   } catch (error) {
-    console.log(error);
+    //  console.log(error);
   }
 }
 

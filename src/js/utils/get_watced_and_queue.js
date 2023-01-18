@@ -8,6 +8,8 @@ import { moviesApiService } from './movie-api';
 // const apiFirebase = new APIFirebase();
 // console.log(apiFirebase);
 
+// filmsMainContainer.innerHTML = '<h1>HELLO</h1>';
+
 let myLibrary;
 let refs;
 let apiFirebase;
@@ -19,6 +21,7 @@ function itializeWatchQueue(firebase) {
     buttonsContainer: document.querySelector('.container-buttons'),
     queueButton: document.querySelector('.queueButton'),
     watchedButton: document.querySelector('.watchedButton'),
+    movieContainer: document.querySelector('.films__container'),
 
     search: document.querySelector('#searchForm'),
     filmsMainContainer: document.querySelector('.films__list'),
@@ -28,13 +31,17 @@ function itializeWatchQueue(firebase) {
     closeModalBtn: document.querySelector('[data-modal-close]'),
     modalStudents: document.querySelector('.modal__students'),
     sortForm: document.querySelector('#sortForm'),
+    paginationContainer: document.querySelector('#tui-pagination-container'),
+
+    gdun: document.querySelector('.gdun'),
   };
 
   const { modal, backdrop } = refs;
 
-  console.log(refs.modal);
+  // console.log(refs.gdun);
   refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
   filmsMainContainer.addEventListener('click', onContainerClick);
+  refs.paginationContainer.style.display = 'none';
 
   myLibrary.resetAll();
 
@@ -56,19 +63,21 @@ function itializeWatchQueue(firebase) {
 async function onButtonsContainerClick(e) {
   if (e.target.getAttribute('id') === 'watchedButton') {
     e.target.classList.add('watchedButton--active');
+    myLibrary.statusLibrary = 'watched';
     const activeButton = e.currentTarget.querySelector('.queueButton--active');
     if (activeButton) {
       activeButton.classList.remove('queueButton--active');
     }
     myLibrary.resetAll();
     await myLibrary.getWatchedMovies();
-    console.log(myLibrary);
+    // console.log(myLibrary);
     await myLibrary.renderMovies();
     return;
   }
 
   if (e.target.getAttribute('id') === 'queueButton') {
     e.target.classList.add('queueButton--active');
+    myLibrary.statusLibrary = 'queue';
     const activeButton = e.currentTarget.querySelector(
       '.watchedButton--active'
     );
@@ -77,7 +86,7 @@ async function onButtonsContainerClick(e) {
     }
     myLibrary.resetAll();
     await myLibrary.getQueueMovies();
-    console.log(myLibrary);
+    // console.log(myLibrary);
     await myLibrary.renderMovies();
     return;
   }
@@ -88,7 +97,9 @@ function initializeScrool() {
   window.addEventListener(
     'scroll',
     throttle(() => {
-      if (myLibrary.everythingIsLoaded) return;
+      if (myLibrary.everythingIsLoaded || myLibrary.gdunStatus === 'visible') {
+        return;
+      }
 
       if (
         document.documentElement.scrollHeight -

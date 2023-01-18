@@ -9,22 +9,21 @@
   top: 32px;
   right: 0px;
 
-  z-index: 900;
+  z-index: $login-modal-z-index;
   width: 142px;
+
   visibility: visible;
   opacity: 1;
   transition: opacity 500ms cubic-bezier(0.19, 1, 0.22, 1) visibility 500ms
     cubic-bezier(0.19, 1, 0.22, 1);
   background-color: #161616;
-  border: 1px solid #ff6b08;
+  border: $borger-lightgray;
   border-radius: 10px;
   padding: 10px;
 
   gap: 10px;
 
-  -webkit-box-shadow: 0px 0px 42px 0px rgba(255, 106, 0, 1);
-  -moz-box-shadow: 0px 0px 42px 0px rgba(255, 106, 0, 1);
-  box-shadow: 0px 0px 42px 0px rgba(255, 106, 0, 1);
+  box-shadow: $box-shadow;
 }
 
 .btn-sign-in {
@@ -64,7 +63,7 @@
   overflow-y: hidden;
 }
 
-// -----Modal Sign_in -----
+// ------MODAL SIGN_IN ------
 
 .backdrop_menu_sign_in {
   position: fixed;
@@ -73,18 +72,19 @@
   width: 100%;
   height: 100%;
 
-  background-color: rgb(0, 0, 0, 0.6);
+  background-color: rgb(0, 0, 0, 0.7);
 
   visibility: visible;
-  opacity: 1;
+  opacity: 2;
   pointer-events: auto;
 
-  // transition: opacity 500ms cubic-bezier(0.19, 1, 0.22, 1)
-  //   visibility 500ms cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: $login-modal-backdrop-z-index;
 }
-
+// ----Modal windiw----
 .menu_sign_in_new {
-  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 10px;
   text-align: center;
 
   position: fixed;
@@ -93,99 +93,171 @@
   transform: translate(-50%, -50%);
 
   z-index: 900;
-  // max-width: 480px;
-  height: 380px;
 
   visibility: visible;
   opacity: 1;
 
-  background-color: #f7f7f7;
-  color: #161616;
+  background-color: $white;
 
   border-radius: 10px;
   border: 1px solid #161616;
-  // box-shadow: 0 0 10px 0 hsl(200, 100%, 6%, .7)
   box-shadow: 0px 0px 12px rgba(255, 100, 1, 0.4);
-  width: 80%;
   max-width: 500px;
+  width: 400px;
+  min-height: 300px;
+  justify-content: space-evenly;
+  // transition: 250ms ease-in-out 20ms;
+  transition: all 300ms ease;
 }
 
 .firebaseui-idp-list {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .firebaseui-idp-list > .firebaseui-list-item {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .firebaseui-idp-button {
   font-size: 25px;
   padding-left: 25px;
 }
+// ----Title Welcome to Filmoteka----
+.title {
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $grey;
+  color: $orange-button;
+}
+// ----Title Sign in with email---
+.firebaseui-card-header {
+  padding-top: 10px;
+}
 
-// ----Sign in with email---
+// --Title Create account--
 .firebaseui-title {
   text-align: center;
+  color: $orange-button;
+  padding-bottom: 5px;
 }
 
-// Button Cancel
+.firebaseui-card-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+// ----Button Sigh with email, googl---
+// --Text Sign in with email, googl--
+
+.firebaseui-idp-text {
+  transition: all 250ms;
+  &:hover,
+  &:focus {
+    color: #c8c5c5;
+  }
+}
+
+// ----Button Cancel----
 .firebaseui-id-secondary-link {
+  color: $black !important;
+  text-align: center;
   margin-right: 7px;
-  --color: hsl(200, 100%, 6%, 0.7);
+
+  border: $borger-lightgray;
   background-color: rgb(256, 256, 256);
-  box-shadow: 0 0 2px 0 var(--color);
+  box-shadow: $box-shadow;
   border-radius: 5px;
-}
-.firebaseui-id-secondary-link:hover,
-.firebaseui-id-secondary-link:focus {
-  // background-color: rgb(256, 256, 258);
-  background-color: rgb(244, 241, 241);
+  transition: all 300ms ease-in-out;
+  &:hover,
+  &:focus {
+    background-color: $grey-background;
+  }
 }
 
-// Button Next
+// ----Button Next----
 .mdl-button--raised.mdl-button--colored {
   background-color: #ff6b01;
   border-radius: 5px;
   box-shadow: 0 0 2px 0 hsl(200, 100%, 6%, 0.7);
+  transition: all 300ms;
+  &:hover,
+  &:focus {
+    background-color: #ff6b01;
+    color: black;
+  }
 }
 
-.mdl-button--raised.mdl-button--colored:hover,
-.mdl-button--raised.mdl-button--colored:focus {
-  background-color: #ff6b01;
-  color: #3f51b5;
+.firebaseui-card-actions {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }
-.firebaseui-textfield.mdl-textfield .firebaseui-input {
-  color: #161616 !important;
-  border-bottom-style: inset !important;
-  border-radius: 0 !important;
+
+.firebaseui-form-actions {
+  width: auto;
+}
+
+.mdl-textfield__label {
+  font-family: $main-font;
+}
+
+// ----Form----
+.mdl-card {
+  margin-top: 10px;
+  // --color: hsl(200, 100%, 6%, .7);
+  --color: rgba(111, 118, 122, 0.9);
+  background-color: $white;
+  box-shadow: 0 0 15px 0 $grey;
+  padding: 8px 10px;
 }
 
 // ----Input----
-.firebaseui-textfield.mdl-textfield .firebaseui-input {
-  font-size: 1.25rem;
-  // padding: .5em;
-  // background-color: hsl(200, 100%, 91%, .3);
-  border: none;
-  outline: none;
-  border-radius: 0.25em;
-  color: white;
-  font-weight: lighter;
+// --Колір всередині інпута--
+#ui-sign-in-email-input {
+  font-size: 12px;
+  color: black;
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
-// ---Button close---
+// -- Text : Email , firs last name--
+.mdl-textfield--floating-label .mdl-textfield__label {
+  font-size: 12px;
+  color: black;
+  padding-left: 10px;
+  padding-top: 5px;
+}
 
-// .button_position{
+// Розмір email, password, first last name
+.mdl-textfield__label {
+  font-size: 12px;
+}
 
+// --Сам пароль--
+#ui-sign-in-new-password-input {
+  font-size: 12px;
+  // padding-bottom: 7px;
+}
+
+// --Нижнє підкреслювання при ховері і фокусі
+.firebaseui-textfield.mdl-textfield .firebaseui-label {
+  transition: all 300ms;
+  &::after {
+    background-color: #ec995e;
+  }
+}
+
+// --Text in input--
+// .firebaseui-textfield.mdl-textfield .firebaseui-input {
 // }
 
-.btn-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  color: #161616;
-  background-color: $orange-button;
-  border-radius: 50%;
-  border: 1px solid rgb(47, 47, 47);
+.firebaseui-textfield.mdl-textfield .firebaseui-input {
+  font-size: 12px;
+  color: black;
+  padding-left: 10px;
+  padding-top: 5px;
+
+  border-bottom: 2px solid #c6c6c6;
+  outline: none;
+
+  color: $black;
 }
