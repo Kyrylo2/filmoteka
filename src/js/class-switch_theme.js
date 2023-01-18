@@ -11,8 +11,10 @@ const refs = {
   themeButton: document.querySelector('.switch_theme'),
   resetButton: document.querySelector('.reset_theme'),
   paginationBox: document.querySelector('.tui-pagination'),
+  footer: document.querySelector('footer'),
+  footerText: document.querySelectorAll('.footer__item, .footer__btn, h1'),
 };
-
+console.log(refs.htmlBlock);
 export default class SwitchTheme {
   constructor() {
     this.saveUserTheme = localStorage.getItem('user-theme');
@@ -21,23 +23,18 @@ export default class SwitchTheme {
     this.setThemeClass();
     this.userTheme = null;
 
-    this.log();
     this.currentTheme;
     this.newTheme;
-    this.isDarkTheme;
   }
-  log() {
-    console.log(
-      `значення локал сторейдж this.saveUserTheme, ${this.saveUserTheme}`
-    );
-  }
+
   saveThemeToLocalStorage() {
     if (this.saveUserTheme === 'dark') {
-      this.isDarkTheme = true;
       this.check();
       //   console.log('функція saveThemeToLocalStorage');
       this.addAllNameFilmsWhiteColor();
-      this.addWhitekColorPagination();
+      this.addWhiteColorPagination();
+      this.addFooterBlackColor();
+      this.addFooterWhiteTextColor();
     }
   }
   check() {
@@ -53,20 +50,22 @@ export default class SwitchTheme {
         : 'light';
     }
     if (this.userTheme === 'dark') {
-      this.isDarkTheme = true;
       localStorage.setItem('user-theme', 'dark');
       this.check();
       this.findRefsFilmsName();
       this.addAllNameFilmsWhiteColor();
-      this.addWhitekColorPagination();
+      this.addWhiteColorPagination();
+      this.addFooterBlackColor();
+      this.addFooterWhiteTextColor();
     }
     if (this.saveUserTheme === 'light') {
-      this.isDarkTheme = false;
       localStorage.setItem('user-theme', 'light');
       this.userTheme = '';
       this.uncheck();
       this.removeAllNameFilmsWhiteColor();
       this.removeWhiteColorPagination();
+      this.removeFooterBlackColor();
+      this.removeFooterWhiteTextColor();
     }
 
     window
@@ -84,14 +83,10 @@ export default class SwitchTheme {
   }
 
   setThemeClass() {
-    console.log('test work');
     if (this.saveUserTheme) {
-      console.log('setThemeClass - true');
       refs.htmlBlock.classList.add(this.saveUserTheme);
       refs.resetButton.classList.add('active');
     } else {
-      console.log('setThemeClass -false');
-
       refs.htmlBlock.classList.add(this.userTheme);
     }
   }
@@ -110,37 +105,32 @@ export default class SwitchTheme {
 
     if (this.currentTheme === 'light') {
       this.newTheme = 'dark';
-      this.isDarkTheme = true;
     } else if (this.currentTheme === 'dark') {
       this.newTheme = 'light';
-      this.isDarkTheme = false;
     }
-    console.log(this.newTheme);
-    console.log(this.isDarkTheme);
+    // console.log(this.newTheme);
+    //
     // тут функція зміни
     this.changeAllTextColor(this.newTheme);
     this.changePaginationColor(this.newTheme);
+    this.changeFooterBgColor(this.newTheme);
+    this.changeFooterTextColor(this.newTheme);
     refs.htmlBlock.classList.remove(this.currentTheme);
     refs.htmlBlock.classList.add(this.newTheme);
     saveTheme ? localStorage.setItem('user-theme', this.newTheme) : null;
   }
 
   changeAllTextColor(newTheme) {
-    console.log(newTheme);
     if (newTheme === 'dark') {
-      this.isDarkTheme = true;
       this.addAllNameFilmsWhiteColor();
-      console.log('newTheme - dark call addWhiteColor');
+      //   console.log('newTheme - dark call addWhiteColor');
     } else {
-      this.isDarkTheme = false;
       this.removeAllNameFilmsWhiteColor();
-      console.log('newTheme - light call removeWhiteColor');
+      //   console.log('newTheme - light call removeWhiteColor');
     }
   }
   addAllNameFilmsWhiteColor() {
-    console.log(refs.allFilmsNameText.length);
     for (let i = 0; i < refs.allFilmsNameText.length; i += 1) {
-      console.log('work function addAllNameFilmsWhiteColor ');
       refs.allFilmsNameText[i].classList.add('films__name--color');
     }
   }
@@ -152,20 +142,48 @@ export default class SwitchTheme {
 
   changePaginationColor(newTheme) {
     if (newTheme === 'dark') {
-      this.isDarkTheme = true;
-      this.addWhitekColorPagination();
+      this.addWhiteColorPagination();
     } else {
-      this.isDarkTheme = false;
       this.removeWhiteColorPagination();
     }
   }
 
-  addWhitekColorPagination() {
+  addWhiteColorPagination() {
     refs.paginationBox.classList.add('tui-pagination--change');
   }
 
   removeWhiteColorPagination() {
     refs.paginationBox.classList.remove('tui-pagination--change');
+  }
+  changeFooterBgColor(newTheme) {
+    if (newTheme === 'dark') {
+      this.addFooterBlackColor();
+    } else {
+      this.removeFooterBlackColor();
+    }
+  }
+  addFooterBlackColor() {
+    refs.footer.classList.add('footer-black');
+  }
+  removeFooterBlackColor() {
+    refs.footer.classList.remove('footer-black');
+  }
+  changeFooterTextColor(newTheme) {
+    if (newTheme === 'dark') {
+      this.addFooterWhiteTextColor();
+    } else {
+      this.removeFooterWhiteTextColor();
+    }
+  }
+  addFooterWhiteTextColor() {
+    for (let i = 0; i < refs.footerText.length; i += 1) {
+      refs.footerText[i].classList.add('text-white');
+    }
+  }
+  removeFooterWhiteTextColor() {
+    for (let i = 0; i < refs.footerText.length; i += 1) {
+      refs.footerText[i].classList.remove('text-white');
+    }
   }
 }
 const test = new SwitchTheme();

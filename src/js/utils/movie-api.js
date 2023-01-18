@@ -66,8 +66,6 @@ class MoviesApiServise {
       },
     };
 
-    console.log(opt.currentThemeNumbers);
-    console.log(opt.template);
     return opt;
   }
 
@@ -151,8 +149,6 @@ class MoviesApiServise {
         'tui-pagination-container',
         this.PaginationOptions
       );
-
-      
 
       pagination.on('beforeMove', e => {
         this.page = e.page;
