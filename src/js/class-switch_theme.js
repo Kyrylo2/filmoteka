@@ -10,6 +10,7 @@ const refs = {
   btnPagLastChild: document.querySelector('.tui-last-child'),
   themeButton: document.querySelector('.switch_theme'),
   resetButton: document.querySelector('.reset_theme'),
+  paginationBox: document.querySelector('.tui-pagination'),
 };
 
 export default class SwitchTheme {
@@ -160,25 +161,11 @@ export default class SwitchTheme {
   }
 
   addWhitekColorPagination() {
-    for (let i = 0; i < refs.btnPagination.length; i += 1) {
-      refs.btnPagination[i].classList.add('tui-page-btn--change-color');
-    }
-    // refs.btnPagNext.classList.add('tui-el-change');
-    // refs.btnPagLast.classList.add('tui-el-change');
-    // refs.btnPagPrev.classList.add('tui-el-change');
-    // refs.btnPagFirst.classList.add('tui-el-change');
-    // refs.btnPagLastChild.classList.add('tui-el-change');
+    refs.paginationBox.classList.add('tui-pagination--change');
   }
 
   removeWhiteColorPagination() {
-    for (let i = 0; i < refs.btnPagination.length; i += 1) {
-      refs.btnPagination[i].classList.remove('tui-page-btn--change-color');
-    }
-    // refs.btnPagNext.classList.remove('tui-el-change');
-    // refs.btnPagLast.classList.remove('tui-el-change');
-    // refs.btnPagPrev.classList.remove('tui-el-change');
-    // refs.btnPagFirst.classList.remove('tui-el-change');
-    // refs.btnPagLastChild.classList.remove('tui-el-change');
+    refs.paginationBox.classList.remove('tui-pagination--change');
   }
 }
 const test = new SwitchTheme();

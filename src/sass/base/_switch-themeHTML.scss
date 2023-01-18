@@ -21,4 +21,13 @@ html.light body {
   background-color: white !important;
   border-radius: 5px !important;
 }
+
+.tui-pagination--change {
+  height: auto !important;
+  background-color: #c2b9aa !important;
+  width: fit-content !important;
+  border-radius: 50px;
+  margin: 14px auto 28px auto !important;
+  padding: 5px 30px;
+}
 // .tui-pagination .tui-page-btn {}

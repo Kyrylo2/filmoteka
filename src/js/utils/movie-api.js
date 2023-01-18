@@ -35,7 +35,7 @@ class MoviesApiServise {
       '<span class="tui-ico-{{type}}">{{type}}</span>' +
       // '<?xml version="1.0" ?>' +
       '</span>';
-    return {
+    const opt = {
       // below default value of options
       totalItems: this.totalItems,
       itemsPerPage: 20,
@@ -51,7 +51,7 @@ class MoviesApiServise {
       firstItemClassName: 'tui-first-child',
       lastItemClassName: 'tui-last-child',
       template: {
-        page: '<a href="#" class="tui-page-btn {{currentThemeNumbers}}">{{page}}</a>',
+        page: '<a href="#" class="tui-page-btn a {{currentThemeNumbers}}">{{page}}</a>',
         currentPage:
           '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
         // moveButton:
@@ -65,6 +65,10 @@ class MoviesApiServise {
           '</a>',
       },
     };
+
+    console.log(opt.currentThemeNumbers);
+    console.log(opt.template);
+    return opt;
   }
 
   // <?xml version="1.0" ?><svg fill="#000000" width="800px" height="800px" viewBox="0 0 512 512" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M214.78,478l-20.67-21.57L403.27,256,194.11,55.57,214.78,34,446.46,256ZM317.89,256,86.22,34,65.54,55.57,274.7,256,65.54,456.43,86.22,478Z"/></svg>
@@ -148,6 +152,8 @@ class MoviesApiServise {
         this.PaginationOptions
       );
 
+      
+
       pagination.on('beforeMove', e => {
         this.page = e.page;
         this.getTrendMovies();
@@ -163,8 +169,11 @@ class MoviesApiServise {
           behavior: 'smooth',
         });
       });
+
+      pagination.on('afterMove', () => {});
     } catch (e) {
       Notify.failure('Oups! Something went wrong');
+      console.log(e);
     } finally {
       Loading.remove();
     }
