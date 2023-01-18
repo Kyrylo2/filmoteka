@@ -15,7 +15,7 @@ import validator from 'validator';
 import MyLibraryClass from './js/utils/movies-library';
 const myLibrarty = new MyLibraryClass();
 import Pagination from 'tui-pagination';
-console.log(myLibrarty);
+//  console.log(myLibrarty);
 import btn_up from './js/btn_up';
 
 import { itializeWatchQueue } from './js/utils/get_watced_and_queue';
@@ -43,7 +43,7 @@ function getmyLibrary() {
 async function onSignIn(user) {
   //Оце викличеться, коли користувач авторизується,
   //чи сервер підтрвердить що вже зареєстрований, при оновленні сторінки
-  // console.log(apiFirebase.isUserSignedIn());
+  // //  console.log(apiFirebase.isUserSignedIn());
   if (ifLibrary()) {
     myLibrary.preload.call(myLibrary);
   }
@@ -51,7 +51,7 @@ async function onSignIn(user) {
 
 function onSignOut(user) {
   // Оце викличеться коли користувач вийде з аккаунту
-  // console.log('onSignOut');
+  // //  console.log('onSignOut');
   if (ifLibrary()) {
     //to home
     location.href = './index.html';
@@ -125,7 +125,7 @@ async function onFormSubmit(e) {
           moviesApiService.query.slice(1)
         }". You on page - <span>${moviesApiService.page}</span>`;
       } catch (e) {
-        console.log(e);
+        //  console.log(e);
       }
     });
     pagination.on('afterMove', () => {
@@ -175,8 +175,8 @@ function onEcsClose(e) {
 }
 
 function onBackdropClose(e) {
-  console.log('onBackdropClose', e);
-  console.log(e.target.classList);
+  //  console.log('onBackdropClose', e);
+  //  console.log(e.target.classList);
   if (
     e.target.classList.contains('modal') ||
     e.target.classList.contains('backdrop')
@@ -203,7 +203,7 @@ moviesApiService.getGenres();
   );
 })();
 
-// console.log('signOutUser', signOutUser());
+// //  console.log('signOutUser', signOutUser());
 
 // const pagination = new Pagination('tui-pagination-container', options);
 
@@ -213,7 +213,7 @@ function addSortingGenres() {
   parsedGenres.map(el =>
     arrOfGenres.push(`<option value="${el.id}">${el.name}</option>`)
   );
-  // console.log(arrOfGenres);
+  // //  console.log(arrOfGenres);
   sortForm.elements.genreSelect.insertAdjacentHTML(
     'beforeend',
     arrOfGenres.join('')
@@ -228,7 +228,7 @@ function addSortingYears() {
   for (let i = maxYear; i - 1 > minYear; i--) {
     arrOfYears.push(`<option value="${i}">${i}</option>`);
   }
-  // console.log(arrOfYears);
+  // //  console.log(arrOfYears);
   sortForm.elements.yearSelect.insertAdjacentHTML(
     'beforeend',
     arrOfYears.join('')
@@ -245,7 +245,7 @@ async function onSortFormSubmit(e) {
   moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;
   const resetButton = e.currentTarget.elements.resetBtn;
   resetButton.addEventListener('click', () => {
-    console.log('qeqeqw');
+    //  console.log('qeqeqw');
     moviesApiService.getTrendMovies();
   });
 
@@ -282,7 +282,7 @@ async function onSortFormSubmit(e) {
         moviesApiService.year ? moviesApiService.year + ' year, ' : ''
       }you on page - <span>${moviesApiService.page}</span>`;
     } catch (e) {
-      console.log(e);
+      //  console.log(e);
     }
   });
   pagination.on('afterMove', () => {

@@ -86,7 +86,7 @@ function clickCloseMenuSignIn(event) {
 
 async function clickToLibrary(event) {
   if (!apiFirebase.isUserSignedIn()) {
-    console.log('STOP');
+    //  console.log('STOP');
     // event.stopPropagation();
     event.preventDefault();
   }
