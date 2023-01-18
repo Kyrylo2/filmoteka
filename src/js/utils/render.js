@@ -11,7 +11,7 @@ function renderMovies(movies) {
     <source media="(max-width: 480px)" srcset="https://image.tmdb.org/t/p/w342${movie.poster_path}">
     <source media="(max-width: 768px)" srcset="https://image.tmdb.org/t/p/w500${movie.poster_path}">
     <source media="(max-width: 1280px)" srcset="https://image.tmdb.org/t/p/w780${movie.poster_path}">
-    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}"  width='395px' height='574px' loading="lazy">
+    <img class="films__img" src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}"  width='395px' height='574px' loading="lazy">
   </picture>`
         : `<img     class="films__img"   src="${require('../../images/no-picture.png')}" alt="${
             movie.title
