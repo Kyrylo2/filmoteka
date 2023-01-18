@@ -165,7 +165,7 @@ function onBtnClose() {
   removeAllListeners();
 }
 
-export { onBtnClose, onEcsClose, onBackdropClose };
+export { onBtnClose, onEcsClose, onBackdropClose, removeAllListeners };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
