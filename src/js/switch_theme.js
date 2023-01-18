@@ -67,29 +67,31 @@ function windowLoad() {
   const resetButton = document.querySelector('.reset_theme');
 
   if (themeButton) {
-    themeButton.addEventListener('change', function (e) {
-      resetButton.classList.add('active');
+    themeButton.addEventListener('change', function () {
+      //   resetButton.classList.add('active');
       changeTheme(true);
     });
   }
   if (resetButton) {
-    resetButton.addEventListener('click', function (e) {
-      resetButton.classList.remove('active');
+    resetButton.addEventListener('click', function () {
+      //   resetButton.classList.remove('active');
       localStorage.setItem('user-theme', '');
     });
   }
 
-  // функція додавання клаcу теми
+  // функція додавання клаcу теми- in class
   function setThemeClass() {
     if (saveUserTheme) {
+      console.log('setThemeClass -true');
       htmlBlock.classList.add(saveUserTheme);
       resetButton.classList.add('active');
     } else {
+      console.log('setThemeClass -false');
       htmlBlock.classList.add(userTheme);
     }
   }
 
-  // Додаємо клас теми
+  // Додаємо клас теми - in class
   setThemeClass();
   //    Функція зміни теми
   function changeTheme(saveTheme = false) {
