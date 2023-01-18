@@ -9,6 +9,10 @@
   border-radius: 5px;
 }
 
+.tui-pagination .tui-page-btn {
+  border: none !important;
+}
+
 .tui-pagination .tui-is-selected:hover {
   background-color: $orange !important;
 }
