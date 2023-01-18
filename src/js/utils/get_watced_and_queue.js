@@ -38,7 +38,7 @@ function itializeWatchQueue(firebase) {
 
   const { modal, backdrop } = refs;
 
-  console.log(refs.gdun);
+  // console.log(refs.gdun);
   refs.buttonsContainer.addEventListener('click', onButtonsContainerClick);
   filmsMainContainer.addEventListener('click', onContainerClick);
   refs.paginationContainer.style.display = 'none';
@@ -70,7 +70,7 @@ async function onButtonsContainerClick(e) {
     }
     myLibrary.resetAll();
     await myLibrary.getWatchedMovies();
-    console.log(myLibrary);
+    // console.log(myLibrary);
     await myLibrary.renderMovies();
     return;
   }
@@ -86,7 +86,7 @@ async function onButtonsContainerClick(e) {
     }
     myLibrary.resetAll();
     await myLibrary.getQueueMovies();
-    console.log(myLibrary);
+    // console.log(myLibrary);
     await myLibrary.renderMovies();
     return;
   }

@@ -160,7 +160,7 @@ export default class APIFirebase {
 
   async addToQueue(filmId, filmName) {
     Notify.success(`${filmName} was successfully added to queue list!`);
-    console.log('ФУНКЦІЯ ADD TO QUEUE');
+    //  console.log('ФУНКЦІЯ ADD TO QUEUE');
     return await this.addToStorage(filmId, this.NAME_KEY_STORAGE_QUEUE);
   }
 

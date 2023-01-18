@@ -50,7 +50,7 @@ function showGenres(genres) {
   genres.splice(0, genres.length / 2);
   if (genres.length > 3) {
     genres.splice(2, genres.length, 'Other');
-    // console.log(genres);
+    // //  console.log(genres);
   }
   return genres.join(', ');
 }
@@ -70,7 +70,7 @@ function renderFullInfo(
   isSignIn,
   trailerPath = false
 ) {
-  console.log(movie);
+  //  console.log(movie);
   return `<div class="modal-window" id="${id}">
     <div class="modal-img-flex">
     <picture class="modal-img">
