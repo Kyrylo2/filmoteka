@@ -41,11 +41,17 @@ class MoviesApiServise {
       itemsPerPage: 20,
       visiblePages: 5,
       page: this.page,
+      currentThemeNumbers:
+        localStorage.getItem('user-theme') === 'dark'
+          ? 'tui-page-btn--change-color'
+          : '',
+      currentThemeArrows:
+        localStorage.getItem('user-theme') === 'dark' ? 'tui-el-change' : '',
       centerAlign: true,
       firstItemClassName: 'tui-first-child',
       lastItemClassName: 'tui-last-child',
       template: {
-        page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+        page: '<a href="#" class="tui-page-btn {{currentThemeNumbers}}">{{page}}</a>',
         currentPage:
           '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
         // moveButton:
@@ -54,7 +60,7 @@ class MoviesApiServise {
         //   '</a>',
         // disabledMoveButton: newLocal,
         moreButton:
-          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip {{currentThemeArrows}}">' +
           '<span class="tui-ico-ellip">...</span>' +
           '</a>',
       },
@@ -125,10 +131,14 @@ class MoviesApiServise {
           },
         }
       );
+      const currentTheme = localStorage.getItem('user-theme');
 
       this.totalItems = response.data.total_results;
       // createMarkup(renderMovies(response.data.results));
-      filmsMainContainer.innerHTML = renderMovies(response.data.results);
+      filmsMainContainer.innerHTML = renderMovies(
+        response.data.results,
+        currentTheme
+      );
 
       const pagination = new Pagination(
         'tui-pagination-container',

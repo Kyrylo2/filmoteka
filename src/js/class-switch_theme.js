@@ -16,12 +16,14 @@ export default class SwitchTheme {
   constructor() {
     this.saveUserTheme = localStorage.getItem('user-theme');
     this.getThemeFromSystem();
+    this.saveThemeToLocalStorage();
     this.setThemeClass();
     this.userTheme = null;
 
     this.log();
     this.currentTheme;
     this.newTheme;
+    this.isDarkTheme;
   }
   log() {
     console.log(
@@ -30,7 +32,9 @@ export default class SwitchTheme {
   }
   saveThemeToLocalStorage() {
     if (this.saveUserTheme === 'dark') {
+      this.isDarkTheme = true;
       this.check();
+      //   console.log('функція saveThemeToLocalStorage');
       this.addAllNameFilmsWhiteColor();
       this.addWhitekColorPagination();
     }
@@ -48,15 +52,18 @@ export default class SwitchTheme {
         : 'light';
     }
     if (this.userTheme === 'dark') {
+      this.isDarkTheme = true;
+      localStorage.setItem('user-theme', 'dark');
       this.check();
-      console.log('this.userTheme === dark');
+      this.findRefsFilmsName();
       this.addAllNameFilmsWhiteColor();
       this.addWhitekColorPagination();
     }
     if (this.saveUserTheme === 'light') {
+      this.isDarkTheme = false;
+      localStorage.setItem('user-theme', 'light');
       this.userTheme = '';
       this.uncheck();
-      console.log('this.saveUserTheme === light');
       this.removeAllNameFilmsWhiteColor();
       this.removeWhiteColorPagination();
     }
@@ -67,12 +74,8 @@ export default class SwitchTheme {
         !this.saveUserTheme ? changeTheme() : null;
       });
   }
-  teste() {
-    console.log('qeqeqeqe');
-  }
 
   onClickThemeButton() {
-    console.log('клік по кнопці через клас');
     this.changeTheme(true);
   }
   onClickResetButton() {
@@ -92,18 +95,28 @@ export default class SwitchTheme {
     }
   }
 
+  findRefsFilmsName() {
+    refs.allFilmsNameText = document.querySelectorAll(
+      '.films__info p:first-child'
+    );
+  }
+
   changeTheme(saveTheme = false) {
+    this.findRefsFilmsName();
     this.currentTheme = refs.htmlBlock.classList.contains('light')
       ? 'light'
       : 'dark';
 
     if (this.currentTheme === 'light') {
       this.newTheme = 'dark';
+      this.isDarkTheme = true;
     } else if (this.currentTheme === 'dark') {
       this.newTheme = 'light';
+      this.isDarkTheme = false;
     }
     console.log(this.newTheme);
-
+    console.log(this.isDarkTheme);
+    // тут функція зміни
     this.changeAllTextColor(this.newTheme);
     this.changePaginationColor(this.newTheme);
     refs.htmlBlock.classList.remove(this.currentTheme);
@@ -114,14 +127,17 @@ export default class SwitchTheme {
   changeAllTextColor(newTheme) {
     console.log(newTheme);
     if (newTheme === 'dark') {
+      this.isDarkTheme = true;
       this.addAllNameFilmsWhiteColor();
       console.log('newTheme - dark call addWhiteColor');
     } else {
+      this.isDarkTheme = false;
       this.removeAllNameFilmsWhiteColor();
       console.log('newTheme - light call removeWhiteColor');
     }
   }
   addAllNameFilmsWhiteColor() {
+    console.log(refs.allFilmsNameText.length);
     for (let i = 0; i < refs.allFilmsNameText.length; i += 1) {
       console.log('work function addAllNameFilmsWhiteColor ');
       refs.allFilmsNameText[i].classList.add('films__name--color');
@@ -135,8 +151,10 @@ export default class SwitchTheme {
 
   changePaginationColor(newTheme) {
     if (newTheme === 'dark') {
+      this.isDarkTheme = true;
       this.addWhitekColorPagination();
     } else {
+      this.isDarkTheme = false;
       this.removeWhiteColorPagination();
     }
   }
