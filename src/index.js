@@ -107,6 +107,8 @@ async function onFormSubmit(e) {
       moviesApiService.query[0].toUpperCase() + moviesApiService.query.slice(1)
     }". You on page - <span>${moviesApiService.page}</span>`;
 
+    document.querySelector('.header__form').reset();
+
     const pagination = new Pagination(
       'tui-pagination-container',
       moviesApiService.PaginationOptions
