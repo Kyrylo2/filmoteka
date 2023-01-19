@@ -165,7 +165,7 @@ function onBtnClose() {
   removeAllListeners();
 }
 
-export { onBtnClose, onEcsClose, onBackdropClose };
+export { onBtnClose, onEcsClose, onBackdropClose, removeAllListeners };
 
 function onEcsClose(e) {
   if (e.key === 'Escape') {
@@ -240,6 +240,7 @@ sortForm.addEventListener('submit', onSortFormSubmit);
 
 async function onSortFormSubmit(e) {
   e.preventDefault();
+  moviesApiService.resetPage();
   moviesApiService.sortBy = e.currentTarget.elements.sortBy.value;
   moviesApiService.year = e.currentTarget.elements.yearSelect.value;
   moviesApiService.choosedGenres = e.currentTarget.elements.genreSelect.value;

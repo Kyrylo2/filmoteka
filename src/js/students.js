@@ -5,7 +5,12 @@ import {
   modalStudents,
 } from './utils/refs';
 
-import { onBtnClose, onEcsClose, onBackdropClose } from '../index';
+import {
+  onBtnClose,
+  onEcsClose,
+  onBackdropClose,
+  removeAllListeners,
+} from '../index';
 
 export function ModalTeamInit() {
   openModalBtn.addEventListener('click', onOpenModal);
@@ -18,7 +23,7 @@ function onOpenModal() {
 
   backdrop.addEventListener('click', onBackdropClose);
 
-  document.body.removeEventListener('keyup', onEcsClose);
+  document.body.addEventListener('keyup', onEcsClose);
 
   // window.addEventListener('keydown', onEscKeydown);
 }
@@ -26,8 +31,9 @@ function onOpenModal() {
 function onCloseModal() {
   backdrop.classList.toggle('modal-open');
   modalStudents.classList.add('visually-hidden');
+  closeModalBtn.removeEventListener('click', onCloseModal);
 
-  window.removeEventListener('keydown', onEscKeydown);
+  removeAllListeners();
 }
 
 // function onBackdropClick(e) {

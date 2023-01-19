@@ -205,6 +205,17 @@ export default class MyLibrary {
   async closeModal() {
     //  console.log(this.statusLibrary);
     if (this.statusLibrary === 'queue') {
+      const newArray = await this.apiFirebase.readQueue();
+      console.log(newArray);
+      const newReversedArray = [...newArray].reverse();
+      // console.log(newReversedArray);
+      // console.log(newReversedArray.join(''));
+      // console.log(this.movieArray.join(''));
+      // console.log(newReversedArray.join('') === this.movieArray.join(''));
+      if (newReversedArray.join('') === this.movieArray.join('')) {
+        console.log(newReversedArray.join('') === this.movieArray.join(''));
+        return;
+      }
       this.resetAll();
       await this.getQueueMovies();
       //  console.log(this);
@@ -213,9 +224,19 @@ export default class MyLibrary {
     }
 
     if (this.statusLibrary === 'watched') {
+      const newArray = await this.apiFirebase.readWatched();
+      console.log(newArray);
+      const newReversedArray = [...newArray].reverse();
+      // console.log(newReversedArray);
+      // console.log(newReversedArray.join(''));
+      // console.log(this.movieArray.join(''));
+      // console.log(newReversedArray.join('') === this.movieArray.join(''));
+      if (newReversedArray.join('') === this.movieArray.join('')) {
+        console.log(newReversedArray.join('') === this.movieArray.join(''));
+        return;
+      }
       this.resetAll();
       await this.getWatchedMovies();
-
       //  console.log(this);
       this.renderMovies();
       return;
