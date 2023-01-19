@@ -61,6 +61,7 @@ function itializeWatchQueue(firebase) {
 }
 
 async function onButtonsContainerClick(e) {
+  const currentTheme = localStorage.getItem('user-theme');
   if (e.target.getAttribute('id') === 'watchedButton') {
     e.target.classList.add('watchedButton--active');
     myLibrary.statusLibrary = 'watched';
@@ -71,7 +72,7 @@ async function onButtonsContainerClick(e) {
     myLibrary.resetAll();
     await myLibrary.getWatchedMovies();
     // console.log(myLibrary);
-    await myLibrary.renderMovies();
+    await myLibrary.renderMovies(currentTheme);
     return;
   }
 
@@ -87,7 +88,7 @@ async function onButtonsContainerClick(e) {
     myLibrary.resetAll();
     await myLibrary.getQueueMovies();
     // console.log(myLibrary);
-    await myLibrary.renderMovies();
+    await myLibrary.renderMovies(currentTheme);
     return;
   }
 }
