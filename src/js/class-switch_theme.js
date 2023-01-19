@@ -1,3 +1,5 @@
+import { doc } from '@firebase/firestore';
+
 const refs = {
   htmlBlock: document.documentElement,
   saveUserTheme: localStorage.getItem('user-theme'),
@@ -12,9 +14,15 @@ const refs = {
   resetButton: document.querySelector('.reset_theme'),
   paginationBox: document.querySelector('.tui-pagination'),
   footer: document.querySelector('footer'),
-  footerText: document.querySelectorAll('.footer__item, .footer__btn, h1'),
+  footerText: document.querySelectorAll(
+    '.footer__item, .footer__btn, .main-section-title, .modal-title'
+  ),
+  modalStudent: document.querySelectorAll(
+    '.modal__students, .menu_sign_in_new'
+  ),
+  studentsMember: document.querySelectorAll('.students-member'),
 };
-console.log(refs.htmlBlock);
+console.log(refs.studentsMember);
 export default class SwitchTheme {
   constructor() {
     this.saveUserTheme = localStorage.getItem('user-theme');
@@ -35,6 +43,8 @@ export default class SwitchTheme {
       this.addWhiteColorPagination();
       this.addFooterBlackColor();
       this.addFooterWhiteTextColor();
+      this.addOurTeamBlackColor();
+      this.addStudentListBlackColor();
     }
   }
   check() {
@@ -57,6 +67,8 @@ export default class SwitchTheme {
       this.addWhiteColorPagination();
       this.addFooterBlackColor();
       this.addFooterWhiteTextColor();
+      this.addOurTeamBlackColor();
+      this.addStudentListBlackColor();
     }
     if (this.saveUserTheme === 'light') {
       localStorage.setItem('user-theme', 'light');
@@ -66,6 +78,8 @@ export default class SwitchTheme {
       this.removeWhiteColorPagination();
       this.removeFooterBlackColor();
       this.removeFooterWhiteTextColor();
+      this.removeOurTeamBlackColor();
+      this.removeStudentListBlackColor();
     }
 
     window
@@ -115,6 +129,8 @@ export default class SwitchTheme {
     this.changePaginationColor(this.newTheme);
     this.changeFooterBgColor(this.newTheme);
     this.changeFooterTextColor(this.newTheme);
+    this.changeOurTeamBgColor(this.newTheme);
+    this.changeStudentListBgColor(this.newTheme);
     refs.htmlBlock.classList.remove(this.currentTheme);
     refs.htmlBlock.classList.add(this.newTheme);
     saveTheme ? localStorage.setItem('user-theme', this.newTheme) : null;
@@ -183,6 +199,47 @@ export default class SwitchTheme {
   removeFooterWhiteTextColor() {
     for (let i = 0; i < refs.footerText.length; i += 1) {
       refs.footerText[i].classList.remove('text-white');
+    }
+  }
+  //   модалка наша команда
+  changeOurTeamBgColor(newTheme) {
+    if (newTheme === 'dark') {
+      this.addOurTeamBlackColor();
+    } else {
+      this.removeOurTeamBlackColor();
+    }
+  }
+  addOurTeamBlackColor() {
+    for (let i = 0; i < refs.modalStudent.length; i += 1) {
+      refs.modalStudent[i].classList.add('background-black');
+    }
+  }
+  removeOurTeamBlackColor() {
+    for (let i = 0; i < refs.modalStudent.length; i += 1) {
+      refs.modalStudent[i].classList.remove('background-black');
+    }
+  }
+  changeStudentListBgColor(newTheme) {
+    if (newTheme === 'dark') {
+      this.addStudentListBlackColor();
+    } else {
+      this.removeStudentListBlackColor();
+    }
+  }
+  addStudentListBlackColor() {
+    for (let i = 0; i < refs.studentsMember.length; i += 1) {
+      refs.studentsMember[i].classList.add(
+        'student_list_change_color',
+        'student_list_change-text'
+      );
+    }
+  }
+  removeStudentListBlackColor() {
+    for (let i = 0; i < refs.studentsMember.length; i += 1) {
+      refs.studentsMember[i].classList.remove(
+        'student_list_change_color',
+        'student_list_change-text'
+      );
     }
   }
 }
