@@ -1,4 +1,4 @@
-function renderMovies(movies) {
+function renderMovies(movies, currentTheme) {
   return movies
     .map(movie => {
       return `<li class="films__item" data-id="${movie.id}">
@@ -28,7 +28,9 @@ function renderMovies(movies) {
     </div>
 
     <div class="films__info">
-            <p class="films__name">${movie.title}</p>
+            <p class="films__name ${
+              currentTheme === 'dark' ? 'films__name--color' : ''
+            }">${movie.title}</p>
 
       <p class="films__description">${showGenres(movie.genre_ids)}</p>
     </div>
@@ -68,10 +70,13 @@ function renderFullInfo(
   isWatched = false,
   isQueue = false,
   isSignIn,
-  trailerPath = false
+  trailerPath = false,
+  currentTheme = localStorage.getItem('user-theme')
 ) {
   //  console.log(movie);
-  return `<div class="modal-window" id="${id}">
+  return `<div class="modal-window ${
+    currentTheme === 'dark' ? 'background-black' : ''
+  }" id="${id}">
     <div class="modal-img-flex">
     <picture class="modal-img">
           <source media="(max-width: 480px)" srcset="https://image.tmdb.org/t/p/w342${isPoster(
@@ -88,9 +93,11 @@ function renderFullInfo(
           )}" alt="${movie.title}">
         </picture>
     </div>
-    <div class="modal-flex">
-      <h2 class="modal-h2">${movie.title}</h2>
-      <ul class="lists-flex">
+    <div class="modal-flex ">
+      <h2 class="modal-h2 ${currentTheme === 'dark' ? 'text-white' : ''}">${
+    movie.title
+  }</h2>
+      <ul class="lists-flex ${currentTheme === 'dark' ? 'modal-text' : ''}">
         
             <li class="parametr-flex">
               <p>Vote / Votes</p>
@@ -124,13 +131,17 @@ function renderFullInfo(
             </li>
       </ul>
 
-      <h5 class="description-font">ABOUT</h5>
+      <h5 class="description-font ${
+        currentTheme === 'dark' ? 'text-white' : ''
+      }">ABOUT</h5>
       <div class="overview-container">
-        <p class="about-font">
+        <p class="about-font ${currentTheme === 'dark' ? 'text-white' : ''}">
           ${movie.overview}
         </p>
       </div>
-      <div class="buttons-flex" data-id="${id}"> ${
+      <div class="buttons-flex ${
+        currentTheme === 'dark' ? 'buttons-flex-white' : ''
+      }" data-id="${id}"> ${
     !isSignIn
       ? `<button class="button-modal button-modal-signIn">PLEASE LOGIN
       </button>`

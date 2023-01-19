@@ -303,3 +303,5 @@ async function onSortFormSubmit(e) {
       : ''
   }, you on page - <span>${moviesApiService.page}</span>`;
 }
+
+import classSwitchTheme from './js/class-switch_theme';

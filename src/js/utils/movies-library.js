@@ -264,7 +264,7 @@ async function getMyMovies(array) {
 
 // Рендеремо фільми
 
-function renderMovies(movies) {
+function renderMovies(movies, currentTheme) {
   return movies
     .map(movie => {
       return `<li class="films__item" data-id="${movie.id}">
@@ -285,7 +285,9 @@ function renderMovies(movies) {
     </div>
 
     <div class="films__info">
-            <p class="films__name">${movie.title}</p>
+            <p class="films__name ${
+              currentTheme === 'dark' ? 'films__name--color' : ''
+            }">${movie.title}</p>
 
       <p class="films__description">${getGenres(movie.genres)}</p>
     </div>

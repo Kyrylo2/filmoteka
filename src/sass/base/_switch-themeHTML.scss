@@ -1,0 +1,60 @@
+html.dark body {
+  color: white;
+  background-color: #333;
+}
+html.light body {
+  color: #333;
+  background-color: white;
+}
+
+// @media (preferens-color-scheme: dark) {
+//   body {
+//     color: white;
+//     background-color: black;
+//   }
+// }
+
+.tui-page-btn--change-color {
+  color: white !important;
+}
+.tui-el-change {
+  background-color: white !important;
+  border-radius: 5px !important;
+}
+
+.tui-pagination--change {
+  height: auto !important;
+  background-color: #c2b9aa !important;
+  width: fit-content !important;
+  border-radius: 50px;
+  margin: 14px auto 28px auto !important;
+  padding: 5px 30px;
+}
+
+.footer-black {
+  background-color: black;
+}
+
+.text-white {
+  color: white !important;
+}
+.background-black {
+  background-color: #333 !important;
+}
+.modal-text p {
+  color: white !important;
+}
+.buttons-flex-white button {
+  color: white !important;
+  border: 1px solid white !important;
+}
+
+.student_list_change_color {
+  background-color: rgb(102, 101, 101) !important;
+  color: white !important;
+}
+
+.student_list_change-text h2,
+.student_list_change-text p {
+  color: white !important;
+}
